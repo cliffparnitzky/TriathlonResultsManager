@@ -11,9 +11,7 @@ Managing triathlon results for displaying it in frontend.
 Installation
 ------------
 
-The extension is not published in contao extension repository.
-
-Install it via composer: [cliffparnitzky/triathlon-results-manager](https://packagist.org/packages/cliffparnitzky/triathlon-results-manager).
+Install the extension via composer: [cliffparnitzky/triathlon-results-manager](https://packagist.org/packages/cliffparnitzky/triathlon-results-manager).
 
 If you prefer to install it manually, download the latest release here: https://github.com/cliffparnitzky/TriathlonResultsManager/releases
 
@@ -28,7 +26,7 @@ Compatibility
 -------------
 
 - min. version: Contao 3.2.0
-- max. version: Contao 3.4.x
+- max. version: Contao 3.3.x
 
 
 Dependency
