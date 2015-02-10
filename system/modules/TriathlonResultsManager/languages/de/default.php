@@ -106,12 +106,35 @@ $GLOBALS['TL_LANG']['ERR']['relayStarters_not_set']            = "Es sind keine 
 $GLOBALS['TL_LANG']['ERR']['relayDistancesStartersDifference'] = "Die Anzahl der Starter weicht von der Anzahl der Einzeldistanzen ab.";
 
 /**
- * Results module
+ * Frontend modules
  */
-$GLOBALS['TL_LANG']['TriathlonResultsManager']['starters']      = 'Teilnehmer';
-$GLOBALS['TL_LANG']['TriathlonResultsManager']['time']          = 'Zeit';
-$GLOBALS['TL_LANG']['TriathlonResultsManager']['overallPlace']  = 'Platz Gesamt';
-$GLOBALS['TL_LANG']['TriathlonResultsManager']['ageGroupPlace'] = 'Platz Altersklasse';
-$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']        = 'Platz Altersklasse'; // ???
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['starters']      = 'Teilnehmer';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['time']          = 'Zeit';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['overallPlace']  = 'Platz Gesamt';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['ageGroupPlace'] = 'Platz Altersklasse';
+
+/**
+ * Report module
+ */
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['event_header']                             = 'Datum und Name der Veranstaltung';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_date_day_title']                     = 'Datum der Veranstaltung: Tag';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_date_month_title']                   = 'Datum der Veranstaltung: Monat';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_date_year_title']                    = 'Datum der Veranstaltung: Jahr';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_eventName_template_title']          = 'Vorlagenauswahl für den Veranstaltungsnamen, dieser kann noch angepasst werden';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_eventName_template_first_option']   = '>>> Vorlage auswählen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_eventName_title']                    = 'Name der Veranstaltung';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['competition_header']                       = 'Wettkämpfe';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_competition_title']             = 'Wettkampf hinzufügen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_competition_title']             = 'Letzten Wettkampf löschen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['women_header']                             = 'Frauen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_woman_title']                   = 'Frau hinzufügen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_woman_title']                   = 'Letzte Frau löschen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['men_header']                               = 'Männer';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_man_title']                     = 'Mann hinzufügen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_man_title']                     = 'Letzten Mann löschen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_title']        = 'Vorlagenauswahl für den Wettkampfnamen, dieser kann noch angepasst werden';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_first_option'] = '>>> Vorlage auswählen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_optgroup']     = 'Vorlagenauswahl ...';
+
 
 ?>

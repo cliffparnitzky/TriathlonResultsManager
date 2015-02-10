@@ -75,6 +75,33 @@ class ModuleTriathlonResultsManagerReport extends \Module
 	 */
 	protected function compile()
 	{
+		$GLOBALS['TL_BODY'][] = <<<EOT
+<script type="text/javascript">
+	var tableHeads = {starters: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['starters']}", time: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['time']}", overallPlace: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['overallPlace']}", ageGroupPlace: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['ageGroupPlace']}"};
+	var womenHeader = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['women_header']}";
+	var buttonAddWomanTitle = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_woman_title']}";
+	var buttonDelWomanTitle = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_woman_title']}";
+	var menHeader = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['men_header']}";
+	var buttonAddManTitle = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_man_title']}";
+	var buttonDelManTitle = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_man_title']}";
+	var selectCompetitionTemplateTitle = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_title']}";
+	var selectCompetitionTemplateFirstOption = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_first_option']}";
+	var selectCompetitionTemplateOptgroup = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_optgroup']}";
+</script>'
+EOT;
+		$GLOBALS['TL_CSS'][] = 'system/modules/TriathlonResultsManager/assets/css/triathlon_results_manager_report.css';
+		$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/TriathlonResultsManager/assets/js/triathlon_results_manager_report.js';
+		
+		$arrEvents = array();
+		$objResultsReports = \TriathlonResultsReportsModel::findAll();
+		if ($objResultsReports != null)
+		{
+			while ($objResultsReports->next())
+			{
+				$arrEvents[$GLOBALS['TL_LANG']['TriathlonResultsManager']['eventType'][$objResultsReports->eventType]][] = $objResultsReports->eventName;
+			}
+		}
+		$this->Template->events = $arrEvents;
 	}
 }
 

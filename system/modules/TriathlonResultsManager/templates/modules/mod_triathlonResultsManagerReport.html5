@@ -6,5 +6,54 @@
 <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
 <?php endif; ?>
 
+	<fieldset>
+	<legend><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['event_header']; ?></legend>
+		<input id="dateDay" type="text" class="small_2" maxlength="2" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_date_day_title']; ?>"/>.
+		<input id="dateMonth" type="text" class="small_2" maxlength="2" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_date_month_title']; ?>"/>.
+		<input id="dateYear" type="text" class="small_4" maxlength="4" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_date_year_title']; ?>"/>
+		&nbsp;:&nbsp;
+		<input id="eventName" type="text" size="50" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_eventName_title']; ?>"/>
+		<select title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_eventName_template_title']; ?>" onChange="document.getElementById('eventName').value = this.options[this.selectedIndex].value;">
+			<option value=""><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_eventName_template_first_option']; ?></option>
+			<?php foreach($this->events as $eventType=>$eventNames) : ?>
+			<optgroup label="<?php echo $eventType; ?> ...">
+				<?php foreach($eventNames as $eventName) : ?>
+					<option value="<?php echo $eventName; ?>"><?php echo $eventName; ?></option>
+				<?php endforeach; ?>
+			</optgroup>
+			<?php endforeach; ?>
+		</select>
+	</fieldset>
+	
+	<!-- Competitions -->
+	<fieldset id="competitions">
+		<legend>
+			<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['competition_header']; ?>
+			<a href="javascript:addCompetition();" class="add"><img src="system/modules/TriathlonResultsManager/assets/competition_add.png" alt="title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_competition_title']; ?>"" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_competition_title']; ?>" /></a>
+			<a href="javascript:delCompetition();" class="del"><img src="system/modules/TriathlonResultsManager/assets/competition_del.png" alt="title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_competition_title']; ?>"" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_competition_title']; ?>" /></a></legend>
+	</fieldset>
+	
+	<!-- Preview -->
+	<fieldset style="float: left; width: 47%;">
+	<legend>Vorschau</legend>
+		<div id="resultHTML"/>
+	</fieldset>
+	<!-- Output -->
+	<fieldset style="float: right; width: 47%;">
+	<legend>Generiertes XML</legend>
+		<textarea id="resultXML" readonly="readonly" wrap="off"></textarea>
+	</fieldset>
+	<!-- Action -->
+	<fieldset style="clear: both; text-align: center;">
+	<legend>Aktionen</legend>
+		<input class="actionBtn" type="button" onclick="document.getElementById('resultXML').value=''; document.getElementById('resultHTML').innerHTML='';" value="Felder leeren" title="Leert die Felder 'Vorschau' und 'Generiertes XML'"/>
+		&nbsp;
+		<input class="actionBtn" type="button" onclick="generateHTML(); showErrorMsg();" value="Vorschau" title="Erzeugt anhand der eingegebenen Daten eine Vorschau"/>
+		&nbsp;
+		<input class="actionBtn" type="button" onclick="generateXML(); showErrorMsg();" value="XML generieren" title="Erzeugt den XML Code für den Web Content"/>
+		&nbsp;
+		<input class="actionBtn" type="button" onclick="reportResults();" value="Ergebnisse melden" title="Versendet die eingegebenen Daten an den Webseiten Administrator. Nach einer Prüfung der Ergebnismeldung werden diese veröffentlicht."/>
+	</fieldset>
+
 </div>
 <!-- indexer::continue -->

@@ -1,0 +1,89 @@
+a.add, a.del {
+	display: inline-block;
+	width: 16px;
+	height: 16px;
+}
+
+input.small_2 {
+	width: 30px;
+	text-align: center;
+}
+
+input.small_4 {
+	width: 50px;
+	text-align: center;
+}
+
+input.small_5 {
+	width: 60px;
+	text-align: center;
+}
+
+button.moveBtn {
+	width: 25px;
+	height: 25px;
+	padding-bottom: 3px;
+}
+
+tr.member:hover {
+	background-color: #E4E4E4;
+}
+
+#sendDialog select, #sendDialog textarea {
+	width: 100%;
+}
+
+#sendDialog span.mandatory {
+	color: #c00000;
+	padding-left: 3px;
+	cursor: help;
+}
+
+#sendDialog div.completeness,
+#sendDialog div.info {
+	float: left;
+	clear: both;
+	font-style: italic;
+	padding-top: 10px;
+}
+
+#sendDialog input.completeness {
+	float: left;
+}
+
+#sendDialog label.completeness {
+	padding-left: 5px;
+	float: left;
+	width: 310px;
+}
+
+#resultHTML {
+	overflow: scroll;
+	width: 100%;
+	height: 200px;
+	border: 1px dotted black;
+	background-color: #ffffff;
+}
+
+#resultXML {
+	width: 100%;
+	min-width: 100%;
+	max-width: 100%;
+	height: 200px;
+	min-height: 200px;
+	max-height: 200px;
+	border: 1px dotted black;
+	overflow: scroll;
+}
+
+#overlay {
+	background-color: #000000;
+	display: none;
+	height: 100%;
+	left: 0;
+	opacity: 0.8;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	z-index: 5000;
+}

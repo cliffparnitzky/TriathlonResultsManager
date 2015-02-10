@@ -25,10 +25,10 @@
 					<table cellspacing="0" cellpadding="5" border="0" width="100%" class="resultTable">
 						<thead>
 							<tr>
-								<th class="head col_0 col_first"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['starters']; ?></th>
-								<th class="head col_1 col_time"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['time']; ?></th>
-								<th class="head col_2 col_place<?php echo (!$competition['ageGroupRating']) ? ' col_last' : '' ?>"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['overallPlace']; ?></th>
-								<?php if ($competition['ageGroupRating']): ?><th class="head col_3 col_place col_last"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['ageGroupPlace']; ?></th><?php endif; ?>
+								<th class="head col_0 col_first"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['starters']; ?></th>
+								<th class="head col_1 col_time"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['time']; ?></th>
+								<th class="head col_2 col_place<?php echo (!$competition['ageGroupRating']) ? ' col_last' : '' ?>"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['overallPlace']; ?></th>
+								<?php if ($competition['ageGroupRating']): ?><th class="head col_3 col_place col_last"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['ageGroupPlace']; ?></th><?php endif; ?>
 							</tr>
 						</thead>
 						<tbody>
