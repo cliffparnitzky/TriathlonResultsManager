@@ -286,16 +286,16 @@ class ModuleTriathlonResultsManagerResults extends \Module
 									}
 								}
 
+								$key .= $arrResult['overallPlace'];
+
 								if ($objResultsCompetitions->performanceEvaluation == 'distance')
 								{
 									$arrDistance = deserialize($arrResult['distance']);
-									$arrResult['formattedDistance'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], str_replace('.', $GLOBALS['TL_LANG']['MSC']['decimalSeparator'], $arrDistance['value']), $arrDistance['unit']);
-									$key .= str_replace('.', '', $arrDistance['value']);
+									$arrResult['formattedDistance'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], \TriathlonResultsManagerHelper::addGroupedThousands($arrDistance['value']), $arrDistance['unit']);
 								}
 								else
 								{
 									$arrResult['formattedTime'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['time_format'], \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeHours']), \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeMinutes']), \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeSeconds']));
-									$key .= \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeHours']) . \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeMinutes']) . \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeSeconds']);
 								}
 
 								$arrResult['formattedOverallPlace'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['place_format'], $arrResult['overallPlace'], $arrResult['overallStarters']) . " " . \TriathlonResultsManagerHelper::getPlaceIconHtml($arrResult['overallPlace'], false);
