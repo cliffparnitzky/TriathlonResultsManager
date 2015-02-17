@@ -10,12 +10,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
@@ -31,7 +31,7 @@
  * Add palettes to tl_module
  */
 $GLOBALS['TL_DCA']['tl_module']['palettes']['triathlonResultsManagerReport']    = '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
-$GLOBALS['TL_DCA']['tl_module']['palettes']['triathlonResultsManagerResults']   = '{title_legend},name,headline,type;{triathlonResultsManagerFilterSort_legend},triathlonResultsManagerFilterReportEventDateStart,triathlonResultsManagerFilterReportEventDateEnd,triathlonResultsManagerFilterReportEventType,triathlonResultsManagerFilterReportEvent,triathlonResultsManagerFilterCompetitionType,triathlonResultsManagerSortReportDateField,triathlonResultsManagerSortReportDateDirection,triathlonResultsManagerSortResultRatingTypeOrder;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['triathlonResultsManagerResults']   = '{title_legend},name,headline,type;{triathlonResultsManagerFilterSort_legend},triathlonResultsManagerFilterReportEventDateStart,triathlonResultsManagerFilterReportEventDateEnd,triathlonResultsManagerFilterReportEventType,triathlonResultsManagerFilterReportEvent,triathlonResultsManagerFilterCompetitionType,triathlonResultsManagerSortReportDateField,triathlonResultsManagerSortReportDateDirection,triathlonResultsManagerSortResultRatingTypeOrder;{template_legend:hide},customTpl,triathlonResultsManagerTplUseIconsForDisciplines;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['triathlonResultsManagerMyReports'] = '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['triathlonResultsManagerMyResults'] = '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 
@@ -152,8 +152,16 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerSortResultRati
 	'save_callback' => array
 	(
 		array('tl_module_TriathlonResultsManager', 'selectAllSortResultRatingTypeOrderOptions')
-	), 
+	),
 	'sql'                     => "blob NULL"
+);
+$GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerTplUseIconsForDisciplines'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerTplUseIconsForDisciplines'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
+	'eval'                    => array('tl_class'=>'clr w50'),
+	'sql'                     => "char(1) NOT NULL default ''"
 );
 
 /**
@@ -174,9 +182,9 @@ class tl_module_TriathlonResultsManager extends tl_module
 	{
 		parent::__construct();
 	}
-	
+
 	/**
-	 * Returns all 
+	 * Returns all
 	 */
 	public function getFilterReportEventOptions(DataContainer $dc)
 	{
@@ -189,10 +197,10 @@ class tl_module_TriathlonResultsManager extends tl_module
 				$arrOptions[$objResultsReports->id] = \Date::parse(\Config::get('dateFormat'), $objResultsReports->eventDate) . ": " . $objResultsReports->eventName;
 			}
 		}
-			
+
 		return $arrOptions;
 	}
-	
+
 	/**
 	 * Ensure all options for 'triathlonResultsManagerSortResultRatingTypeOrder' are selected
 	 * @param mixed
@@ -204,12 +212,12 @@ class tl_module_TriathlonResultsManager extends tl_module
 	{
 		$arrResultingOptions = deserialize($varValue);
 		$arrExpectedOptions = $GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerSortResultRatingTypeOrder']['options'];
-		
+
 		if (empty($arrResultingOptions))
 		{
 			$arrResultingOptions = array();
 		}
-		
+
 		foreach ($arrExpectedOptions as $expectedOption)
 		{
 			if (array_search($expectedOption, $arrResultingOptions) === FALSE)
@@ -217,11 +225,11 @@ class tl_module_TriathlonResultsManager extends tl_module
 				$arrResultingOptions[] = $expectedOption;
 			}
 		}
-		
+
 		$varValue = serialize($arrResultingOptions);
-		
+
 		return $varValue;
-	} 
+	}
 
 }
 

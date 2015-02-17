@@ -76,25 +76,25 @@ class ModuleTriathlonResultsManagerResults extends \Module
 	protected function compile()
 	{
 		global $objPage;
-		
+
 		$arrReports = array();
-		
+
 		$tRep = \TriathlonResultsReportsModel::getTable();
 		$tCom = \TriathlonResultsCompetitionsModel::getTable();
 		$tRes = \TriathlonResultsModel::getTable();
-		
+
 		$arrReportOptions = array();
 		$arrReportFilterColumn = array();
 		$arrReportFilterValue = array();
-		
+
 		$arrCompetitionOptions = array();
 		$arrCompetitionFilterColumn = array();
 		$arrCompetitionFilterValue = array();
-		
+
 		$arrResultOptions = array();
 		$arrResultFilterColumn = array();
 		$arrResultFilterValue = array();
-		
+
 		if (!empty($this->triathlonResultsManagerFilterReportEventDateStart))
 		{
 			$arrReportFilterColumn[] = "$tRep.eventDate >= ?";
@@ -115,60 +115,60 @@ class ModuleTriathlonResultsManagerResults extends \Module
 		{
 			$arrReportFilterColumn[] = "$tRep.id IN ('" . implode("','", $arrFilterReportEvents) . "')";
 		}
-		
+
 		$competitionType = $this->triathlonResultsManagerFilterCompetitionType;
 		if ($this->triathlonResultsManagerFilterCompetitionType != 'none')
 		{
-			
+
 			$arrReportFilterColumn[] = "$tRep.id IN (SELECT $tCom.pid FROM $tCom WHERE $tCom.type = ?)";
 			$arrReportFilterValue[] = $competitionType;
-			
-			
+
+
 			$arrCompetitionFilterColumn[] = "$tCom.type = ?";
 			$arrCompetitionFilterValue[] = $competitionType;
-			
+
 			if ($this->triathlonResultsManagerFilterCompetitionType == 'league' && !empty($this->triathlonResultsManagerFilterCompetitionLeague))
 			{
 				$arrReportFilterColumn[] = "$tRep.id IN (SELECT $tCom.pid FROM $tCom WHERE $tCom.league = ?)";
 				$arrReportFilterValue[] = $this->triathlonResultsManagerFilterCompetitionLeague;
-				
+
 				$arrCompetitionFilterColumn[] = "$tCom.league = ?";
 				$arrCompetitionFilterValue[] = $this->triathlonResultsManagerFilterCompetitionLeague;
 			}
 		}
-		
+
 		if (!empty($this->triathlonResultsManagerFilterResultSingleRatingType) && ($competitionType == 'none' || $competitionType == 'single' || $competitionType == 'league'))
 		{
 			$tMem = \MemberModel::getTable();
 			$arrReportFilterColumn[] = "$tRep.id IN (SELECT $tCom.pid FROM $tCom WHERE $tCom.id IN (SELECT $tRes.pid FROM $tRes WHERE $tRes.singleStarter IN (SELECT $tMem.id FROM $tMem WHERE $tMem.gender = ?)))";
 			$arrReportFilterValue[] = $this->triathlonResultsManagerFilterResultSingleRatingType;
-			
+
 			$arrCompetitionFilterColumn[] = "$tCom.id IN (SELECT $tRes.pid FROM $tRes WHERE $tRes.singleStarter IN (SELECT $tMem.id FROM $tMem WHERE $tMem.gender = ?))";
 			$arrCompetitionFilterValue[] = $this->triathlonResultsManagerFilterResultSingleRatingType;
-			
+
 			$arrResultFilterColumn[] = "$tRes.singleStarter IN (SELECT $tMem.id FROM $tMem WHERE $tMem.gender = ?)";
 			$arrResultFilterValue[] = $this->triathlonResultsManagerFilterResultSingleRatingType;
 		}
-		
+
 		if (!empty($this->triathlonResultsManagerFilterResultRelayRatingType) && ($competitionType == 'none' || $competitionType == 'relay'))
 		{
 			$arrReportFilterColumn[] = "$tRep.id IN (SELECT $tCom.pid FROM $tCom WHERE $tCom.id IN (SELECT $tRes.pid FROM $tRes WHERE $tRes.relayRatingType = ?))";
 			$arrReportFilterValue[] = $this->triathlonResultsManagerFilterResultRelayRatingType;
-			
+
 			$arrCompetitionFilterColumn[] = "$tCom.id IN (SELECT $tRes.pid FROM $tRes WHERE $tRes.relayRatingType = ?)";
 			$arrCompetitionFilterValue[] = $this->triathlonResultsManagerFilterResultRelayRatingType;
-			
+
 			$arrResultFilterColumn[] = "$tRes.relayRatingType = ?";
 			$arrResultFilterValue[] = $this->triathlonResultsManagerFilterResultRelayRatingType;
 		}
-		
+
 		if (count($arrReportFilterColumn) > 0)
 		{
 			$arrReportOptions['column'] = $arrReportFilterColumn;
 			$arrReportOptions['value'] = $arrReportFilterValue;
 		}
 		$arrReportOptions['order'] = $this->triathlonResultsManagerSortReportDateField . ' ' . $this->triathlonResultsManagerSortReportDateDirection;
-		
+
 		$objResultsReports = \TriathlonResultsReportsModel::findAllActive($arrReportOptions); // only published
 		if ($objResultsReports != null)
 		{
@@ -187,74 +187,74 @@ class ModuleTriathlonResultsManagerResults extends \Module
 				{
 					$arrReport['formattedReportDateAndMember'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['report_format_no_member'], $arrReport['formattedReportDate']);
 				}
-				
+
 				if (count($arrCompetitionFilterColumn) > 0)
 				{
 					$arrCompetitionOptions['column'] = $arrCompetitionFilterColumn;
 					$arrCompetitionOptions['value'] = $arrCompetitionFilterValue;
 				}
 				$arrCompetitionOptions['order'] = 'sorting ASC';
-				
+
 				$objResultsCompetitions = \TriathlonResultsCompetitionsModel::findActiveByPid($arrReport['id'], $arrCompetitionOptions);
 				$arrCompetitions = array();
-				
+
 				if ($objResultsCompetitions != null)
 				{
 					while ($objResultsCompetitions->next())
 					{
 						$arrCompetition = $objResultsCompetitions->row();
-						
-						$arrPlainDistances = \TriathlonResultsManagerHelper::getPlainDistances(deserialize($arrCompetition['distances']), true);
-						if (!empty($arrPlainDistances))
+
+						$arrPlainDisciplines = \TriathlonResultsManagerHelper::getPlainDisciplines(deserialize($arrCompetition['disciplines']), $arrCompetition['performanceEvaluation'], true, $this->triathlonResultsManagerTplUseIconsForDisciplines);
+						if (!empty($arrPlainDisciplines))
 						{
-							$arrCompetition['formattedDistances'] = implode($GLOBALS['TL_LANG']['TriathlonResultsManager']['distances_delimiter'], $arrPlainDistances);
+							$arrCompetition['formattedDisciplines'] = implode($GLOBALS['TL_LANG']['TriathlonResultsManager']['disciplines_delimiter'], $arrPlainDisciplines);
 						}
-						
+
 						if (count($arrResultFilterColumn) > 0)
 						{
 							$arrResultOptions['column'] = $arrResultFilterColumn;
 							$arrResultOptions['value'] = $arrResultFilterValue;
 						}
-						
+
 						$objResults = \TriathlonResultsModel::findActiveByPid($arrCompetition['id'], $arrResultOptions);
 						$arrResults = array();
-						
+
 						if ($objResults != null)
 						{
 							while ($objResults->next())
 							{
 								$key = "";
-								
+
 								$arrResult = $objResults->row();
-								
+
 								if ($arrCompetition['type'] == 'relay')
 								{
 									if (!empty($arrResult['relayName']))
 									{
 										$arrResult['formattedRelayName'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['relayName_format'], $arrResult['relayName']);
 									}
-									
+
 									$arrPlainRelayStarters = \TriathlonResultsManagerHelper::getPlainRelayStarters(deserialize($arrResult['relayStarter']));
 									if (!empty($arrPlainRelayStarters))
 									{
 										$arrResult['formattedRelayStarteres'] = implode($GLOBALS['TL_LANG']['TriathlonResultsManager']['relayStarter_delimiter'], $arrPlainRelayStarters);;
 									}
-									
-									$intDistancesCount = is_array($arrPlainDistances) ? count($arrPlainDistances) : 0;
+
+									$intDisciplinesCount = is_array($arrPlainDisciplines) ? count($arrPlainDisciplines) : 0;
 									$intRelayStartersCount = (!empty($arrPlainRelayStarters) ? count($arrPlainRelayStarters) : 0);
-									
+
 									$intRelayStarterNotSetErrorCount = 0;
 									if (!empty($arrPlainRelayStarters))
 									{
 										$intRelayStarterNotSetErrorCount = count(preg_grep('/' . $GLOBALS['TL_LANG']['ERR']['relayStarter_not_set'] . '/', $arrPlainRelayStarters));
 									}
-									
-									if ($intRelayStartersCount == 0 || $intDistancesCount <> $intRelayStartersCount || $intRelayStarterNotSetErrorCount > 0)
+
+									if ($intRelayStartersCount == 0 || $intDisciplinesCount <> $intRelayStartersCount || $intRelayStarterNotSetErrorCount > 0)
 									{
 										// no starters set or count is different or at least one starter could no be determined
 										continue;
 									}
-									
+
 									$key = $this->getKeyForRatingType($arrResult['relayRatingType']);
 									$arrResult['ratingType'] = $arrResult['relayRatingType'];
 									$arrResult['formattedRatingType'] = $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType'][$arrResult['ratingType']];
@@ -285,53 +285,63 @@ class ModuleTriathlonResultsManagerResults extends \Module
 										}
 									}
 								}
-								
+
 								$key .= \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeHours']) . \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeMinutes']) . \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeSeconds']);
-								
-								$arrResult['formattedTime'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['time_format'], \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeHours']), \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeMinutes']), \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeSeconds']));
+
+
+								if ($objResultsCompetitions->performanceEvaluation == 'distance')
+								{
+									$arrDistance = deserialize($arrResult['distance']);
+									$arrResult['formattedDistance'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], str_replace('.', $GLOBALS['TL_LANG']['MSC']['decimalSeparator'], $arrDistance['value']), $arrDistance['unit']);
+								}
+								else
+								{
+									$arrResult['formattedTime'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['time_format'], \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeHours']), \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeMinutes']), \TriathlonResultsManagerHelper::addLeadingZero($arrResult['timeSeconds']));
+								}
+
 								$arrResult['formattedOverallPlace'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['place_format'], $arrResult['overallPlace'], $arrResult['overallStarters']) . " " . \TriathlonResultsManagerHelper::getPlaceIconHtml($arrResult['overallPlace'], false);
 								$arrResult['formattedAgeGroupPlace'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['place_format'], $arrResult['ageGroupPlace'], $arrResult['ageGroupStarters']) . " " . \TriathlonResultsManagerHelper::getPlaceIconHtml($arrResult['ageGroupPlace'], true);
-								
+
 								$arrResults[$key] = $arrResult;
 							}
 						}
-						
+
 						if (!empty($arrResults))
 						{
 							ksort($arrResults);
 							$arrCompetition['results'] = $arrResults;
-						
+
 							$arrCompetitions[] = $arrCompetition;
 						}
 					}
 				}
-				
+
 				if (!empty($arrCompetitions))
 				{
 					$arrReport['competitions'] = $arrCompetitions;
-				
+
 					$arrReports[] = $arrReport;
 				}
 			}
 		}
-		
+
 		$this->Template->reports = $arrReports;
 	}
-	
+
 	/**
 	 * Return a key for the rating type according to its defined order.
 	 */
 	private function getKeyForRatingType($strType)
 	{
 		$arrOrder = deserialize($this->triathlonResultsManagerSortResultRatingTypeOrder);
-		
+
 		if (empty($arrOrder))
 		{
 			$arrOrder = $GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerSortResultRatingTypeOrder']['options'];
 		}
-		
+
 		$intIndex = array_search($strType, $arrOrder);
-		
+
 		if ($intIndex === FALSE)
 		{
 			$intIndex = count($GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerSortResultRatingTypeOrder']['options']);
