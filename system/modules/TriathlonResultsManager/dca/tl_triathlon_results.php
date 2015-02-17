@@ -544,7 +544,7 @@ class tl_triathlon_results extends Backend
 		if ($objResultsCompetition->performanceEvaluation == 'distance')
 		{
 			$arrDistance = deserialize($row['distance']);
-			$strReturn .= '<tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_triathlon_results']['distance_legend'] . ': </span></td><td>' . sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], str_replace('.', $GLOBALS['TL_LANG']['MSC']['decimalSeparator'], $arrDistance['value']), $arrDistance['unit']) . '</td></tr>';
+			$strReturn .= '<tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_triathlon_results']['distance_legend'] . ': </span></td><td>' . sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], \TriathlonResultsManagerHelper::addGroupedThousands($arrDistance['value']), $arrDistance['unit']) . '</td></tr>';
 		}
 		else
 		{

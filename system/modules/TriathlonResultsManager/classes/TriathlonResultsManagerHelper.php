@@ -131,6 +131,40 @@ class TriathlonResultsManagerHelper
 	}
 
 	/**
+	 * Adds grouped thousands to a value.
+	 *
+	 * @param String  $strValue  The value the grouped thousands should be added to.
+	 *
+	 * @return String The value with added grouped thousands.
+	 */
+	public static function addGroupedThousands($strValue)
+	{
+		$arrParts = explode('.', $strValue);
+		$number = $arrParts[0];
+		$decimals = $arrParts[1];
+
+		$strReturn = "";
+		$valLength = strlen($number);
+
+		for ($i = ($valLength - 1); $i >= 0; $i--)
+		{
+			$character = substr($number, $i, 1);
+			$strReturn = $character . $strReturn;
+			if ($i > 0 && (($valLength - $i) % 3 == 0))
+			{
+				$strReturn = $GLOBALS['TL_LANG']['MSC']['thousandsSeparator'] . $strReturn;
+			}
+		}
+
+		if (strlen($decimals) > 0)
+		{
+			$strReturn .= $GLOBALS['TL_LANG']['MSC']['decimalSeparator'] . $decimals;
+		}
+
+		return $strReturn;
+	}
+
+	/**
 	 * Extract the disciplines with disciplines to a plain value array.
 	 *
 	 * @param array   $arrDisciplines            The complex array of discipline data.
@@ -153,7 +187,7 @@ class TriathlonResultsManagerHelper
 				}
 				else
 				{
-					$strDistance = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], str_replace('.', $GLOBALS['TL_LANG']['MSC']['decimalSeparator'], $discipline['distance']['value']), $discipline['distance']['unit']);
+					$strDistance = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], static::addGroupedThousands($discipline['distance']['value']), $discipline['distance']['unit']);
 				}
 
 				if ($blnAddDiscipline)
@@ -215,7 +249,7 @@ class TriathlonResultsManagerHelper
 					$strDiscipline .= $GLOBALS['TL_LANG']['TriathlonResultsManager']['disciplines'][$relayStarter['discipline']];
 				}
 
-				$strRelayStarter = self::getStarterName($relayStarter['starter'], $relayStarter['starter_freetext']);
+				$strRelayStarter = static::getStarterName($relayStarter['starter'], $relayStarter['starter_freetext']);
 				if ($strRelayStarter == null)
 				{
 					$strRelayStarter = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['relayStarter_not_set'] . '</div>';
@@ -223,7 +257,7 @@ class TriathlonResultsManagerHelper
 
 				if (strlen($relayStarter['timeHours']) > 0 && strlen($relayStarter['timeMinutes']) > 0 && strlen($relayStarter['timeSeconds']) > 0)
 				{
-					$strTime = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['time_format'], \TriathlonResultsManagerHelper::addLeadingZero($relayStarter['timeHours']), \TriathlonResultsManagerHelper::addLeadingZero($relayStarter['timeMinutes']), \TriathlonResultsManagerHelper::addLeadingZero($relayStarter['timeSeconds']));
+					$strTime = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['time_format'], static::addLeadingZero($relayStarter['timeHours']), static::addLeadingZero($relayStarter['timeMinutes']), static::addLeadingZero($relayStarter['timeSeconds']));
 				}
 
 				if (!empty($strTime))
