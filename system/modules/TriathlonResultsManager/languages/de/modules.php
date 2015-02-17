@@ -38,12 +38,19 @@ $GLOBALS['TL_LANG']['MOD']['TriathlonResultsManager'] = "Triathlon Ergebnisse Ma
 $GLOBALS['TL_LANG']['MOD']['triathlonResultsManager'] = array("Triathlon Ergebnisse", "Verwaltung von Triathlon Ergebnissen");
 
 /**
- * Define name and tooltip for frontend modules elements
+ * Define name and tooltip for frontend modules
  */
 $GLOBALS['TL_LANG']['FMD']['triathlonResultsManager']           = "Triathlon Ergebnisse Manager";
 $GLOBALS['TL_LANG']['FMD']['triathlonResultsManagerReport']     = array('Triathlon Ergebnismeldung', 'Stellt ein Formular zur Erfassung einer Ergebnismeldung zur Verfügung.');
 $GLOBALS['TL_LANG']['FMD']['triathlonResultsManagerResults']    = array('Triathlon Ergebnisliste', 'Gibt eine Liste von erfassten Ergebnissen aus.');
 $GLOBALS['TL_LANG']['FMD']['triathlonResultsManagerMyReports']  = array('Meine Triathlon Ergebnismeldungen', 'Gibt alle Ergebnismeldungen des eingeloggten Mitglieds aus.');
 $GLOBALS['TL_LANG']['FMD']['triathlonResultsManagerMyResults']  = array('Meine Triathlon Ergebnisse', 'Gibt alle Ergebnisse des eingeloggten Mitglieds aus.');
+
+/**
+ * Define name and tooltip for content elements
+ */
+$GLOBALS['TL_LANG']['CTE']['triathlonResultsManager']        = "Triathlon Ergebnisse Manager";
+$GLOBALS['TL_LANG']['CTE']['triathlonResultsManagerResults'] = array('Triathlon Ergebnisliste', 'Gibt eine Liste von erfassten Ergebnissen aus.');
+
 
 ?>

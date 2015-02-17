@@ -28,6 +28,9 @@ ClassLoader::addClasses(array
 	// Classes
 	'TriathlonResultsManager\TriathlonResultsManagerHelper'          => 'system/modules/TriathlonResultsManager/classes/TriathlonResultsManagerHelper.php',
 
+	// Elements
+	'TriathlonResultsManager\ContentTriathlonResultsManagerResults'  => 'system/modules/TriathlonResultsManager/elements/ContentTriathlonResultsManagerResults.php',
+
 	// Models
 	'TriathlonResultsManager\TriathlonResultsCompetitionsModel'      => 'system/modules/TriathlonResultsManager/models/TriathlonResultsCompetitionsModel.php',
 	'TriathlonResultsManager\TriathlonResultsModel'                  => 'system/modules/TriathlonResultsManager/models/TriathlonResultsModel.php',
@@ -46,6 +49,7 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
+	'ce_triathlonResultsManagerResults'    => 'system/modules/TriathlonResultsManager/templates/elements',
 	'mod_triathlonResultsManagerMyReports' => 'system/modules/TriathlonResultsManager/templates/modules',
 	'mod_triathlonResultsManagerMyResults' => 'system/modules/TriathlonResultsManager/templates/modules',
 	'mod_triathlonResultsManagerReport'    => 'system/modules/TriathlonResultsManager/templates/modules',

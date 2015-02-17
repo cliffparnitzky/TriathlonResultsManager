@@ -49,6 +49,11 @@ $GLOBALS['FE_MOD']['triathlonResultsManager']['triathlonResultsManagerMyReports'
 $GLOBALS['FE_MOD']['triathlonResultsManager']['triathlonResultsManagerMyResults'] = 'ModuleTriathlonResultsManagerMyResults'; // ... Meine Ergebnisse (filter by tl_triathlon_results.athlete)
 
 /**
+ * Add content element
+ */
+$GLOBALS['TL_CTE']['triathlonResultsManager']['triathlonResultsManagerResults'] = 'ContentTriathlonResultsManagerResults';
+
+/**
  * Adding custom JavaScript
  */
 if (TL_MODE == 'BE')
