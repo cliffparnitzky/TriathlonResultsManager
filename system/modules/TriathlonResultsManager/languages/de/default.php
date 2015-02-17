@@ -30,7 +30,7 @@
 /**
  * Misc text values
  */
-$GLOBALS['TL_LANG']['TriathlonResultsManager']['distances_delimiter']           = " + ";
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['disciplines_delimiter']         = " + ";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['relayStarter_delimiter']        = "<br/>";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format']               = "%s %s";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['discipline_distance_format']    = "%s: %s";
@@ -70,6 +70,12 @@ $GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionType']['relay']  = "S
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionType']['league'] = "Ligarennen";
 
 /**
+ * Performance evaluation kinds
+ */
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionPerformanceEvaluation']['time']     = "Zeit";
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionPerformanceEvaluation']['distance'] = "Strecke";
+
+/**
  * Rating types
  */
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType']['female']     = "Frauen";
@@ -97,19 +103,20 @@ $GLOBALS['TL_LANG']['TriathlonResultsManager']['disciplines']['others'] = "Sonst
 /**
  * Errors
  */
-$GLOBALS['TL_LANG']['ERR']['timeValueIncorrect']               = 'Der Wert "%s" ist nicht erlaubt! Es darf maximal "%s" eingegeben werden.';
-$GLOBALS['TL_LANG']['ERR']['placeValueIncorrect']              = 'Der Platz "%s" muss kleiner/gleich der Gesamtanzahl "%s" sein.';
-$GLOBALS['TL_LANG']['ERR']['placeStartersValueIncorrect']      = 'Die Gesamtanzahl "%s" muss größer/gleich dem Platz "%s" sein.';
-$GLOBALS['TL_LANG']['ERR']['singleStarter_not_set']            = "Es ist kein Einzelstarter festgelegt.";
-$GLOBALS['TL_LANG']['ERR']['relayStarter_not_set']             = "Es ist kein Staffelstarter festgelegt.";
-$GLOBALS['TL_LANG']['ERR']['relayStarters_not_set']            = "Es sind keine Staffelstarter festgelegt.";
-$GLOBALS['TL_LANG']['ERR']['relayDistancesStartersDifference'] = "Die Anzahl der Starter weicht von der Anzahl der Einzeldistanzen ab.";
+$GLOBALS['TL_LANG']['ERR']['timeValueIncorrect']                 = 'Der Wert "%s" ist nicht erlaubt! Es darf maximal "%s" eingegeben werden.';
+$GLOBALS['TL_LANG']['ERR']['placeValueIncorrect']                = 'Der Platz "%s" muss kleiner/gleich der Gesamtanzahl "%s" sein.';
+$GLOBALS['TL_LANG']['ERR']['placeStartersValueIncorrect']        = 'Die Gesamtanzahl "%s" muss größer/gleich dem Platz "%s" sein.';
+$GLOBALS['TL_LANG']['ERR']['singleStarter_not_set']              = "Es ist kein Einzelstarter festgelegt.";
+$GLOBALS['TL_LANG']['ERR']['relayStarter_not_set']               = "Es ist kein Staffelstarter festgelegt.";
+$GLOBALS['TL_LANG']['ERR']['relayStarters_not_set']              = "Es sind keine Staffelstarter festgelegt.";
+$GLOBALS['TL_LANG']['ERR']['relayDisciplinesStartersDifference'] = "Die Anzahl der Starter weicht von der Anzahl der Einzeldisziplinen ab.";
 
 /**
  * Frontend modules
  */
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['starters']      = 'Teilnehmer';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['time']          = 'Zeit';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['distance']      = 'Strecke';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['overallPlace']  = 'Platz Gesamt';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['ageGroupPlace'] = 'Platz Altersklasse';
 

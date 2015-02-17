@@ -71,7 +71,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results'] = array
 			'fields'                  => array('overallPlace'),
 			'flag'                    => 11,
 			'panelLayout'             => 'filter;sort,search,limit',
-			'headerFields'            => array('name', 'distances', 'type', 'ageGroupRating'),
+			'headerFields'            => array('name', 'disciplines', 'type', 'ageGroupRating'),
 			'header_callback'         => array('tl_triathlon_results', 'extendHeader'),
 			'child_record_callback'   => array('tl_triathlon_results', 'listResult')
 		),
@@ -280,7 +280,6 @@ $GLOBALS['TL_DCA']['tl_triathlon_results'] = array
 			'search'                  => true,
 			'inputType'               => 'text',
 			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w30', 'rgxp'=>'digit', 'maxlength'=>2),
-			//'eval'                    => array('mandatory'=>true, 'tl_class'=>'w30', 'rgxp'=>'time', 'maxlength'=>2, 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
 			'load_callback' => array
 			(
 				array('tl_triathlon_results', 'loadTimeField')
@@ -335,6 +334,15 @@ $GLOBALS['TL_DCA']['tl_triathlon_results'] = array
 				}
 			),
 			'sql'                     => "smallint(2) unsigned NULL"
+		),
+		'distance' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_triathlon_results']['distance'],
+			'exclude'                 => true,
+			'inputType'               => 'inputUnit',
+			'options'                 => array('km', 'm'),
+			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50', 'maxlength'=>5, 'rgxp'=>'digit'),
+			'sql'                     => "varchar(255) NULL"
 		),
 		'overallPlace' => array
 		(
@@ -433,10 +441,10 @@ class tl_triathlon_results extends Backend
 	const TIME_MAX_HOURS = 23;
 	const TIME_MAX_MINUTES = 59;
 	const TIME_MAX_SECONDS = 59;
-	
+
 	const PLACE_OVERALL = 'overall';
 	const PLACE_AGEGROUP = 'ageGroup';
-	
+
 	/**
 	 * Import the back end user object
 	 */
@@ -445,7 +453,7 @@ class tl_triathlon_results extends Backend
 		parent::__construct();
 		$this->import('BackendUser', 'User');
 	}
-	
+
 	/**
 	 * Extend the header ...
 	 * @param  $arrHeaderFields  the headerfields given from list->sorting
@@ -455,24 +463,24 @@ class tl_triathlon_results extends Backend
 	public function extendHeader($arrHeaderFields, DataContainer $dc)
 	{
 		$objResultsCompetition = \TriathlonResultsCompetitionsModel::findByPk($dc->id);
-		
-		$strDistancesFieldLabel = $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['distances'][0];
-		if (array_key_exists($strDistancesFieldLabel, $arrHeaderFields) )
+
+		$strDisciplinesFieldLabel = $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines'][0];
+		if (array_key_exists($strDisciplinesFieldLabel, $arrHeaderFields) )
 		{
 			$strText = "";
-			
+
 			if ($objResultsCompetition != null)
 			{
-				$arrPlainDistances = \TriathlonResultsManagerHelper::getPlainDistances(deserialize($objResultsCompetition->distances), true);
-				if (!empty($arrPlainDistances))
+				$arrPlainDisciplines = \TriathlonResultsManagerHelper::getPlainDisciplines(deserialize($objResultsCompetition->disciplines), $objResultsCompetition->performanceEvaluation, true);
+				if (!empty($arrPlainDisciplines))
 				{
-					$strText = implode($GLOBALS['TL_LANG']['TriathlonResultsManager']['distances_delimiter'], $arrPlainDistances);
+					$strText = implode($GLOBALS['TL_LANG']['TriathlonResultsManager']['disciplines_delimiter'], $arrPlainDisciplines);
 				}
 			}
-			
-			$arrHeaderFields[$strDistancesFieldLabel] = $strText;
+
+			$arrHeaderFields[$strDisciplinesFieldLabel] = $strText;
 		}
-		
+
 		if ($objResultsCompetition != null)
 		{
 			if ($objResultsCompetition->type == 'league')
@@ -483,12 +491,12 @@ class tl_triathlon_results extends Backend
 			{
 				unset($arrHeaderFields[$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['ageGroupRating'][0]]);
 			}
-			
+
 		}
 
 		return $arrHeaderFields;
 	}
-	
+
 	/**
 	 * List a result
 	 * @param array
@@ -499,7 +507,7 @@ class tl_triathlon_results extends Backend
 		$objResultsCompetition = \TriathlonResultsCompetitionsModel::findByPk($row['pid']);
 
 		$strStarters = "";
-		
+
 		if ($objResultsCompetition != null && $objResultsCompetition->type == 'relay')
 		{
 			$strStarters = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['relayStarters_not_set'] . '</div>';
@@ -513,13 +521,13 @@ class tl_triathlon_results extends Backend
 				}
 				$strStarters = $strRelayName . implode($GLOBALS['TL_LANG']['TriathlonResultsManager']['relayStarter_delimiter'], $arrPlainRelayStarters);;
 			}
-			
-			$arrDistances = deserialize($objResultsCompetition->distances);
-			$intDistancesCount = is_array($arrDistances) ? count($arrDistances) : 0;
+
+			$arrDisciplines = deserialize($objResultsCompetition->disciplines);
+			$intDisciplinesCount = is_array($arrDisciplines) ? count($arrDisciplines) : 0;
 			$intRelayStartersCount = (!empty($arrPlainRelayStarters) ? count($arrPlainRelayStarters) : 0);
-			if ($intDistancesCount <> $intRelayStartersCount)
+			if ($intDisciplinesCount <> $intRelayStartersCount)
 			{
-				$strDistancesStartersDifference = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['relayDistancesStartersDifference'] . '</div>';
+				$strDisciplinesStartersDifference = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['relayDisciplinesStartersDifference'] . '</div>';
 			}
 		}
 		else
@@ -531,17 +539,25 @@ class tl_triathlon_results extends Backend
 			}
 		}
 
-		$strReturn = $strDistancesStartersDifference .'<div class="cte_type ' . ($row['disable'] ? 'unpublished' : 'published') . '">' . $strStarters . '</div><div class="tl_content_left' . ($row['disable'] ? ' disabled' : '') . '"><table class="tl_triathlon_results">';
-		
-		$strReturn .= '<tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_triathlon_results']['time_legend'] . ': </span></td><td>' . sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['time_format'], \TriathlonResultsManagerHelper::addLeadingZero($row['timeHours']), \TriathlonResultsManagerHelper::addLeadingZero($row['timeMinutes']), \TriathlonResultsManagerHelper::addLeadingZero($row['timeSeconds'])) . '</td></tr>';
-		
+		$strReturn = $strDisciplinesStartersDifference .'<div class="cte_type ' . ($row['disable'] ? 'unpublished' : 'published') . '">' . $strStarters . '</div><div class="tl_content_left' . ($row['disable'] ? ' disabled' : '') . '"><table class="tl_triathlon_results">';
+
+		if ($objResultsCompetition->performanceEvaluation == 'distance')
+		{
+			$arrDistance = deserialize($row['distance']);
+			$strReturn .= '<tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_triathlon_results']['distance_legend'] . ': </span></td><td>' . sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], str_replace('.', $GLOBALS['TL_LANG']['MSC']['decimalSeparator'], $arrDistance['value']), $arrDistance['unit']) . '</td></tr>';
+		}
+		else
+		{
+			$strReturn .= '<tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_triathlon_results']['time_legend'] . ': </span></td><td>' . sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['time_format'], \TriathlonResultsManagerHelper::addLeadingZero($row['timeHours']), \TriathlonResultsManagerHelper::addLeadingZero($row['timeMinutes']), \TriathlonResultsManagerHelper::addLeadingZero($row['timeSeconds'])) . '</td></tr>';
+		}
+
 		$strReturn .= '<tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_triathlon_results']['overallPlace'][0] . ': </span></td><td>' . sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['place_format'], $row['overallPlace'], $row['overallStarters']) . " " . \TriathlonResultsManagerHelper::getPlaceIconHtml($row['overallPlace'], false) . '</td></tr>';
 
 		if ($objResultsCompetition != null && $objResultsCompetition->ageGroupRating)
 		{
 			$strReturn .= '<tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_triathlon_results']['ageGroupPlace'][0] . ': </span></td><td>' . sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['place_format'], $row['ageGroupPlace'], $row['ageGroupStarters']) . " " . \TriathlonResultsManagerHelper::getPlaceIconHtml($row['ageGroupPlace'], true) . '</td></tr>';
 		}
-		
+
 		if ($objResultsCompetition != null && $objResultsCompetition->type == 'relay')
 		{
 			$strReturn .= '<tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_triathlon_results']['relayRatingType'][0] . ': </span></td><td>' . $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType'][$row['relayRatingType']] . '</td></tr>';
@@ -549,7 +565,7 @@ class tl_triathlon_results extends Backend
 
 		return $strReturn . "</table></div>\n";
 	}
-	
+
 	/**
 	 * Format the group ...
 	 * @param  String        $groupName    The current translated group name.
@@ -579,7 +595,7 @@ class tl_triathlon_results extends Backend
 		}
 		return $groupName;
 	}
-	
+
 	/**
 	 * Add leading zeros to time fields.
 	 * @param mixed
@@ -594,7 +610,7 @@ class tl_triathlon_results extends Backend
 		}
 		return $varValue;
 	}
-	
+
 	/**
 	 * Check for a valid time value.
 	 *
@@ -611,7 +627,7 @@ class tl_triathlon_results extends Backend
 		}
 		return $varValue;
 	}
-	
+
 	/**
 	 * Check for a valid place value.
 	 *
@@ -627,9 +643,9 @@ class tl_triathlon_results extends Backend
 		if (is_numeric($varValue))
 		{
 			$blnIsStartersField = (strrpos($strField, 'Starters') !== FALSE);
-			
+
 			$intCompareValue = \Input::post($strCompareField);
-			
+
 			if (is_numeric($intCompareValue))
 			{
 				if ($blnIsStartersField && ($varValue < $intCompareValue))
@@ -644,7 +660,7 @@ class tl_triathlon_results extends Backend
 		}
 		return $varValue;
 	}
-	
+
 	/**
 	 * Initialize the palettes when loading
 	 * @param \DataContainer
@@ -675,11 +691,15 @@ class tl_triathlon_results extends Backend
 					{
 						$GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default'] = str_replace('ageGroupPlace,ageGroupStarters', '', $GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default']);
 					}
+					if ($objResultsCompetition->performanceEvaluation == 'distance')
+					{
+						$GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default'] = str_replace('{time_legend},timeHours,timeMinutes,timeSeconds;', '{distance_legend},distance;', $GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default']);
+					}
 				}
 			}
 		}
 	}
-	
+
 	/**
 	 * Clear data which should not be written in database
 	 * @param \DataContainer
@@ -699,11 +719,11 @@ class tl_triathlon_results extends Backend
 				$intPid = $objResult->pid;
 			}
 		}
-		
+
 		if (is_numeric($intPid))
 		{
 			$objResultsCompetition = \TriathlonResultsCompetitionsModel::findByPk($intPid);
-			
+
 			if ($objResultsCompetition != null)
 			{
 				$arrSet = array();
@@ -722,7 +742,18 @@ class tl_triathlon_results extends Backend
 					$arrSet['ageGroupPlace'] = "NULL";
 					$arrSet['ageGroupStarters'] = "NULL";
 				}
-				
+
+				if ($objResultsCompetition->performanceEvaluation == 'distance')
+				{
+					$arrSet['timeHours'] = "NULL";
+					$arrSet['timeMinutes'] = "NULL";
+					$arrSet['timeSeconds'] = "NULL";
+				}
+				else
+				{
+					$arrSet['distance'] = "NULL";
+				}
+
 				if (!empty($arrSet))
 				{
 					if (Input::get('act') != "")
@@ -737,7 +768,7 @@ class tl_triathlon_results extends Backend
 			}
 		}
 	}
-	
+
 	/**
 	 * Return the "toggle visibility" button
 	 * @param array

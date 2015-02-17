@@ -30,21 +30,23 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['name']                          = array('Wettkampfname', 'Geben Sie den Namen des Wettkampfs an.');
-$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['type']                          = array('Wettkampftyp', 'Geben Sie den Typ des Wettkampfs an.');
-$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['league']                        = array('Liga', 'Geben Sie die Liga an.');
-$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['ageGroupRating']                = array('Alterklassenwertung', 'Geben Sie an, ob es eine Alterklassenwertung gibt.');
-$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['distances']                     = array('Einzeldistanzen', 'Geben Sie die Distanzen des Wettkampfs an. Sortieren Sie die Distanzen nach der Reihenfolge wie sie stattfanden.');
-$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['distances_discipline']          = array('Disziplin', 'Geben Sie die Disziplin an. Wenn die gewünschte Disziplin nicht auswählbar ist verwenden Sie \'Sonstiges\' und tragen die Bezeichnung dann im Feld \'Disziplin Freitext\' ein.');
-$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['distances_discipline_freetext'] = array('Disziplin Freitext', 'Geben Sie die Bezeichnung der Disziplin an, wenn Sie als Disziplin \'Sonstiges\' gewählt haben.');
-$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['distances_distance']            = array('Distanz', 'Geben Sie die Distanzen an.');
-$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disable']                       = array('Deaktivieren', 'Den Wettkampf deaktivieren, um eine Ausgabe im Frontend zu unterbinden.');
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['name']                            = array('Wettkampfname', 'Geben Sie den Namen des Wettkampfs an.');
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['type']                            = array('Wettkampftyp', 'Geben Sie den Typ des Wettkampfs an.');
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['performanceEvaluation']           = array('Leistungsbewertung', 'Geben Sie die Art der Leistungsbewertung des Wettkampfs an.');
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['league']                          = array('Liga', 'Geben Sie die Liga an.');
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['ageGroupRating']                  = array('Alterklassenwertung', 'Geben Sie an, ob es eine Alterklassenwertung gibt.');
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines']                     = array('Einzeldisziplinen', 'Geben Sie die Disziplinen des Wettkampfs an. Sortieren Sie die Disziplinen nach der Reihenfolge wie sie stattgefunden haben.');
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines_discipline']          = array('Disziplin', 'Geben Sie die Disziplin an. Wenn die gewünschte Disziplin nicht auswählbar ist verwenden Sie \'Sonstiges\' und tragen die Bezeichnung dann im Feld \'Disziplin Freitext\' ein.');
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines_discipline_freetext'] = array('Disziplin Freitext', 'Geben Sie die Bezeichnung der Disziplin an, wenn Sie als Disziplin \'Sonstiges\' gewählt haben.');
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines_distance']            = array('Strecke', 'Geben Sie die Strecke an.');
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines_time']                = array('Zeit', 'Geben Sie die Zeit an.');
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disable']                         = array('Deaktivieren', 'Den Wettkampf deaktivieren, um eine Ausgabe im Frontend zu unterbinden.');
 
 /**
  * Legends
  */
 $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['competition_legend']  = 'Wettkampf';
-$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['distances_legend']    = 'Distanzen';
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines_legend']  = 'Disziplinen';
 $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['deactivation_legend'] = 'Deaktivierung';
 
 /**

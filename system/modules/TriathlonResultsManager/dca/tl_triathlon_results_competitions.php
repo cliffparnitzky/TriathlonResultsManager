@@ -121,7 +121,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_competitions'] = array
 	'palettes' => array
 	(
 		'__selector__' => array('type'),
-		'default'      => '{competition_legend},name,type;{distances_legend},distances;{deactivation_legend},disable'
+		'default'      => '{competition_legend},name,type,performanceEvaluation;{disciplines_legend},disciplines;{deactivation_legend},disable'
 	),
 
 	// Subpalettes
@@ -199,42 +199,25 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_competitions'] = array
 			'inputType'               => 'checkbox',
 			'sql'                     => "char(1) NOT NULL default ''"
 		),
-		'distances' => array
+		'performanceEvaluation' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['distances'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['performanceEvaluation'],
+			'default'                 => 'time',
+			'exclude'                 => true,
+			'filter'                  => true,
+			'sorting'                 => true,
+			'inputType'               => 'select',
+			'options'                 => array('time', 'distance'),
+			'reference'               => &$GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionPerformanceEvaluation'],
+			'eval'                    => array('mandatory'=>true, 'submitOnChange'=>true),
+			'sql'                     => "varchar(64) NOT NULL default 'time'"
+		),
+		'disciplines' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines'],
 			'exclude'                 => true,
 			'inputType'               => 'multiColumnWizard',
-			'eval'                    => array
-			(
-				'tl_class'     => 'clr',
-				'columnFields' => array
-				(
-					'discipline' => array
-					(
-						'label'         => &$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['distances_discipline'],
-						'exclude'       => true,
-						'inputType'     => 'select',
-						'eval'          => array('mandatory'=>true, 'includeBlankOption'=>true, 'style'=>'width: 250px;'),
-						'options'       => array('swim', 'bike', 'run', 'others'),
-						'reference'     => &$GLOBALS['TL_LANG']['TriathlonResultsManager']['disciplines']
-					),
-					'discipline_freetext' => array
-					(
-						'label'         => &$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['distances_discipline_freetext'],
-						'exclude'       => true,
-						'inputType'     => 'text',
-						'eval'          => array('style'=>'width: 250px;')
-					),
-					'distance' => array
-					(
-						'label'         => &$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['distances_distance'],
-						'exclude'       => true,
-						'inputType'     => 'inputUnit',
-						'options'       => array('km', 'm'),
-						'eval'          => array('mandatory'=>true, 'rgxp'=>'digit', 'style'=>'width: 100px;')
-					)
-				)
-			),
+			'eval'                    => array('tl_class'=>'clr','columnFields'=>tl_triathlon_results_competitions::getDisciplineColumns()),
 			'sql'                     => "blob NULL"
 		),
 		'disable' => array
@@ -267,7 +250,7 @@ class tl_triathlon_results_competitions extends Backend
 		parent::__construct();
 		$this->import('BackendUser', 'User');
 	}
-	
+
 	/**
 	 * List a competition
 	 * @param array
@@ -277,29 +260,29 @@ class tl_triathlon_results_competitions extends Backend
 	{
 		$strReturn = '<div class="tl_content_left' . ($row['disable'] ? ' disabled' : '') . '">'
 				   . $row['name'];
-		
+
 		switch ($row['type'])
 		{
 			case 'relay'  : $strReturn .= '<span style="color:#b3b3b3; padding-left:5px;">' . $GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionType']['relay'] . '</span>'; break;
 			case 'league' : $strReturn .= '<span style="color:#b3b3b3; padding-left:5px;">' . $GLOBALS['TL_LANG']['TriathlonResultsManager']['league'][$row['league']] . '</span>'; break;
 		}
-		
-		$arrPlainDistances = \TriathlonResultsManagerHelper::getPlainDistances(deserialize($row['distances']), false);
-		if (!empty($arrPlainDistances))
+
+		$arrPlainDisciplines = \TriathlonResultsManagerHelper::getPlainDisciplines(deserialize($row['disciplines']), $row['performanceEvaluation']);
+		if (!empty($arrPlainDisciplines))
 		{
-			$strReturn .= ' (' . implode($GLOBALS['TL_LANG']['TriathlonResultsManager']['distances_delimiter'], $arrPlainDistances) . ')';
+			$strReturn .= ' (' . implode($GLOBALS['TL_LANG']['TriathlonResultsManager']['disciplines_delimiter'], $arrPlainDisciplines) . ')';
 		}
-		
+
 
 		$objResult = \TriathlonResultsModel::findByPid($row['id']);
 		if ($objResult == null)
 		{
 			$strReturn .= '<span class="tl_warn_no_child_elements">' . $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['warn_no_results'] . '</span>';
 		}
-		
+
 		return $strReturn . "</div>\n";
 	}
-	
+
 		/**
 	 * Return the "toggle visibility" button
 	 * @param array
@@ -378,6 +361,69 @@ class tl_triathlon_results_competitions extends Backend
 
 		$objVersions->create();
 		$this->log('A new version of record "tl_triathlon_results_competitions.id='.$intId.'" has been created'.$this->getParentEntries('tl_triathlon_results_competitions', $intId), __METHOD__, TL_GENERAL);
+	}
+
+	/**
+	 * Get the columns for the disciplines.
+	 * @return array
+	 */
+	public static function getDisciplineColumns()
+	{
+		$performanceEvaluation = "time";
+		if (\Input::get('act') == "edit")
+		{
+			$objResultsCompetition = \TriathlonResultsCompetitionsModel::findByPk(\Input::get('id'));
+			if ($objResultsCompetition != null)
+			{
+				$performanceEvaluation = $objResultsCompetition->performanceEvaluation;
+			}
+
+		}
+
+		$arrDisciplineColumns = array
+		(
+			'discipline' => array
+			(
+				'label'         => &$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines_discipline'],
+				'exclude'       => true,
+				'inputType'     => 'select',
+				'eval'          => array('mandatory'=>true,'includeBlankOption'=>true, 'style'=>'width: 250px;'),
+				'options'       => array('swim', 'bike', 'run', 'others'),
+				'reference'     => &$GLOBALS['TL_LANG']['TriathlonResultsManager']['disciplines']
+			),
+			'discipline_freetext' => array
+			(
+				'label'         => &$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines_discipline_freetext'],
+				'exclude'       => true,
+				'inputType'     => 'text',
+				'eval'          => array('style'=>'width: 250px;')
+			)
+		);
+
+		if ($performanceEvaluation == 'distance')
+		{
+			$arrDisciplineColumns['time'] = array
+			(
+				'label'         => &$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines_time'],
+				'exclude'       => true,
+				'inputType'     => 'inputUnit',
+				'options'       => array('h', 'min'),
+				'eval'          => array('mandatory'=>true,'rgxp'=>'digit', 'style'=>'width: 100px;')
+			);
+		}
+		else
+		{
+			$arrDisciplineColumns['distance'] = array
+			(
+				'label'         => &$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines_distance'],
+				'exclude'       => true,
+				'inputType'     => 'inputUnit',
+				'options'       => array('km', 'm'),
+				'eval'          => array('mandatory'=>true,'rgxp'=>'digit', 'style'=>'width: 100px;')
+			);
+		}
+
+		return $arrDisciplineColumns;
 	}
 
 }

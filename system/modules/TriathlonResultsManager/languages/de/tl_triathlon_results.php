@@ -10,12 +10,12 @@
  * modify it under the terms of the GNU Lesser General Public
  * License as published by the Free Software Foundation, either
  * version 3 of the License, or (at your option) any later version.
- * 
+ *
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU
  * Lesser General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU Lesser General Public
  * License along with this program. If not, please visit the Free
  * Software Foundation website at <http://www.gnu.org/licenses/>.
@@ -45,6 +45,7 @@ $GLOBALS['TL_LANG']['tl_triathlon_results']['relayName']                        
 $GLOBALS['TL_LANG']['tl_triathlon_results']['timeHours']                        = array('Stunden', 'Geben Sie die Stunden der Gesamtzeit an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['timeMinutes']                      = array('Minuten', 'Geben Sie die Minuten der Gesamtzeit an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['timeSeconds']                      = array('Sekunden', 'Geben Sie die Sekunden der Gesamtzeit an.');
+$GLOBALS['TL_LANG']['tl_triathlon_results']['distance']                         = array('Strecke', 'Geben Sie die Gesamtstrecke an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['overallPlace']                     = array('Platz im Gesamtklassement', 'Geben Sie die Platzierung im Gesamtklassement pro Wertungstyp (Männer, Frauen, Mixed) an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['overallStarters']                  = array('Anzahl Teilnehmer im Gesamtklassement', 'Geben Sie die Anzahl der Teilnehmer im Gesamtklassement pro Wertungstyp (Männer, Frauen, Mixed) an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['ageGroupPlace']                    = array('Platz in der Altersklasse', 'Geben Sie die Platzierung in der Altersklasse an.');
@@ -57,6 +58,7 @@ $GLOBALS['TL_LANG']['tl_triathlon_results']['disable']                          
 $GLOBALS['TL_LANG']['tl_triathlon_results']['singleStart_legend']  = 'Einzelstart';
 $GLOBALS['TL_LANG']['tl_triathlon_results']['relayStart_legend']   = 'Staffelstart';
 $GLOBALS['TL_LANG']['tl_triathlon_results']['time_legend']         = 'Gesamtzeit';
+$GLOBALS['TL_LANG']['tl_triathlon_results']['distance_legend']     = 'Gesamtstrecke';
 $GLOBALS['TL_LANG']['tl_triathlon_results']['place_legend']        = 'Platzierung';
 $GLOBALS['TL_LANG']['tl_triathlon_results']['deactivation_legend'] = 'Deaktivierung';
 
