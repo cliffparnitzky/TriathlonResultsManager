@@ -76,9 +76,11 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerFilterReportEv
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerFilterReportEvent'],
 	'exclude'                 => true,
 	'inputType'               => 'select',
+	'foreignKey'              => 'tl_triathlon_results_reports.CONCAT(FROM_UNIXTIME(eventDate, GET_FORMAT(DATE,"EUR")), ": ", eventName)',
 	'options_callback'        => array('tl_module_TriathlonResultsManager', 'getFilterReportEventOptions'),
 	'eval'                    => array('tl_class'=>'w50', 'multiple'=>true, 'chosen'=>true),
-	'sql'                     => "blob NULL"
+	'sql'                     => "blob NULL",
+	'relation'                => array('type'=>'hasMany', 'load'=>'lazy')
 );
 $GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerFilterCompetitionType'] = array
 (

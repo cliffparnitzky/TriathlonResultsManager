@@ -52,5 +52,4 @@ $GLOBALS['TL_LANG']['FMD']['triathlonResultsManagerMyResults']  = array('Meine T
 $GLOBALS['TL_LANG']['CTE']['triathlonResultsManager']        = "Triathlon Ergebnisse Manager";
 $GLOBALS['TL_LANG']['CTE']['triathlonResultsManagerResults'] = array('Triathlon Ergebnisliste', 'Gibt eine Liste von erfassten Ergebnissen aus.');
 
-
 ?>
