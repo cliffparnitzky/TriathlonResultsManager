@@ -38,6 +38,7 @@ $GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerFilterCompetitionType']
 $GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerFilterCompetitionLeague']      = array('Filterung nach Liga', 'Wählen Sie die Liga aus, von der die Ergebnisse angezeigt werden sollen. Lassen Sie das Feld leer, um keine Begrenzung auf die Liga festzulegen.');
 $GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerFilterResultSingleRatingType'] = array('Filterung nach Wertungstyp der Einzelstarter', 'Wählen Sie den Wertungstyp der Einzelstarter aus, von dem die Ergebnisse angezeigt werden sollen. Lassen Sie das Feld leer, um keine Begrenzung auf den Wertungstyp der Einzelstarter festzulegen.');
 $GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerFilterResultRelayRatingType']  = array('Filterung nach Wertungstyp der Staffeln', 'Wählen Sie den Wertungstyp der Staffeln aus, von dem die Ergebnisse angezeigt werden sollen. Lassen Sie das Feld leer, um keine Begrenzung auf den Wertungstyp der Staffeln festzulegen.');
+$GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerFilterMemberGroups']           = array('Filterung erlaubter Mitgliedergruppe', 'Wählen Sie die Mitgliedergruppen aus, für welche im Frontend Mitglieder zur Ergebnismeldungen zur Verfügung stehen sollen.');
 $GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerSortReportDateField']          = array('Sortierung nach Datumswert der Ergebnismeldungen', 'Wählen Sie das Feld aus, nach dem sortiert werden soll.');
 $GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerSortReportDateDirection']      = array('Sortierrichtung des Datumswerts', 'Wählen Sie die Richtung für die Sortierung des Datumswerts aus.');
 $GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerSortResultRatingTypeOrder']    = array('Sortierung der Wertungstypen', 'Geben Sie die Sortierung der Wertungstypen an. Alle Checkboxen müssen selektiert sein. Ändern Sie die Reihenfolge durch verschieben der Checkboxen.');
@@ -46,7 +47,7 @@ $GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerTplUseIconsForDisciplin
 /**
  * Legends
  */
-$GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerFilterSort_legend'] = 'Filterung und Sortierung der Liste';
+$GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerFilterSort_legend'] = 'Filterung und Sortierung der Ausgabe';
 
 /**
  * Options

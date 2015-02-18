@@ -75,18 +75,46 @@ class ModuleTriathlonResultsManagerReport extends \Module
 	 */
 	protected function compile()
 	{
+		// first check if required extension 'associategroups' is installed
+		if (!in_array('associategroups', $this->Config->getActiveModules()))
+		{
+			$this->log('The extension "associategroups" is required for determining user list!', _METHOD_, TL_ERROR);
+			return false;
+		}
+		
 		$GLOBALS['TL_BODY'][] = <<<EOT
 <script type="text/javascript">
-	var tableHeads = {starters: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['starters']}", time: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['time']}", overallPlace: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['overallPlace']}", ageGroupPlace: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['ageGroupPlace']}"};
-	var womenHeader = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['women_header']}";
-	var buttonAddWomanTitle = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_woman_title']}";
-	var buttonDelWomanTitle = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_woman_title']}";
-	var menHeader = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['men_header']}";
-	var buttonAddManTitle = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_man_title']}";
-	var buttonDelManTitle = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_man_title']}";
-	var selectCompetitionTemplateTitle = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_title']}";
-	var selectCompetitionTemplateFirstOption = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_first_option']}";
-	var selectCompetitionTemplateOptgroup = "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_optgroup']}";
+	var translations = {
+		tableHeadStarters: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['starters']}",
+		tableHeadTime: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['time']}",
+		tableHeadDistance: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['distance']}",
+		tableHeadOverallPlace: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['overallPlace']}",
+		tableHeadAgeGroupPlace: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['ageGroupPlace']}",
+		headerWomen : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['header_women']}",
+		headerMen : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['header_men']}",
+		buttonAddWomanImage : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_woman_image']}",
+		buttonAddWomanTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_woman_title']}",
+		buttonDelWomanImage : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_woman_image']}",
+		buttonDelWomanTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_woman_title']}",
+		buttonAddManImage : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_man_image']}",
+		buttonAddManTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_man_title']}",
+		buttonDelManImage : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_man_image']}",
+		buttonDelManTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_man_title']}",
+		inputCompetitionNameTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_competition_name_title']}",
+		selectCompetitionTemplateTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_title']}",
+		selectCompetitionTemplateFirstOption : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_first_option']}",
+		selectCompetitionTemplateOptgroup : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_optgroup']}",
+		buttonMoveUpCompetitionImage : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_up_competition_image']}",
+		buttonMoveUpCompetitionTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_up_competition_title']}",
+		buttonMoveDownCompetitionImage : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_down_competition_image']}",
+		buttonMoveDownCompetitionTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_down_competition_title']}",
+		buttonMoveUpResultImage : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_up_result_image']}",
+		buttonMoveUpResultTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_up_result_title']}",
+		buttonMoveDownResultImage : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_down_result_image']}",
+		buttonMoveDownResultTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_down_result_title']}",
+	};
+	var women = {{$this->getMembersJavascriptArrayContent('female')}};
+	var men = {{$this->getMembersJavascriptArrayContent('male')}};
 </script>'
 EOT;
 		$GLOBALS['TL_CSS'][] = 'system/modules/TriathlonResultsManager/assets/css/triathlon_results_manager_report.css';
@@ -103,6 +131,32 @@ EOT;
 		}
 		$this->Template->events = $arrEvents;
 	}
+	
+	/**
+	 * Reads the members from db, grouped by gender and returns them as a javascript array content.
+	 *
+	 * @param gender The gender of the members.
+	 * 
+	 * @return The 
+	 */
+	private function getMembersJavascriptArrayContent ($gender)
+	{
+		$arrReturn = array();
+		$objMembers = $this->Database->prepare("SELECT DISTINCT m.id, m.firstname, m.lastname FROM tl_member m "
+											 . "LEFT JOIN tl_member_to_group m2g ON m2g.member_id = m.id "
+											 . "WHERE m.gender = ? AND m.disable = '' AND m2g.group_id IN (" . implode(",", deserialize($this->triathlonResultsManagerFilterMemberGroups)) . ") "
+											 . "ORDER BY m.firstname, m.lastname")
+									 ->execute($gender);
+		
+		while ($objMembers->next())
+		{
+			$arrReturn[] = $objMembers->id . ': "' . $objMembers->firstname . ' ' . $objMembers->lastname . '"';
+		}
+		
+		return implode(",", $arrReturn);
+	}
+
+
 }
 
 ?>

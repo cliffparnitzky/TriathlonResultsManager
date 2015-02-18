@@ -133,15 +133,27 @@ $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_eventName_title'
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['competition_header']                       = 'Wettkämpfe';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_competition_title']             = 'Wettkampf hinzufügen';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_competition_title']             = 'Letzten Wettkampf löschen';
-$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['women_header']                             = 'Frauen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['header_women']                             = 'Frauen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['header_men']                               = 'Männer';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_woman_image']                   = 'system/modules/TriathlonResultsManager/assets/woman_add.png';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_woman_title']                   = 'Frau hinzufügen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_woman_image']                   = 'system/modules/TriathlonResultsManager/assets/woman_del.png';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_woman_title']                   = 'Letzte Frau löschen';
-$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['men_header']                               = 'Männer';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_man_image']                     = 'system/modules/TriathlonResultsManager/assets/man_add.png';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_man_title']                     = 'Mann hinzufügen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_man_image']                     = 'system/modules/TriathlonResultsManager/assets/man_del.png';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_man_title']                     = 'Letzten Mann löschen';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_competition_name_title']             = 'Name des Wettkampfs';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_title']        = 'Vorlagenauswahl für den Wettkampfnamen, dieser kann noch angepasst werden';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_first_option'] = '>>> Vorlage auswählen';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_competition_template_optgroup']     = 'Vorlagenauswahl ...';
-
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_up_competition_image']         = 'system/modules/TriathlonResultsManager/assets/move_up.png';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_up_competition_title']         = 'Wettkampf nach oben verschieben';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_down_competition_image']       = 'system/modules/TriathlonResultsManager/assets/move_down.png';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_down_competition_title']       = 'Wettkampf nach unten verschieben';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_up_result_image']              = 'system/modules/TriathlonResultsManager/assets/move_up.png';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_up_result_title']              = 'Ergebnis nach oben verschieben';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_down_result_image']            = 'system/modules/TriathlonResultsManager/assets/move_down.png';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_down_result_title']            = 'Ergebnis nach unten verschieben';
 
 ?>

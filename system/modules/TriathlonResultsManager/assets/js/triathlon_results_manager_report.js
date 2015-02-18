@@ -511,54 +511,46 @@ function addCompetition() {
 	var table = document.createElement("table");
 	table.className = "inputTable";
 	table.id = nextId;
-	table.border = "0";
-	table.cellPadding = "5";
-	table.cellSpacing = "0";
-	table.width = "100%";
 	
 	var thead = document.createElement("thead");
 	
 	var row = document.createElement("tr");
-	row.style.fontSize = "1.1em";
-	row.style.textAlign = "center";
 	
 	var col = document.createElement("th");
 	col.colSpan = "5";
 	col.className = "head col_0 col_first col_last";
 	
 	var input = document.createElement("input");
-	input.title = "Name des Wettbewerbs";
+	input.title = translations["inputCompetitionNameTitle"];
 	input.id = "competition_" + nextId + "_title";
 	input.type = "text";
-	input.size = "50";
-	input.style.textAlign = "center";
-	input.style.fontWeight = "bold";
+	input.maxlength = "255";
 	col.appendChild(input);
-	
-	col.appendChild(document.createTextNode("\u00A0"));
 
-	var button = document.createElement("button");
-	button.onclick = function () {moveCompetitionUp(this);};
-	button.title = "Wettbewerb nach oben verschieben";
-	button.appendChild(document.createTextNode("\u2191"));
-	button.tabIndex="-1";
-	button.className="moveBtn";
-	col.appendChild(button);
+	var image = document.createElement("img");
+	image.src = translations["buttonMoveUpCompetitionImage"];
+	image.alt = translations["buttonMoveUpCompetitionTitle"];
+	image.title = translations["buttonMoveUpCompetitionTitle"];
 	
-	col.appendChild(document.createTextNode("\u00A0"));
+	var link = document.createElement("a");
+	link.onclick = function () {moveCompetitionUp(this);};
+	link.className = "moveBtn moveUpBtn";
+	link.appendChild(image);
+	col.appendChild(link);
 	
-	button = document.createElement("button");
-	button.onclick = function () {moveCompetitionDown(this);};
-	button.title = "Wettbewerb nach unten verschieben";
-	button.appendChild(document.createTextNode("\u2193"));
-	button.tabIndex="-1";
-	button.className="moveBtn";
-	col.appendChild(button);
+	image = document.createElement("img");
+	image.src = translations["buttonMoveDownCompetitionImage"];
+	image.alt = translations["buttonMoveDownCompetitionTitle"];
+	image.title = translations["buttonMoveDownCompetitionTitle"];
 	
-	col.appendChild(document.createTextNode("\u00A0"));
+	link = document.createElement("a");
+	link.onclick = function () {moveCompetitionDown(this);};
+	link.className = "moveBtn moveDownBtn";
+	link.appendChild(image);
+	col.appendChild(link);
 	
 	var competitionTemplateSelect = document.createElement("select");
-	competitionTemplateSelect.title = selectCompetitionTemplateTitle;
+	competitionTemplateSelect.title = translations["selectCompetitionTemplateTitle"];
 	competitionTemplateSelect.onchange = function () {document.getElementById("competition_" + nextId + "_title").value = this.options[this.selectedIndex].value};
 	addCompetitionTemplateValues(competitionTemplateSelect);
 	col.appendChild(competitionTemplateSelect);
@@ -570,17 +562,17 @@ function addCompetition() {
 	
 	col = document.createElement("th");
 	col.className = "head col_0 col_first";
-	col.appendChild(document.createTextNode(tableHeads["starters"]));
+	col.appendChild(document.createTextNode(translations["tableHeadStarters"]));
 	row.appendChild(col);
 	
 	col = document.createElement("th");
 	col.className = "head col_1 col_time";
-	col.appendChild(document.createTextNode(tableHeads["time"]));
+	col.appendChild(document.createTextNode(translations["tableHeadTime"]));
 	row.appendChild(col);
 	
 	col = document.createElement("th");
 	col.className = "head col_2 col_place";
-	col.appendChild(document.createTextNode(tableHeads["overallPlace"]));
+	col.appendChild(document.createTextNode(translations["tableHeadOverallPlace"]));
 	row.appendChild(col);
 	
 	col = document.createElement("th");
@@ -588,7 +580,7 @@ function addCompetition() {
 	
 	var label = document.createElement("label");
 	label.setAttribute("for", "competition_" + nextId + "_placingAgeGroup");
-	label.appendChild(document.createTextNode(tableHeads["ageGroupPlace"]));
+	label.appendChild(document.createTextNode(translations["tableHeadAgeGroupPlace"]));
 	col.appendChild(label);
 	
 	var checkBox = document.createElement("input");
@@ -607,22 +599,22 @@ function addCompetition() {
 	tbody.id = "competition_" + nextId + "_tbody";
 	
 	row = document.createElement("tr");
-	
+	row.id = "competition_" + nextId + "_tr_women";
 	col = document.createElement("td");
 	col.colSpan = "5";
 	col.style.fontStyle = "italic";
 	
 	var span = document.createElement("div");
-	span.appendChild(document.createTextNode(womenHeader));
+	span.appendChild(document.createTextNode(translations["headerWomen"]));
 	
 	col.appendChild(span);
 	
-	var image = document.createElement("img");
-	image.src = "system/modules/TriathlonResultsManager/assets/woman_add.png";
-	image.alt = buttonAddWomanTitle;
-	image.title = buttonAddWomanTitle;
+	image = document.createElement("img");
+	image.src = translations["buttonAddWomanImage"];
+	image.alt = translations["buttonAddWomanTitle"];
+	image.title = translations["buttonAddWomanTitle"];
 	
-	var link = document.createElement("a");
+	link = document.createElement("a");
 	link.href = "javascript:addWomanRow('competition_" + nextId + "_tbody', 'competition_" + nextId + "_tr_men');";
 	link.className = "add";
 	link.appendChild(image);
@@ -631,9 +623,9 @@ function addCompetition() {
 	col.appendChild(document.createTextNode(" "));
 	
 	image = document.createElement("img");
-	image.src = "system/modules/TriathlonResultsManager/assets/woman_del.png";
-	image.alt = buttonDelWomanTitle;
-	image.title = buttonDelWomanTitle;
+	image.src = translations["buttonDelWomanImage"];
+	image.alt = translations["buttonDelWomanTitle"];
+	image.title = translations["buttonDelWomanTitle"];
 	
 	link = document.createElement("a");
 	link.href = "javascript:delWomanRow('competition_" + nextId + "_tbody', 'competition_" + nextId + "_tr_men');";
@@ -651,14 +643,14 @@ function addCompetition() {
 	col.style.fontStyle = "italic";
 	
 	var span = document.createElement("div");
-	span.appendChild(document.createTextNode(menHeader));
+	span.appendChild(document.createTextNode(translations["headerMen"]));
 	
 	col.appendChild(span);
 	
 	image = document.createElement("img");
-	image.src = "system/modules/TriathlonResultsManager/assets/man_add.png";
-	image.alt = buttonAddManTitle;
-	image.title = buttonAddManTitle;
+	image.src = translations["buttonAddManImage"];
+	image.alt = translations["buttonAddManTitle"];
+	image.title = translations["buttonAddManTitle"];
 	
 	link = document.createElement("a");
 	link.href = "javascript:addManRow('competition_" + nextId + "_tbody');";
@@ -669,9 +661,9 @@ function addCompetition() {
 	col.appendChild(document.createTextNode(" "));
 	
 	image = document.createElement("img");
-	image.src = "system/modules/TriathlonResultsManager/assets/man_del.png";
-	image.alt = buttonDelManTitle;
-	image.title = buttonDelManTitle;
+	image.src = translations["buttonDelManImage"];
+	image.alt = translations["buttonDelManTitle"];
+	image.title = translations["buttonDelManTitle"];
 	
 	link = document.createElement("a");
 	link.href = "javascript:delManRow('competition_" + nextId + "_tbody');";
@@ -723,36 +715,38 @@ function delManRow(tbodyId) {
 }
 
 // Create new row
-function getRow(array) {
+function getRow(members) {
 	var row = document.createElement("tr");
 	row.className="member";
 	
 	var col = document.createElement("td");
 	col.className="member";
-	col.appendChild(getMemberSelectBox(array));
-	
-	col.appendChild(document.createTextNode("\u00A0"));
+	col.appendChild(getMemberSelectBox(members));
 
-	var button = document.createElement("button");
-	button.onclick = function () {moveRowUp(this);};
-	button.title = "Zeile nach oben verschieben";
-	button.appendChild(document.createTextNode("\u2191"));
-	button.tabIndex="-1";
-	button.className="moveBtn";
-	col.appendChild(button);
+	var image = document.createElement("img");
+	image.src = translations["buttonMoveUpResultImage"];
+	image.alt = translations["buttonMoveUpResultTitle"];
+	image.title = translations["buttonMoveUpResultTitle"];
 	
-	col.appendChild(document.createTextNode("\u00A0"));
+	var link = document.createElement("a");
+	link.onclick = function () {moveResultUp(this);};
+	link.className = "moveBtn moveDownBtn";
+	link.appendChild(image);
+	col.appendChild(link);
+
+	image = document.createElement("img");
+	image.src = translations["buttonMoveDownResultImage"];
+	image.alt = translations["buttonMoveDownResultTitle"];
+	image.title = translations["buttonMoveDownResultTitle"];
 	
-	button = document.createElement("button");
-	button.onclick = function () {moveRowDown(this);};
-	button.title = "Zeile nach unten verschieben";
-	button.appendChild(document.createTextNode("\u2193"));
-	button.tabIndex="-1";
-	button.className="moveBtn";
-	col.appendChild(button);
+	link = document.createElement("a");
+	link.onclick = function () {moveResultDown(this);};
+	link.className = "moveBtn moveDownBtn";
+	link.appendChild(image);
+	col.appendChild(link);
 	
 	row.appendChild(col);
-	
+	//TODO weiter
 	col = document.createElement("td");
 	col.appendChild(getSmallInput(2, "Gesamtzeit: Stunden"));
 	col.appendChild(document.createTextNode(":"));
@@ -807,7 +801,7 @@ function getMedalString(placing, overallPlacing) {
 	}
 }
 
-function moveRowUp(srcButton) {
+function moveResultUp(srcButton) {
 	var actRow = srcButton.parentNode.parentNode;
 	var previousRow = actRow.previousSibling;
 	var tbody = actRow.parentNode;
@@ -817,7 +811,7 @@ function moveRowUp(srcButton) {
 	}
 }
 
-function moveRowDown(srcButton) {
+function moveResultDown(srcButton) {
 	var actRow = srcButton.parentNode.parentNode;
 	var nextRow = actRow.nextSibling;
 	var tbody = actRow.parentNode;
@@ -850,18 +844,17 @@ function moveCompetitionDown(srcButton) {
 		} else {
 			document.getElementById("competitions").insertBefore(actTable, nextTable.nextSibling);
 		}
-		
 	}
 }
 
 function addCompetitionTemplateValues (select) {
 	var optionEmpty = document.createElement("option");
 	optionEmpty.value = "";
-	optionEmpty.appendChild(document.createTextNode(selectCompetitionTemplateFirstOption));
+	optionEmpty.appendChild(document.createTextNode(translations["selectCompetitionTemplateFirstOption"]));
 	select.appendChild(optionEmpty);
 	
 	var optGroup = document.createElement("optgroup");
-	optGroup.label = selectCompetitionTemplateOptgroup;
+	optGroup.label = translations["selectCompetitionTemplateOptgroup"];
 	
 	for (var i = 0; i < competitionTemplates.length; i++) {
 		var option = document.createElement("option");
@@ -886,14 +879,14 @@ var competitionTemplates = new Array(
 "Marathon",
 "24-Stunden-Schwimmen");
 
-function getMemberSelectBox(array) {
+function getMemberSelectBox(members) {
 	var select = document.createElement("select");
 	select.title = "Auswahl der Starter";
 	var option = null;
-	for (var i = 0; i < array.length; i++) {
+	for (var id in members) {
 		option = document.createElement("option");
-		option.value = array[i];
-		option.appendChild(document.createTextNode(array[i]));
+		option.value = id;
+		option.appendChild(document.createTextNode(members[id]));
 		select.appendChild(option);
 	}
 	actMemberSelect = select;
