@@ -43,6 +43,7 @@ $GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerSortReportDateField']  
 $GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerSortReportDateDirection']      = array('Sortierrichtung des Datumswerts', 'Wählen Sie die Richtung für die Sortierung des Datumswerts aus.');
 $GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerSortResultRatingTypeOrder']    = array('Sortierung der Wertungstypen', 'Geben Sie die Sortierung der Wertungstypen an. Alle Checkboxen müssen selektiert sein. Ändern Sie die Reihenfolge durch verschieben der Checkboxen.');
 $GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerTplUseIconsForDisciplines']    = array('Icons für Disziplinen verwenden', 'Geben Sie an, ob die Diziplinen als Icons dargestellt werden sollen.');
+$GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerTplUseDefaultCss']             = array('Default CSS verwenden', 'Geben Sie an, ob das Default CSS verwendet werden soll.');
 
 /**
  * Legends

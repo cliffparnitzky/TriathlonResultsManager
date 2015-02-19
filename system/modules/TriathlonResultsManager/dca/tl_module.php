@@ -30,7 +30,7 @@
 /**
  * Add palettes to tl_module
  */
-$GLOBALS['TL_DCA']['tl_module']['palettes']['triathlonResultsManagerReport']    = '{title_legend},name,headline,type;{triathlonResultsManagerFilterSort_legend},triathlonResultsManagerFilterMemberGroups;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_module']['palettes']['triathlonResultsManagerReport']    = '{title_legend},name,headline,type;{triathlonResultsManagerFilterSort_legend},triathlonResultsManagerFilterMemberGroups;{template_legend:hide},customTpl,triathlonResultsManagerTplUseDefaultCss;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['triathlonResultsManagerResults']   = '{title_legend},name,headline,type;{triathlonResultsManagerFilterSort_legend},triathlonResultsManagerFilterReportEventDateStart,triathlonResultsManagerFilterReportEventDateEnd,triathlonResultsManagerFilterReportEventType,triathlonResultsManagerFilterReportEvent,triathlonResultsManagerFilterCompetitionType,triathlonResultsManagerSortReportDateField,triathlonResultsManagerSortReportDateDirection,triathlonResultsManagerSortResultRatingTypeOrder;{template_legend:hide},customTpl,triathlonResultsManagerTplUseIconsForDisciplines;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['triathlonResultsManagerMyReports'] = '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 $GLOBALS['TL_DCA']['tl_module']['palettes']['triathlonResultsManagerMyResults'] = '{title_legend},name,headline,type;{template_legend:hide},customTpl;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
@@ -170,6 +170,14 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerSortResultRati
 $GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerTplUseIconsForDisciplines'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerTplUseIconsForDisciplines'],
+	'exclude'                 => true,
+	'inputType'               => 'checkbox',
+	'eval'                    => array('tl_class'=>'clr w50'),
+	'sql'                     => "char(1) NOT NULL default ''"
+);
+$GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerTplUseDefaultCss'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerTplUseDefaultCss'],
 	'exclude'                 => true,
 	'inputType'               => 'checkbox',
 	'eval'                    => array('tl_class'=>'clr w50'),
