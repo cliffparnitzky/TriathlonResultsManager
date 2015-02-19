@@ -24,15 +24,15 @@
 			<?php endforeach; ?>
 		</select>
 	</fieldset>
-	
+
 	<!-- Competitions -->
 	<fieldset id="competitions">
 		<legend>
 			<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['competition_header']; ?>
-			<a href="javascript:addCompetition();" class="add"><img src="system/modules/TriathlonResultsManager/assets/competition_add.png" alt="title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_competition_title']; ?>"" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_competition_title']; ?>" /></a>
-			<a href="javascript:delCompetition();" class="del"><img src="system/modules/TriathlonResultsManager/assets/competition_del.png" alt="title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_competition_title']; ?>"" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_competition_title']; ?>" /></a></legend>
+			<a onclick="addCompetition();" class="action-button add-button add-competition-button"><img src="system/modules/TriathlonResultsManager/assets/competition_add.png" alt="title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_competition_title']; ?>"" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_add_competition_title']; ?>" /></a>
+			<a onclick="delCompetition();" class="action-button del-button del-competition-button"><img src="system/modules/TriathlonResultsManager/assets/competition_del.png" alt="title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_competition_title']; ?>"" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_del_competition_title']; ?>" /></a></legend>
 	</fieldset>
-	
+
 	<!-- Preview -->
 	<fieldset style="float: left; width: 47%;">
 	<legend>Vorschau</legend>
@@ -50,9 +50,9 @@
 		&nbsp;
 		<input class="actionBtn" type="button" onclick="generateHTML(); showErrorMsg();" value="Vorschau" title="Erzeugt anhand der eingegebenen Daten eine Vorschau"/>
 		&nbsp;
-		<input class="actionBtn" type="button" onclick="generateXML(); showErrorMsg();" value="XML generieren" title="Erzeugt den XML Code für den Web Content"/>
+		<input class="actionBtn" type="button" onclick="generateXML(); showErrorMsg();" value="XML generieren" title="Erzeugt den XML Code fï¿½r den Web Content"/>
 		&nbsp;
-		<input class="actionBtn" type="button" onclick="reportResults();" value="Ergebnisse melden" title="Versendet die eingegebenen Daten an den Webseiten Administrator. Nach einer Prüfung der Ergebnismeldung werden diese veröffentlicht."/>
+		<input class="actionBtn" type="button" onclick="reportResults();" value="Ergebnisse melden" title="Versendet die eingegebenen Daten an den Webseiten Administrator. Nach einer Prï¿½fung der Ergebnismeldung werden diese verï¿½ffentlicht."/>
 	</fieldset>
 
 </div>
