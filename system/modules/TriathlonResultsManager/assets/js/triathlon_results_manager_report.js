@@ -11,21 +11,21 @@ var actCompetitionId = 0;
 var errorCount = 0;
 
 function getXML() {
-	
+
 	var competitions = getCompetitions();
 	if (competitions == null || competitions.length < 1) {
 		return "";
 	}
-	
+
 	var resultXML = '';
-	
+
 	resultXML += getXMLRow('	<paragraph>');
 	resultXML += getXMLRow('		<title>' + parseFieldValue(document.getElementById("dateDay"), true) + '.' + parseFieldValue(document.getElementById("dateMonth"), true) + '.' + parseFieldValue(document.getElementById("dateYear"), true) + ' : ' + parseTextFieldValue(document.getElementById("eventName")) + '</title>');
 	resultXML += getXMLRow('		<text><![CDATA[');
 	resultXML += competitions;
 	resultXML += getXMLRow('		]]></text>');
 	resultXML += getXMLRow('	</paragraph>');
-	
+
 	return resultXML;
 }
 
@@ -43,7 +43,7 @@ function reportResults()
 {
 	errorCount = 0;
 	var xml = getXML();
-	
+
 	if (errorCount > 0) {
 		showErrorMsg();
 	}
@@ -51,7 +51,7 @@ function reportResults()
 	{
 		if (document.getElementById("sendDialog") == null) {
 			handleOverlay(true);
-			
+
 			var dialog = document.createElement("div");
 			dialog.id = "sendDialog";
 			dialog.style.width = "380px";
@@ -64,7 +64,7 @@ function reportResults()
 			dialog.style.border = "2px solid #afafaf";
 			dialog.style.background = "#ffffff";
 			dialog.style.padding = "5px";
-			
+
 			var headline = document.createElement("div");
 			headline.style.fontSize = "12px";
 			headline.style.fontWeight = "bold";
@@ -75,11 +75,11 @@ function reportResults()
 			input.style.height = "340px";
 			input.style.marginTop = "10px";
 			input.style.marginBottom = "10px";
-			
+
 			{
 				var userLabel = document.createElement("div");
 				userLabel.style.fontStyle = "italic";
-				userLabel.innerHTML = "Name<span class=\"mandatory\" title=\"Pflichtfeld: Bitte einen Eintrag aus der Liste auswählen.\">*</span>";
+				userLabel.innerHTML = "Name<span class=\"mandatory\" title=\"Pflichtfeld: Bitte einen Eintrag aus der Liste auswï¿½hlen.\">*</span>";
 				input.appendChild(userLabel);
 
 				var allUser = women.slice();
@@ -97,11 +97,11 @@ function reportResults()
 					userSelect.appendChild(userOption);
 				}
 				input.appendChild(userSelect);
-				
+
 				var eventTypeLabel = document.createElement("div");
 				eventTypeLabel.style.fontStyle = "italic";
 				eventTypeLabel.style.paddingTop = "10px";
-				eventTypeLabel.innerHTML = "Veranstaltungsart<span class=\"mandatory\" title=\"Pflichtfeld: Bitte einen Eintrag aus der Liste auswählen.\">*</span>";
+				eventTypeLabel.innerHTML = "Veranstaltungsart<span class=\"mandatory\" title=\"Pflichtfeld: Bitte einen Eintrag aus der Liste auswï¿½hlen.\">*</span>";
 				input.appendChild(eventTypeLabel);
 
 				var eventTypeSelect = document.createElement("select");
@@ -138,15 +138,15 @@ function reportResults()
 					completenessCheckboxGeneral.id = "completenessCheckboxGeneral";
 					completenessCheckboxGeneral.setAttribute("class", "completeness");
 					completenessLabelGeneral.appendChild(completenessCheckboxGeneral);
-					
+
 					var completenessTextGeneral = document.createElement("label");
 					completenessTextGeneral.setAttribute("for", "completenessCheckboxGeneral");
 					completenessTextGeneral.setAttribute("class", "completeness");
-					completenessTextGeneral.innerHTML = "Ja, die Ergebnismeldung ist vollständig.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestätigen.\">*</span>";
+					completenessTextGeneral.innerHTML = "Ja, die Ergebnismeldung ist vollstï¿½ndig.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestï¿½tigen.\">*</span>";
 					completenessLabelGeneral.appendChild(completenessTextGeneral);
 				}
 				input.appendChild(completenessLabelGeneral);
-				
+
 				var completenessLabelCompetitions = document.createElement("div");
 				completenessLabelCompetitions.setAttribute("class", "completeness");
 				{
@@ -155,15 +155,15 @@ function reportResults()
 					completenessCheckboxCompetitions.id = "completenessCheckboxCompetitions";
 					completenessCheckboxCompetitions.setAttribute("class", "completeness");
 					completenessLabelCompetitions.appendChild(completenessCheckboxCompetitions);
-					
+
 					var completenessTextCompetitions = document.createElement("label");
 					completenessTextCompetitions.setAttribute("for", "completenessCheckboxCompetitions");
 					completenessTextCompetitions.setAttribute("class", "completeness");
-					completenessTextCompetitions.innerHTML = "Ja, ich habe <b><u>alle Wettbewerbe</u></b>, die stattgefunden haben, eingetragen.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestätigen.\">*</span>";
+					completenessTextCompetitions.innerHTML = "Ja, ich habe <b><u>alle Wettbewerbe</u></b>, die stattgefunden haben, eingetragen.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestï¿½tigen.\">*</span>";
 					completenessLabelCompetitions.appendChild(completenessTextCompetitions);
 				}
 				input.appendChild(completenessLabelCompetitions);
-				
+
 				var completenessLabelMembers = document.createElement("div");
 				completenessLabelMembers.setAttribute("class", "completeness");
 				{
@@ -172,28 +172,28 @@ function reportResults()
 					completenessCheckboxMembers.id = "completenessCheckboxMembers";
 					completenessCheckboxMembers.setAttribute("class", "completeness");
 					completenessLabelMembers.appendChild(completenessCheckboxMembers);
-					
+
 					var completenessTextMembers = document.createElement("label");
 					completenessTextMembers.setAttribute("for", "completenessCheckboxMembers");
 					completenessTextMembers.setAttribute("class", "completeness");
-					completenessTextMembers.innerHTML = "Ja, ich habe <b><u>alle Vereinsmitglieder</u></b>, die teilgenommen haben, eingetragen.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestätigen.\">*</span>";
+					completenessTextMembers.innerHTML = "Ja, ich habe <b><u>alle Vereinsmitglieder</u></b>, die teilgenommen haben, eingetragen.<span class=\"mandatory\" title=\"Pflichtfeld: Bitte bestï¿½tigen.\">*</span>";
 					completenessLabelMembers.appendChild(completenessTextMembers);
 				}
 				input.appendChild(completenessLabelMembers);
-				
+
 				var infoMandatory = document.createElement("div");
 				infoMandatory.setAttribute("class", "info");
 				infoMandatory.innerHTML = "<span class=\"mandatory\">*</span> mit einem roten Stern gekennzeichnete Felder sind Pflichtfelder";
 				input.appendChild(infoMandatory);
-				
+
 			}
-			
+
 			dialog.appendChild(input);
 
 			var buttons = document.createElement("div");
 			buttons.style.width = "100%";
 			buttons.style.textAlign = "center";
-			
+
 			{
 				var buttonAbort = document.createElement("input");
 				buttonAbort.className = "actionBtn";
@@ -201,7 +201,7 @@ function reportResults()
 				buttonAbort.value = "Abbrechen";
 				buttonAbort.onclick = function () {document.getElementById("body").removeChild(document.getElementById("sendDialog")); handleOverlay(false);};
 				buttons.appendChild(buttonAbort);
-				
+
 				buttons.appendChild(document.createTextNode(" "));
 
 				var buttonSend = document.createElement("input");
@@ -211,11 +211,11 @@ function reportResults()
 				buttonSend.onclick = function () {sendResults(xml);};
 				buttons.appendChild(buttonSend);
 			}
-			
+
 			dialog.appendChild(buttons);
-			
+
 			document.getElementById("body").appendChild(dialog);
-			
+
 			document.getElementById("userSelect").focus();
 		}
 	}
@@ -243,25 +243,25 @@ function showHintCheckLastSend() {
 	lastSend.style.position = "absolute";
 	lastSend.style.width = "300px";
 	lastSend.style.zIndex = "10000";
-	
+
 	var hint = document.createElement("div");
 	hint.id = "hintCheckLastSend";
 	hint.className = "hint";
-	
+
 	var text = document.createElement("div");
 	text.id = "hintCheckLastSendText";
-	text.innerHTML = "Erst prüfen,<br>ob für den Wettkampf bereits eine Ergebnismeldung vorliegt!!!";
+	text.innerHTML = "Erst prï¿½fen,<br>ob fï¿½r den Wettkampf bereits eine Ergebnismeldung vorliegt!!!";
 	hint.appendChild(text);
-	
+
 	var buttonWillDo = document.createElement("button");
 	buttonWillDo.className = "actionBtn";
 	buttonWillDo.type = "button";
 	buttonWillDo.onclick = function () {closeHintCheckLastSend();};
 	buttonWillDo.innerHTML = "&#10003;<br/>Ja, werde ich machen!";
 	hint.appendChild(buttonWillDo);
-	
+
 	document.getElementById("body").appendChild(hint);
-	
+
 	hint.style.top = (lastSendTop - hint.offsetHeight) + "px";
 	hint.style.left = (lastSendRight - 150) + "px";
 }
@@ -275,7 +275,7 @@ function closeHintCheckLastSend() {
 	lastSend.style.position = "";
 	lastSend.style.width = "";
 	lastSend.style.zIndex = "";
-	
+
 	showHintReadHelp();
 }
 
@@ -284,32 +284,32 @@ function showHintReadHelp() {
 
 	var helpTop = help.offsetTop;
 	var helpRight = help.offsetLeft + help.offsetWidth;
-	
+
 	help.style.border = "10px solid #FFFFBD";
 	help.style.borderRadius = "15px";
 	help.style.boxShadow = "0 0 84px #FFFFBD";
 	help.style.position = "absolute";
 	help.style.width = "300px";
 	help.style.zIndex = "10000";
-	
+
 	var hint = document.createElement("div");
 	hint.id = "hintReadHelp";
 	hint.className = "hint";
-	
+
 	var text = document.createElement("div");
 	text.id = "hintReadHelpText";
 	text.innerHTML = "Kein Plan?<br/>Dann die Hilfe lesen!!!<br/>Oder das <a href=\"Ergebnis_melden.avi\" target=\"_blank\">Video</a> ansehen!!!";
 	hint.appendChild(text);
-	
+
 	var buttonWillDo = document.createElement("button");
 	buttonWillDo.className = "actionBtn";
 	buttonWillDo.type = "button";
 	buttonWillDo.onclick = function () {closeHintReadHelp();};
 	buttonWillDo.innerHTML = "&#10003;<br/>Ja, werde ich machen!";
 	hint.appendChild(buttonWillDo);
-	
+
 	document.getElementById("body").appendChild(hint);
-	
+
 	hint.style.top = (helpTop - hint.offsetHeight + 50) + "px";
 	hint.style.left = (helpRight - 150) + "px";
 }
@@ -327,12 +327,12 @@ function closeHintReadHelp() {
 }
 
 function sendResults(xml) {
-	if (document.getElementById("userSelect").selectedIndex > 0 && 
-		document.getElementById("eventTypeSelect").selectedIndex > 0 && 
-		document.getElementById("completenessCheckboxGeneral").checked && 
-		document.getElementById("completenessCheckboxCompetitions").checked && 
+	if (document.getElementById("userSelect").selectedIndex > 0 &&
+		document.getElementById("eventTypeSelect").selectedIndex > 0 &&
+		document.getElementById("completenessCheckboxGeneral").checked &&
+		document.getElementById("completenessCheckboxCompetitions").checked &&
 		document.getElementById("completenessCheckboxMembers").checked) {
-	
+
 		var user = document.getElementById("userSelect").options[document.getElementById("userSelect").selectedIndex].value;
 		var eventName = document.getElementById("eventName").value;
 		var eventType = document.getElementById("eventTypeSelect").options[document.getElementById("eventTypeSelect").selectedIndex].value;
@@ -344,40 +344,40 @@ function sendResults(xml) {
 		params.push(["3_Veranstaltungsart", eventType]);
 		params.push(["4_Kommentar", "\n\n" + comment + "\n"]);
 		params.push(["5_XML", "\n\n" + xml]);
-		
+
 		doAjaxRequest("php/formmailer.php", params, function handleAjax(){resultsSendHandler()});
-		
+
 		document.getElementById("body").removeChild(document.getElementById("sendDialog"));
 		handleOverlay(false);
 	}
 	else {
-		alert("Bitte wähle deinen Namen sowie die Veranstaltungsart aus und bestätige die Vollständigkeit der Ergebnismeldung.");
+		alert("Bitte wï¿½hle deinen Namen sowie die Veranstaltungsart aus und bestï¿½tige die Vollstï¿½ndigkeit der Ergebnismeldung.");
 		document.getElementById("userSelect").focus();
 	}
 }
 
 function showErrorMsg() {
 	if (errorCount > 0) {
-		alert("Es wurden " + errorCount + " fehlende oder fehlerhafte Eingaben gefunden.\nBitte korrigieren bzw. ergänzen Sie diese Felder!");
+		alert("Es wurden " + errorCount + " fehlende oder fehlerhafte Eingaben gefunden.\nBitte korrigieren bzw. ergï¿½nzen Sie diese Felder!");
 	}
 }
 
 function getCompetitions() {
 	var result = '';
-	
+
 	if (document.getElementById("competitions").getElementsByTagName("table").length < 1) {
 		alert("Es sind keine Wettbewerbe angelegt. Bitte korrigiere deine Eingaben.");
 		errorCount = 0;
 		return "";
 	}
-	
+
 	for (var a = 0; a < document.getElementById("competitions").getElementsByTagName("table").length; a++) {
 		var actId = document.getElementById("competitions").getElementsByTagName("table")[a].id;
-	
+
 		if (a > 0) {
 			result += getXMLRow('		<br/><br/>');
 		}
-	
+
 		result += getXMLRow('		<table class="resultTable" border="0" cellpadding="5" cellspacing="0" width="100%">');
 		result += getXMLRow('			<thead>');
 		result += getXMLRow('				<tr style="font-size: 1.1em; text-align: center;">');
@@ -386,19 +386,19 @@ function getCompetitions() {
 		result += getXMLRow('				<tr>');
 		result += getXMLRow('					<td style="border-bottom: 1px solid #000000;">Teilnehmer</td>');
 		result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="20%">Zeit</td>');
-		
+
 		if (document.getElementById("competition_" + actId + "_placingAgeGroup").checked) {
 			result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="20%">Platz Gesamt (M/W)</td>');
 			result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="20%">Platz Altersklasse</td>');
 		} else {
 			result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="40%">Platz Gesamt (M/W)</td>');
-		
+
 		}
-		
+
 		result += getXMLRow('				</tr>');
 		result += getXMLRow('			</thead>');
 		result += getXMLRow('			<tbody>');
-		
+
 		var actNode = document.getElementById("competition_" + actId + "_tbody").firstChild.nextSibling;
 		var womenFinished = false;
 		var womanAdded = false;
@@ -419,17 +419,17 @@ function getCompetitions() {
 					else {
 						if(!manAdded && actNode.getElementsByTagName("select")[0].selectedIndex  > 0) {
 							result += getXMLRow('				<tr>');
-							result += getXMLRow('					<td colspan="5" style="font-style: italic;">Männer</a></td>');
+							result += getXMLRow('					<td colspan="5" style="font-style: italic;">Mï¿½nner</a></td>');
 							result += getXMLRow('				</tr>');
 							manAdded = true;
 						}
-					
+
 					}
-					
+
 					var timeHours = parseFieldValue(actNode.getElementsByTagName("input")[0], true);
 					var timeMinutes = parseFieldValue(actNode.getElementsByTagName("input")[1], true);
 					var timeSeconds = parseFieldValue(actNode.getElementsByTagName("input")[2], true);
-					
+
 					// add member
 					result += getXMLRow('				<tr>');
 					result += getXMLRow('					<td class="member">' + actNode.getElementsByTagName("select")[0].options[actNode.getElementsByTagName("select")[0].selectedIndex].value + '</td>');
@@ -455,24 +455,24 @@ function getCompetitions() {
 			}
 			actNode = actNode.nextSibling;
 		}
-		
+
 		if (!womanAdded && !manAdded) {
 			alert("Es wurde mindestens 1 Wettbewerb ohne Teilnehmer gefunden. Bitte korrigiere deine Eingaben.");
 			errorCount = 0;
 			return "";
 		}
-		
-		
+
+
 		result += getXMLRow('			</tbody>');
 		result += getXMLRow('		</table>');
 	}
-	
+
 	return result;
 }
 
 function parseFieldValue (field, addLeadingZeros) {
 	var value = parseInt(field.value, 10);
-	
+
 	if (isNaN(value)) {
 		errorCount++;
 		return "<span style='color: red; font-weight: bold;'>???</span>"
@@ -490,7 +490,7 @@ function parseFieldValue (field, addLeadingZeros) {
 
 function parseTextFieldValue (field) {
 	var value = field.value;
-	
+
 	if (value == null || value.length < 1) {
 		errorCount++;
 		return "<span style='color: red; font-weight: bold;'>???</span>"
@@ -507,19 +507,19 @@ function getXMLRow(row) {
 // Adding and deleting competitions
 function addCompetition() {
 	var nextId = actCompetitionId++;
-	
+
 	var table = document.createElement("table");
 	table.className = "inputTable";
 	table.id = nextId;
-	
+
 	var thead = document.createElement("thead");
-	
+
 	var row = document.createElement("tr");
-	
+
 	var col = document.createElement("th");
 	col.colSpan = "5";
 	col.className = "head col_0 col_first col_last";
-	
+
 	var input = document.createElement("input");
 	input.title = translations["inputCompetitionNameTitle"];
 	input.id = "competition_" + nextId + "_title";
@@ -531,153 +531,153 @@ function addCompetition() {
 	image.src = translations["buttonMoveUpCompetitionImage"];
 	image.alt = translations["buttonMoveUpCompetitionTitle"];
 	image.title = translations["buttonMoveUpCompetitionTitle"];
-	
+
 	var link = document.createElement("a");
 	link.onclick = function () {moveCompetitionUp(this);};
-	link.className = "moveBtn moveUpBtn";
+	link.className = "action-button move-button move-up-button move-competition-up-button";
 	link.appendChild(image);
 	col.appendChild(link);
-	
+
 	image = document.createElement("img");
 	image.src = translations["buttonMoveDownCompetitionImage"];
 	image.alt = translations["buttonMoveDownCompetitionTitle"];
 	image.title = translations["buttonMoveDownCompetitionTitle"];
-	
+
 	link = document.createElement("a");
 	link.onclick = function () {moveCompetitionDown(this);};
-	link.className = "moveBtn moveDownBtn";
+	link.className = "action-button move-button move-down-button move-competition-down-button";
 	link.appendChild(image);
 	col.appendChild(link);
-	
+
 	var competitionTemplateSelect = document.createElement("select");
 	competitionTemplateSelect.title = translations["selectCompetitionTemplateTitle"];
 	competitionTemplateSelect.onchange = function () {document.getElementById("competition_" + nextId + "_title").value = this.options[this.selectedIndex].value};
 	addCompetitionTemplateValues(competitionTemplateSelect);
 	col.appendChild(competitionTemplateSelect);
-	
+
 	row.appendChild(col);
 	thead.appendChild(row);
-	
+
 	row = document.createElement("tr");
-	
+
 	col = document.createElement("th");
 	col.className = "head col_0 col_first";
 	col.appendChild(document.createTextNode(translations["tableHeadStarters"]));
 	row.appendChild(col);
-	
+
 	col = document.createElement("th");
 	col.className = "head col_1 col_time";
 	col.appendChild(document.createTextNode(translations["tableHeadTime"]));
 	row.appendChild(col);
-	
+
 	col = document.createElement("th");
 	col.className = "head col_2 col_place";
 	col.appendChild(document.createTextNode(translations["tableHeadOverallPlace"]));
 	row.appendChild(col);
-	
+
 	col = document.createElement("th");
 	col.className = "head col_3 col_place col_last";
-	
+
 	var label = document.createElement("label");
 	label.setAttribute("for", "competition_" + nextId + "_placingAgeGroup");
 	label.appendChild(document.createTextNode(translations["tableHeadAgeGroupPlace"]));
 	col.appendChild(label);
-	
+
 	var checkBox = document.createElement("input");
 	checkBox.title = "Angabe der Altersklassenwertung: Falls keine Altersklassenwertung existiert bitte hier deselektiert.";
 	checkBox.type = "checkbox";
 	checkBox.id = "competition_" + nextId + "_placingAgeGroup";
 	col.appendChild(checkBox);
-	
+
 	row.appendChild(col);
-	
+
 	thead.appendChild(row);
-	
+
 	table.appendChild(thead);
-	
+
 	var tbody = document.createElement("tbody");
 	tbody.id = "competition_" + nextId + "_tbody";
-	
+
 	row = document.createElement("tr");
 	row.id = "competition_" + nextId + "_tr_women";
 	col = document.createElement("td");
 	col.colSpan = "5";
 	col.style.fontStyle = "italic";
-	
+
 	var span = document.createElement("div");
 	span.appendChild(document.createTextNode(translations["headerWomen"]));
-	
+
 	col.appendChild(span);
-	
+
 	image = document.createElement("img");
 	image.src = translations["buttonAddWomanImage"];
 	image.alt = translations["buttonAddWomanTitle"];
 	image.title = translations["buttonAddWomanTitle"];
-	
+
 	link = document.createElement("a");
-	link.href = "javascript:addWomanRow('competition_" + nextId + "_tbody', 'competition_" + nextId + "_tr_men');";
-	link.className = "add";
+	link.href = "javascript:addResultWoman('competition_" + nextId + "_tbody', 'competition_" + nextId + "_tr_men');";
+	link.className = "action-button add-button add-result-button add-result-woman-button";
 	link.appendChild(image);
 	col.appendChild(link);
-	
+
 	col.appendChild(document.createTextNode(" "));
-	
+
 	image = document.createElement("img");
 	image.src = translations["buttonDelWomanImage"];
 	image.alt = translations["buttonDelWomanTitle"];
 	image.title = translations["buttonDelWomanTitle"];
-	
+
 	link = document.createElement("a");
-	link.href = "javascript:delWomanRow('competition_" + nextId + "_tbody', 'competition_" + nextId + "_tr_men');";
-	link.className = "del";
+	link.href = "javascript:delResultWoman('competition_" + nextId + "_tbody', 'competition_" + nextId + "_tr_men');";
+	link.className = "action-button del-button del-result-button del-result-woman-button";
 	link.appendChild(image);
 	col.appendChild(link);
-	
+
 	row.appendChild(col);
 	tbody.appendChild(row);
-	
+
 	row = document.createElement("tr");
 	row.id = "competition_" + nextId + "_tr_men";
 	col = document.createElement("td");
 	col.colSpan = "5";
 	col.style.fontStyle = "italic";
-	
+
 	var span = document.createElement("div");
 	span.appendChild(document.createTextNode(translations["headerMen"]));
-	
+
 	col.appendChild(span);
-	
+
 	image = document.createElement("img");
 	image.src = translations["buttonAddManImage"];
 	image.alt = translations["buttonAddManTitle"];
 	image.title = translations["buttonAddManTitle"];
-	
+
 	link = document.createElement("a");
-	link.href = "javascript:addManRow('competition_" + nextId + "_tbody');";
-	link.className = "add";
+	link.href = "javascript:addResultMan('competition_" + nextId + "_tbody');";
+	link.className = "action-button add-button add-result-button add-result-man-button";
 	link.appendChild(image);
 	col.appendChild(link);
-	
+
 	col.appendChild(document.createTextNode(" "));
-	
+
 	image = document.createElement("img");
 	image.src = translations["buttonDelManImage"];
 	image.alt = translations["buttonDelManTitle"];
 	image.title = translations["buttonDelManTitle"];
-	
+
 	link = document.createElement("a");
-	link.href = "javascript:delManRow('competition_" + nextId + "_tbody');";
-	link.className = "del";
+	link.href = "javascript:delResultMan('competition_" + nextId + "_tbody');";
+	link.className = "action-button del-button del-result-button del-result-man-button";
 	link.appendChild(image);
 	col.appendChild(link);
-	
+
 	row.appendChild(col);
 	tbody.appendChild(row);
-	
+
 	table.appendChild(tbody);
-		
+
 	document.getElementById("competitions").appendChild(table);
-	
+
 	document.getElementById("competition_" + nextId + "_placingAgeGroup").checked = true;
 }
 
@@ -689,12 +689,12 @@ function delCompetition() {
 }
 
 // Adding and deleting women rows
-function addWomanRow(tbodyId, trId) {
-	document.getElementById(tbodyId).insertBefore(getRow(women), document.getElementById(trId));
+function addResultWoman(tbodyId, trId) {
+	document.getElementById(tbodyId).insertBefore(getResultRow(women), document.getElementById(trId));
 	focusActMemberSelect();
 }
 
-function delWomanRow(tbodyId, trId) {
+function delResultWoman(tbodyId, trId) {
 	var nodeToDelete = document.getElementById(trId).previousSibling;
 	if (nodeToDelete.firstChild.firstChild.firstChild.nodeType == 1) {
 		document.getElementById(tbodyId).removeChild(nodeToDelete);
@@ -702,12 +702,12 @@ function delWomanRow(tbodyId, trId) {
 }
 
 // Adding and deleting men rows
-function addManRow(tbodyId) {
-	document.getElementById(tbodyId).appendChild(getRow(men));
+function addResultMan(tbodyId) {
+	document.getElementById(tbodyId).appendChild(getResultRow(men));
 	focusActMemberSelect();
 }
 
-function delManRow(tbodyId) {
+function delResultMan(tbodyId) {
 	var nodeToDelete = document.getElementById(tbodyId).lastChild;
 	if (nodeToDelete.firstChild.firstChild.firstChild.nodeType == 1) {
 		document.getElementById(tbodyId).removeChild(nodeToDelete);
@@ -715,10 +715,10 @@ function delManRow(tbodyId) {
 }
 
 // Create new row
-function getRow(members) {
+function getResultRow(members) {
 	var row = document.createElement("tr");
 	row.className="member";
-	
+
 	var col = document.createElement("td");
 	col.className="member";
 	col.appendChild(getMemberSelectBox(members));
@@ -727,10 +727,10 @@ function getRow(members) {
 	image.src = translations["buttonMoveUpResultImage"];
 	image.alt = translations["buttonMoveUpResultTitle"];
 	image.title = translations["buttonMoveUpResultTitle"];
-	
+
 	var link = document.createElement("a");
 	link.onclick = function () {moveResultUp(this);};
-	link.className = "moveBtn moveDownBtn";
+	link.className = "action-button move-button move-up-button move-result-up-button";
 	link.appendChild(image);
 	col.appendChild(link);
 
@@ -738,13 +738,13 @@ function getRow(members) {
 	image.src = translations["buttonMoveDownResultImage"];
 	image.alt = translations["buttonMoveDownResultTitle"];
 	image.title = translations["buttonMoveDownResultTitle"];
-	
+
 	link = document.createElement("a");
 	link.onclick = function () {moveResultDown(this);};
-	link.className = "moveBtn moveDownBtn";
+	link.className = "action-button move-button move-down-button move-result-down-button";
 	link.appendChild(image);
 	col.appendChild(link);
-	
+
 	row.appendChild(col);
 	//TODO weiter
 	col = document.createElement("td");
@@ -792,7 +792,7 @@ function getMedalString(placing, overallPlacing) {
 		titlePart = "Altersklassenplatz";
 		medalType = "medal";
 	}
-	
+
 	switch (placing) {
 		case 1 : return ' <img src="pics/results/' + medalType + '_gold.png" title="1. ' + titlePart + '"/>';
 		case 2 : return ' <img src="pics/results/' + medalType + '_silver.png" title="2. ' + titlePart + '"/>';
@@ -852,18 +852,18 @@ function addCompetitionTemplateValues (select) {
 	optionEmpty.value = "";
 	optionEmpty.appendChild(document.createTextNode(translations["selectCompetitionTemplateFirstOption"]));
 	select.appendChild(optionEmpty);
-	
+
 	var optGroup = document.createElement("optgroup");
 	optGroup.label = translations["selectCompetitionTemplateOptgroup"];
-	
+
 	for (var i = 0; i < competitionTemplates.length; i++) {
 		var option = document.createElement("option");
 		option.value = competitionTemplates[i];
 		option.appendChild(document.createTextNode(competitionTemplates[i]));
-		
+
 		optGroup.appendChild(option);
 	}
-	
+
 	select.appendChild(optGroup);
 }
 
@@ -883,10 +883,10 @@ function getMemberSelectBox(members) {
 	var select = document.createElement("select");
 	select.title = "Auswahl der Starter";
 	var option = null;
-	for (var id in members) {
+	for (var i = 0; i < members.length; i++) {
 		option = document.createElement("option");
-		option.value = id;
-		option.appendChild(document.createTextNode(members[id]));
+		option.value = members[i]['id'];
+		option.appendChild(document.createTextNode(members[i]['name']));
 		select.appendChild(option);
 	}
 	actMemberSelect = select;
@@ -909,7 +909,7 @@ function focusActMemberSelect () {
  */
 var browserUrl = String(window.location);
 var baseUrl = browserUrl.substring(0, browserUrl.indexOf(".de") + 3) + "/";
- 
+
 function doAjaxRequest(url, params, handlerFunction)
 {
 	try
@@ -939,9 +939,9 @@ function doAjaxRequest(url, params, handlerFunction)
 	{
 		showErrorMessage("Error creating request object!");
 	}
-	
+
 	var paramString = "";
-	
+
 	if (params != null && params.length > 0)
 	{
 		for (var i = 0; i < params.length; i++)
@@ -949,22 +949,22 @@ function doAjaxRequest(url, params, handlerFunction)
 			paramString += encodeParam(params[i][0]);
 			paramString += "="
 			paramString += encodeParam(params[i][1]);
-			
+
 			if (i < (params.length - 1))
 			{
 				paramString += "&";
 			}
 		}
 	}
-	
+
 	req.open("POST", baseUrl + url, true);
 
 	req.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	req.setRequestHeader("Content-length", paramString.length);
 	req.setRequestHeader("Connection", "close");
-	
+
 	req.onreadystatechange = handlerFunction;
-	
+
 	req.send(paramString);
 
 }

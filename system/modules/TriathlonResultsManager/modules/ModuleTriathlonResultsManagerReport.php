@@ -81,7 +81,7 @@ class ModuleTriathlonResultsManagerReport extends \Module
 			$this->log('The extension "associategroups" is required for determining user list!', _METHOD_, TL_ERROR);
 			return false;
 		}
-		
+
 		$GLOBALS['TL_BODY'][] = <<<EOT
 <script type="text/javascript">
 	var translations = {
@@ -113,13 +113,16 @@ class ModuleTriathlonResultsManagerReport extends \Module
 		buttonMoveDownResultImage : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_down_result_image']}",
 		buttonMoveDownResultTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_down_result_title']}",
 	};
-	var women = {{$this->getMembersJavascriptArrayContent('female')}};
-	var men = {{$this->getMembersJavascriptArrayContent('male')}};
-</script>'
+	var women = [{$this->getMembersJavascriptArrayContent('female')}];
+	var men = [{$this->getMembersJavascriptArrayContent('male')}];
+</script>
 EOT;
-		$GLOBALS['TL_CSS'][] = 'system/modules/TriathlonResultsManager/assets/css/triathlon_results_manager_report.css';
+		if ($this->triathlonResultsManagerTplUseDefaultCss)
+		{
+			$GLOBALS['TL_CSS'][] = 'system/modules/TriathlonResultsManager/assets/css/triathlon_results_manager_report.css';
+		}
 		$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/TriathlonResultsManager/assets/js/triathlon_results_manager_report.js';
-		
+
 		$arrEvents = array();
 		$objResultsReports = \TriathlonResultsReportsModel::findAll();
 		if ($objResultsReports != null)
@@ -131,13 +134,13 @@ EOT;
 		}
 		$this->Template->events = $arrEvents;
 	}
-	
+
 	/**
 	 * Reads the members from db, grouped by gender and returns them as a javascript array content.
 	 *
 	 * @param gender The gender of the members.
-	 * 
-	 * @return The 
+	 *
+	 * @return The
 	 */
 	private function getMembersJavascriptArrayContent ($gender)
 	{
@@ -147,16 +150,14 @@ EOT;
 											 . "WHERE m.gender = ? AND m.disable = '' AND m2g.group_id IN (" . implode(",", deserialize($this->triathlonResultsManagerFilterMemberGroups)) . ") "
 											 . "ORDER BY m.firstname, m.lastname")
 									 ->execute($gender);
-		
+
 		while ($objMembers->next())
 		{
-			$arrReturn[] = $objMembers->id . ': "' . $objMembers->firstname . ' ' . $objMembers->lastname . '"';
+			$arrReturn[] = '{id:"' . $objMembers->id . '", name:"' . $objMembers->firstname . ' ' . $objMembers->lastname . '"}';
 		}
-		
+
 		return implode(",", $arrReturn);
 	}
-
-
 }
 
 ?>
