@@ -1,33 +1,32 @@
-a.add, a.del {
+.mod_triathlonResultsManagerReport .action-button {
 	display: inline-block;
 	width: 16px;
 	height: 16px;
+	cursor: pointer;
 }
 
-input.small_2 {
+.mod_triathlonResultsManagerReport .small_2 {
 	width: 30px;
 	text-align: center;
 }
 
-input.small_4 {
+.mod_triathlonResultsManagerReport .small_4 {
 	width: 50px;
 	text-align: center;
 }
 
-input.small_5 {
+.mod_triathlonResultsManagerReport .small_5 {
 	width: 60px;
 	text-align: center;
 }
 
-button.moveBtn {
-	width: 25px;
-	height: 25px;
-	padding-bottom: 3px;
-}
 
-tr.member:hover {
+.mod_triathlonResultsManagerReport tr.member:hover {
 	background-color: #E4E4E4;
 }
+
+
+/* UNUSED ??? */
 
 #sendDialog select, #sendDialog textarea {
 	width: 100%;
