@@ -151,6 +151,7 @@ EOT;
 											 . "ORDER BY m.firstname, m.lastname")
 									 ->execute($gender);
 
+		$arrReturn[] = '{id:"", name:"-"}';
 		while ($objMembers->next())
 		{
 			$arrReturn[] = '{id:"' . $objMembers->id . '", name:"' . $objMembers->firstname . ' ' . $objMembers->lastname . '"}';
