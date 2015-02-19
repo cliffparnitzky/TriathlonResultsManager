@@ -29,11 +29,6 @@ function getXML() {
 	return resultXML;
 }
 
-function generateXML() {
-	errorCount = 0;
-	document.getElementById("resultXML").value = getXML();
-}
-
 function generateHTML() {
 	errorCount = 0;
 	document.getElementById("resultHTML").innerHTML = getCompetitions();
@@ -384,14 +379,14 @@ function getCompetitions() {
 		result += getXMLRow('					<td colspan="5" style="border-bottom: 1px solid #000000;">' + parseTextFieldValue(document.getElementById("competition_" + actId + "_title")) + '</td>');
 		result += getXMLRow('				</tr>');
 		result += getXMLRow('				<tr>');
-		result += getXMLRow('					<td style="border-bottom: 1px solid #000000;">Teilnehmer</td>');
-		result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="20%">Zeit</td>');
+		result += getXMLRow('					<td style="border-bottom: 1px solid #000000;">' + translations['tableHeadStarters'] + '</td>');
+		result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="20%">' + translations['tableHeadTime'] + '</td>');
 
 		if (document.getElementById("competition_" + actId + "_placingAgeGroup").checked) {
-			result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="20%">Platz Gesamt (M/W)</td>');
-			result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="20%">Platz Altersklasse</td>');
+			result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="20%">' + translations['tableHeadOverallPlace'] + '</td>');
+			result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="20%">' + translations['tableHeadAgeGroupPlace'] + '</td>');
 		} else {
-			result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="40%">Platz Gesamt (M/W)</td>');
+			result += getXMLRow('					<td style="border-bottom: 1px solid #000000;" width="40%">' + translations['tableHeadOverallPlace'] + '</td>');
 
 		}
 
@@ -407,11 +402,11 @@ function getCompetitions() {
 			if (actNode.nodeType == 1) {
 				if (actNode.id == "competition_" + actId + "_tr_men") {
 					womenFinished = true;
-				} else if (actNode.getElementsByTagName("select")[0].selectedIndex  > 0) {
+				} else if (actNode.getElementsByTagName("select")[0].selectedIndex > 0) {
 					if (!womenFinished) {
 						if(!womanAdded && actNode.getElementsByTagName("select")[0].selectedIndex  > 0) {
 							result += getXMLRow('				<tr>');
-							result += getXMLRow('					<td colspan="5" style="font-style: italic;">Frauen</a></td>');
+							result += getXMLRow('					<td colspan="5" style="font-style: italic;">' + translations['headerWomen'] + '</a></td>');
 							result += getXMLRow('				</tr>');
 							womanAdded = true;
 						}
@@ -419,7 +414,7 @@ function getCompetitions() {
 					else {
 						if(!manAdded && actNode.getElementsByTagName("select")[0].selectedIndex  > 0) {
 							result += getXMLRow('				<tr>');
-							result += getXMLRow('					<td colspan="5" style="font-style: italic;">M�nner</a></td>');
+							result += getXMLRow('					<td colspan="5" style="font-style: italic;">' + translations['headerMen'] + '</a></td>');
 							result += getXMLRow('				</tr>');
 							manAdded = true;
 						}
@@ -432,7 +427,7 @@ function getCompetitions() {
 
 					// add member
 					result += getXMLRow('				<tr>');
-					result += getXMLRow('					<td class="member">' + actNode.getElementsByTagName("select")[0].options[actNode.getElementsByTagName("select")[0].selectedIndex].value + '</td>');
+					result += getXMLRow('					<td class="member">' + actNode.getElementsByTagName("select")[0].options[actNode.getElementsByTagName("select")[0].selectedIndex].text + '</td>');
 					if ((parseInt(timeHours, 10) + parseInt(timeMinutes, 10) + parseInt(timeSeconds, 10)) == 0) {
 						result += getXMLRow('					<td colspan="4">DNF (Did not finish)</td>');
 					}
@@ -787,16 +782,16 @@ function getDotSlash() {
 
 function getMedalString(placing, overallPlacing) {
 	var titlePart = "Gesamtplatz";
-	var medalType = "trophy";
+	var medalType = "place_overall";
 	if (!overallPlacing) {
 		titlePart = "Altersklassenplatz";
-		medalType = "medal";
+		medalType = "place_agegroup";
 	}
 
 	switch (placing) {
-		case 1 : return ' <img src="pics/results/' + medalType + '_gold.png" title="1. ' + titlePart + '"/>';
-		case 2 : return ' <img src="pics/results/' + medalType + '_silver.png" title="2. ' + titlePart + '"/>';
-		case 3 : return ' <img src="pics/results/' + medalType + '_bronze.png" title="3. ' + titlePart + '"/>';
+		case 1 : return ' <img src="system/modules/TriathlonResultsManager/assets/' + medalType + '_gold.png" title="1. ' + titlePart + '"/>';
+		case 2 : return ' <img src="system/modules/TriathlonResultsManager/assets/' + medalType + '_silver.png" title="2. ' + titlePart + '"/>';
+		case 3 : return ' <img src="system/modules/TriathlonResultsManager/assets/' + medalType + '_bronze.png" title="3. ' + titlePart + '"/>';
 		default : return '';
 	}
 }

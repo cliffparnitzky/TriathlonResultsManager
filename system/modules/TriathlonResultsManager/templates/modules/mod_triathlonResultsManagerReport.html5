@@ -34,14 +34,9 @@
 	</fieldset>
 
 	<!-- Preview -->
-	<fieldset style="float: left; width: 47%;">
+	<fieldset style="float: left; width: 100%;">
 	<legend>Vorschau</legend>
 		<div id="resultHTML"/>
-	</fieldset>
-	<!-- Output -->
-	<fieldset style="float: right; width: 47%;">
-	<legend>Generiertes XML</legend>
-		<textarea id="resultXML" readonly="readonly" wrap="off"></textarea>
 	</fieldset>
 	<!-- Action -->
 	<fieldset style="clear: both; text-align: center;">
@@ -49,8 +44,6 @@
 		<input class="actionBtn" type="button" onclick="document.getElementById('resultXML').value=''; document.getElementById('resultHTML').innerHTML='';" value="Felder leeren" title="Leert die Felder 'Vorschau' und 'Generiertes XML'"/>
 		&nbsp;
 		<input class="actionBtn" type="button" onclick="generateHTML(); showErrorMsg();" value="Vorschau" title="Erzeugt anhand der eingegebenen Daten eine Vorschau"/>
-		&nbsp;
-		<input class="actionBtn" type="button" onclick="generateXML(); showErrorMsg();" value="XML generieren" title="Erzeugt den XML Code f�r den Web Content"/>
 		&nbsp;
 		<input class="actionBtn" type="button" onclick="reportResults();" value="Ergebnisse melden" title="Versendet die eingegebenen Daten an den Webseiten Administrator. Nach einer Pr�fung der Ergebnismeldung werden diese ver�ffentlicht."/>
 	</fieldset>
