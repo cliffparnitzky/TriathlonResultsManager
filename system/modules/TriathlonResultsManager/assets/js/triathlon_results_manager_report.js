@@ -615,7 +615,7 @@ function addCompetition() {
 	image.title = translations["buttonAddWomanTitle"];
 
 	link = document.createElement("a");
-	link.href = "javascript:addResultWoman('competition_" + nextId + "_tbody', 'competition_" + nextId + "_tr_men');";
+	link.onclick = function () {addResultWoman('competition_' + nextId + '_tbody', 'competition_' + nextId + '_tr_men');};
 	link.className = "action-button add-button add-result-button add-result-woman-button";
 	link.appendChild(image);
 	col.appendChild(link);
@@ -628,7 +628,7 @@ function addCompetition() {
 	image.title = translations["buttonDelWomanTitle"];
 
 	link = document.createElement("a");
-	link.href = "javascript:delResultWoman('competition_" + nextId + "_tbody', 'competition_" + nextId + "_tr_men');";
+	link.onclick = function () {delResultWoman('competition_' + nextId + '_tbody', 'competition_' + nextId + '_tr_men');};
 	link.className = "action-button del-button del-result-button del-result-woman-button";
 	link.appendChild(image);
 	col.appendChild(link);
@@ -653,7 +653,7 @@ function addCompetition() {
 	image.title = translations["buttonAddManTitle"];
 
 	link = document.createElement("a");
-	link.href = "javascript:addResultMan('competition_" + nextId + "_tbody');";
+	link.onclick = function () {addResultMan('competition_' + nextId + '_tbody');};
 	link.className = "action-button add-button add-result-button add-result-man-button";
 	link.appendChild(image);
 	col.appendChild(link);
@@ -666,7 +666,7 @@ function addCompetition() {
 	image.title = translations["buttonDelManTitle"];
 
 	link = document.createElement("a");
-	link.href = "javascript:delResultMan('competition_" + nextId + "_tbody');";
+	link.onclick = function () {delResultMan('competition_' + nextId + '_tbody');};
 	link.className = "action-button del-button del-result-button del-result-man-button";
 	link.appendChild(image);
 	col.appendChild(link);
