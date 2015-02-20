@@ -75,6 +75,15 @@ class ModuleTriathlonResultsManagerMyResults extends \Module
 	 */
 	protected function compile()
 	{
+		if (!FE_USER_LOGGED_IN)
+		{
+			$this->Template->hasError = true;
+			$this->Template->errorMessage = $GLOBALS['TL_LANG']['ERR']['notAuthenticatedMyResults'];
+		}
+		else
+		{
+			$this->import('FrontendUser', 'User'); 
+		}
 	}
 }
 

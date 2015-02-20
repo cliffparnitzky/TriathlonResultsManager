@@ -300,5 +300,281 @@ class TriathlonResultsManagerHelper
 		}
 		return null;
 	}
+	
+	/**
+	 * Return a key for the rating type according to its defined order.
+	 *
+	 * @param String  $strType                       The id of the starter.
+	 * @param Array   $arrSortResultRatingTypeOrder  The defined order of rating types.
+	 *
+	 * @return String The resulting resulting key for the rating type (never null).
+	 */
+	public static function getKeyForRatingType($strType, $arrSortResultRatingTypeOrder)
+	{
+		\Controller::loadDataContainer('tl_module');
+		if (empty($arrSortResultRatingTypeOrder))
+		{
+			$arrSortResultRatingTypeOrder = $GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerSortResultRatingTypeOrder']['options'];
+		}
+
+		$intIndex = array_search($strType, $arrSortResultRatingTypeOrder);
+
+		if ($intIndex === FALSE)
+		{
+			$intIndex = count($GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerSortResultRatingTypeOrder']['options']);
+		}
+		return $intIndex . "_";
+	}
+	
+	public static function getResults ($arrData)
+	{
+		global $objPage;
+
+		$arrReports = array();
+
+		$tRep = \TriathlonResultsReportsModel::getTable();
+		$tCom = \TriathlonResultsCompetitionsModel::getTable();
+		$tRes = \TriathlonResultsModel::getTable();
+
+		$arrReportOptions = array();
+		$arrReportFilterColumn = array();
+		$arrReportFilterValue = array();
+
+		$arrCompetitionOptions = array();
+		$arrCompetitionFilterColumn = array();
+		$arrCompetitionFilterValue = array();
+
+		$arrResultOptions = array();
+		$arrResultFilterColumn = array();
+		$arrResultFilterValue = array();
+
+		if (!empty($arrData['triathlonResultsManagerFilterReportEventDateStart']))
+		{
+			$arrReportFilterColumn[] = "$tRep.eventDate >= ?";
+			$arrReportFilterValue[] = $arrData['triathlonResultsManagerFilterReportEventDateStart'];
+		}
+		if (!empty($arrData['triathlonResultsManagerFilterReportEventDateEnd']))
+		{
+			$arrReportFilterColumn[] = "$tRep.eventDate <= ?";
+			$arrReportFilterValue[] = $arrData['triathlonResultsManagerFilterReportEventDateEnd'];
+		}
+		$arrFilterReportEventTypes = deserialize($arrData['triathlonResultsManagerFilterReportEventType']);
+		if (!empty($arrFilterReportEventTypes))
+		{
+			$arrReportFilterColumn[] = "$tRep.eventType IN ('" . implode("','", $arrFilterReportEventTypes) . "')";
+		}
+		$arrFilterReportEvents = deserialize($arrData['triathlonResultsManagerFilterReportEvent']);
+		if (!empty($arrFilterReportEvents))
+		{
+			$arrReportFilterColumn[] = "$tRep.id IN ('" . implode("','", $arrFilterReportEvents) . "')";
+		}
+
+		$competitionType = $arrData['triathlonResultsManagerFilterCompetitionType'];
+		if (!empty($competitionType) && $competitionType != 'none')
+		{
+			$arrReportFilterColumn[] = "$tRep.id IN (SELECT $tCom.pid FROM $tCom WHERE $tCom.type = ?)";
+			$arrReportFilterValue[] = $competitionType;
+
+			$arrCompetitionFilterColumn[] = "$tCom.type = ?";
+			$arrCompetitionFilterValue[] = $competitionType;
+
+			if ($competitionType == 'league' && !empty($arrData['triathlonResultsManagerFilterCompetitionLeague']))
+			{
+				$arrReportFilterColumn[] = "$tRep.id IN (SELECT $tCom.pid FROM $tCom WHERE $tCom.league = ?)";
+				$arrReportFilterValue[] = $arrData['triathlonResultsManagerFilterCompetitionLeague'];
+
+				$arrCompetitionFilterColumn[] = "$tCom.league = ?";
+				$arrCompetitionFilterValue[] = $arrData['triathlonResultsManagerFilterCompetitionLeague'];
+			}
+		}
+
+		if (!empty($arrData['triathlonResultsManagerFilterResultSingleRatingType']) && ($competitionType == 'none' || $competitionType == 'single' || $competitionType == 'league'))
+		{
+			$tMem = \MemberModel::getTable();
+			$arrReportFilterColumn[] = "$tRep.id IN (SELECT $tCom.pid FROM $tCom WHERE $tCom.id IN (SELECT $tRes.pid FROM $tRes WHERE $tRes.singleStarter IN (SELECT $tMem.id FROM $tMem WHERE $tMem.gender = ?)))";
+			$arrReportFilterValue[] = $arrData['triathlonResultsManagerFilterResultSingleRatingType'];
+
+			$arrCompetitionFilterColumn[] = "$tCom.id IN (SELECT $tRes.pid FROM $tRes WHERE $tRes.singleStarter IN (SELECT $tMem.id FROM $tMem WHERE $tMem.gender = ?))";
+			$arrCompetitionFilterValue[] = $arrData['triathlonResultsManagerFilterResultSingleRatingType'];
+
+			$arrResultFilterColumn[] = "$tRes.singleStarter IN (SELECT $tMem.id FROM $tMem WHERE $tMem.gender = ?)";
+			$arrResultFilterValue[] = $arrData['triathlonResultsManagerFilterResultSingleRatingType'];
+		}
+
+		if (!empty($arrData['triathlonResultsManagerFilterResultRelayRatingType']) && ($competitionType == 'none' || $competitionType == 'relay'))
+		{
+			$arrReportFilterColumn[] = "$tRep.id IN (SELECT $tCom.pid FROM $tCom WHERE $tCom.id IN (SELECT $tRes.pid FROM $tRes WHERE $tRes.relayRatingType = ?))";
+			$arrReportFilterValue[] = $arrData['triathlonResultsManagerFilterResultRelayRatingType'];
+
+			$arrCompetitionFilterColumn[] = "$tCom.id IN (SELECT $tRes.pid FROM $tRes WHERE $tRes.relayRatingType = ?)";
+			$arrCompetitionFilterValue[] = $arrData['triathlonResultsManagerFilterResultRelayRatingType'];
+
+			$arrResultFilterColumn[] = "$tRes.relayRatingType = ?";
+			$arrResultFilterValue[] = $arrData['triathlonResultsManagerFilterResultRelayRatingType'];
+		}
+
+		if (count($arrReportFilterColumn) > 0)
+		{
+			$arrReportOptions['column'] = $arrReportFilterColumn;
+			$arrReportOptions['value'] = $arrReportFilterValue;
+		}
+		$arrReportOptions['order'] = $arrData['triathlonResultsManagerSortReportDateField'] . ' ' . $arrData['triathlonResultsManagerSortReportDateDirection'];
+		
+		$objResultsReports = \TriathlonResultsReportsModel::findAllActive($arrReportOptions); // only published
+		if ($objResultsReports != null)
+		{
+			while ($objResultsReports->next())
+			{
+				$arrReport = $objResultsReports->row();
+				$arrReport['formattedEventDate'] = \Date::parse($objPage->dateFormat, $arrReport['eventDate']);
+				$arrReport['formattedReportDate'] = \Date::parse($objPage->dateFormat, $arrReport['reportDate']);
+				$objMember = \MemberModel::findByPk($arrReport['reportMember']);
+				if ($objMember != null)
+				{
+					$arrReport['formattedReportMember'] = $objMember->firstname . ' ' . $objMember->lastname;
+					$arrReport['formattedReportDateAndMember'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['report_format'], $arrReport['formattedReportDate'], $arrReport['formattedReportMember']);
+				}
+				else
+				{
+					$arrReport['formattedReportDateAndMember'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['report_format_no_member'], $arrReport['formattedReportDate']);
+				}
+
+				if (count($arrCompetitionFilterColumn) > 0)
+				{
+					$arrCompetitionOptions['column'] = $arrCompetitionFilterColumn;
+					$arrCompetitionOptions['value'] = $arrCompetitionFilterValue;
+				}
+				$arrCompetitionOptions['order'] = 'sorting ASC';
+
+				$objResultsCompetitions = \TriathlonResultsCompetitionsModel::findActiveByPid($arrReport['id'], $arrCompetitionOptions);
+				$arrCompetitions = array();
+
+				if ($objResultsCompetitions != null)
+				{
+					while ($objResultsCompetitions->next())
+					{
+						$arrCompetition = $objResultsCompetitions->row();
+
+						$arrPlainDisciplines = static::getPlainDisciplines(deserialize($arrCompetition['disciplines']), $arrCompetition['performanceEvaluation'], true, $arrData['triathlonResultsManagerTplUseIconsForDisciplines']);
+						if (!empty($arrPlainDisciplines))
+						{
+							$arrCompetition['formattedDisciplines'] = implode($GLOBALS['TL_LANG']['TriathlonResultsManager']['disciplines_delimiter'], $arrPlainDisciplines);
+						}
+
+						if (count($arrResultFilterColumn) > 0)
+						{
+							$arrResultOptions['column'] = $arrResultFilterColumn;
+							$arrResultOptions['value'] = $arrResultFilterValue;
+						}
+
+						$objResults = \TriathlonResultsModel::findActiveByPid($arrCompetition['id'], $arrResultOptions);
+						$arrResults = array();
+
+						if ($objResults != null)
+						{
+							while ($objResults->next())
+							{
+								$key = "";
+
+								$arrResult = $objResults->row();
+
+								if ($arrCompetition['type'] == 'relay')
+								{
+									if (!empty($arrResult['relayName']))
+									{
+										$arrResult['formattedRelayName'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['relayName_format'], $arrResult['relayName']);
+									}
+
+									$arrPlainRelayStarters = static::getPlainRelayStarters(deserialize($arrResult['relayStarter']));
+									if (!empty($arrPlainRelayStarters))
+									{
+										$arrResult['formattedRelayStarteres'] = implode($GLOBALS['TL_LANG']['TriathlonResultsManager']['relayStarter_delimiter'], $arrPlainRelayStarters);;
+									}
+
+									$intDisciplinesCount = is_array($arrPlainDisciplines) ? count($arrPlainDisciplines) : 0;
+									$intRelayStartersCount = (!empty($arrPlainRelayStarters) ? count($arrPlainRelayStarters) : 0);
+
+									$intRelayStarterNotSetErrorCount = 0;
+									if (!empty($arrPlainRelayStarters))
+									{
+										$intRelayStarterNotSetErrorCount = count(preg_grep('/' . $GLOBALS['TL_LANG']['ERR']['relayStarter_not_set'] . '/', $arrPlainRelayStarters));
+									}
+
+									if ($intRelayStartersCount == 0 || $intDisciplinesCount <> $intRelayStartersCount || $intRelayStarterNotSetErrorCount > 0)
+									{
+										// no starters set or count is different or at least one starter could no be determined
+										continue;
+									}
+
+									$key = static::getKeyForRatingType($arrResult['relayRatingType'], deserialize($arrData['triathlonResultsManagerSortResultRatingTypeOrder']));
+									$arrResult['ratingType'] = $arrResult['relayRatingType'];
+									$arrResult['formattedRatingType'] = $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType'][$arrResult['ratingType']];
+								}
+								else
+								{
+									if (!empty($arrResult['singleStarter_freetext']))
+									{
+										$arrResult['formattedSingleStarter'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['starter_freetext_format'], $arrResult['singleStarter_freetext']);
+										$key = static::getKeyForRatingType('others', deserialize($arrData['triathlonResultsManagerSortResultRatingTypeOrder']));
+										$arrResult['ratingType'] = 'others';
+										$arrResult['formattedRatingType'] = $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType']['others'];
+									}
+									else
+									{
+										$objMember = \MemberModel::findByPk($arrResult['singleStarter']);
+										if ($objMember != null)
+										{
+											$arrResult['formattedSingleStarter'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['starter_format'], $objMember->firstname, $objMember->lastname);
+											$key = static::getKeyForRatingType($objMember->gender, deserialize($arrData['triathlonResultsManagerSortResultRatingTypeOrder']));
+											$arrResult['ratingType'] = $objMember->gender;
+											$arrResult['formattedRatingType'] = $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType'][$objMember->gender];
+										}
+										else
+										{
+											// no starter set
+											continue;
+										}
+									}
+								}
+
+								$key .= $arrResult['overallPlace'];
+
+								if ($objResultsCompetitions->performanceEvaluation == 'distance')
+								{
+									$arrDistance = deserialize($arrResult['distance']);
+									$arrResult['formattedDistance'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], static::addGroupedThousands($arrDistance['value']), $arrDistance['unit']);
+								}
+								else
+								{
+									$arrResult['formattedTime'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['time_format'], static::addLeadingZero($arrResult['timeHours']), static::addLeadingZero($arrResult['timeMinutes']), static::addLeadingZero($arrResult['timeSeconds']));
+								}
+
+								$arrResult['formattedOverallPlace'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['place_format'], $arrResult['overallPlace'], $arrResult['overallStarters']) . " " . static::getPlaceIconHtml($arrResult['overallPlace'], false);
+								$arrResult['formattedAgeGroupPlace'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['place_format'], $arrResult['ageGroupPlace'], $arrResult['ageGroupStarters']) . " " . static::getPlaceIconHtml($arrResult['ageGroupPlace'], true);
+
+								$arrResults[$key] = $arrResult;
+							}
+						}
+
+						if (!empty($arrResults))
+						{
+							ksort($arrResults);
+							$arrCompetition['results'] = $arrResults;
+
+							$arrCompetitions[] = $arrCompetition;
+						}
+					}
+				}
+
+				if (!empty($arrCompetitions))
+				{
+					$arrReport['competitions'] = $arrCompetitions;
+
+					$arrReports[] = $arrReport;
+				}
+			}
+		}
+		return $arrReports;
+	}
 
 }

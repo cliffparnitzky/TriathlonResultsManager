@@ -40,7 +40,7 @@ namespace TriathlonResultsManager;
  * @author     Cliff Parnitzky
  * @package    Controller
  */
-class ModuleTriathlonResultsManagerMyReports extends \Module
+class ModuleTriathlonResultsManagerMyReports extends \ModuleTriathlonResultsManagerResults
 {
 	/**
 	 * Template
@@ -75,6 +75,16 @@ class ModuleTriathlonResultsManagerMyReports extends \Module
 	 */
 	protected function compile()
 	{
+		if (!FE_USER_LOGGED_IN)
+		{
+			$this->Template->hasError = true;
+			$this->Template->errorMessage = $GLOBALS['TL_LANG']['ERR']['notAuthenticatedMyReports'];
+		}
+		else
+		{
+			$this->import('FrontendUser', 'User'); 
+		}
+		parent::compile();
 	}
 }
 

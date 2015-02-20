@@ -110,6 +110,8 @@ $GLOBALS['TL_LANG']['ERR']['singleStarter_not_set']              = "Es ist kein 
 $GLOBALS['TL_LANG']['ERR']['relayStarter_not_set']               = "Es ist kein Staffelstarter festgelegt.";
 $GLOBALS['TL_LANG']['ERR']['relayStarters_not_set']              = "Es sind keine Staffelstarter festgelegt.";
 $GLOBALS['TL_LANG']['ERR']['relayDisciplinesStartersDifference'] = "Die Anzahl der Starter weicht von der Anzahl der Einzeldisziplinen ab.";
+$GLOBALS['TL_LANG']['ERR']['notAuthenticatedMyReports']          = "Sie müssen angemeldet sein, um ihre Ergebnismeldungen zu sehen.";
+$GLOBALS['TL_LANG']['ERR']['notAuthenticatedMyResults']          = "Sie müssen angemeldet sein, um ihre Ergebnismeldungen zu sehen.";
 
 /**
  * Frontend modules

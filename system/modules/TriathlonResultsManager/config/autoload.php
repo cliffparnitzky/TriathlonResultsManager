@@ -49,6 +49,8 @@ ClassLoader::addClasses(array
  */
 TemplateLoader::addFiles(array
 (
+	'block_triathlonResultsManagerGeneral' => 'system/modules/TriathlonResultsManager/templates/block',
+	'block_triathlonResultsManagerResults' => 'system/modules/TriathlonResultsManager/templates/block',
 	'ce_triathlonResultsManagerResults'    => 'system/modules/TriathlonResultsManager/templates/elements',
 	'mod_triathlonResultsManagerMyReports' => 'system/modules/TriathlonResultsManager/templates/modules',
 	'mod_triathlonResultsManagerMyResults' => 'system/modules/TriathlonResultsManager/templates/modules',
