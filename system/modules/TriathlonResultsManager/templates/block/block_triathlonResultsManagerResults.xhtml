@@ -1,0 +1,65 @@
+<?php $this->extend('block_triathlonResultsManagerGeneral'); ?>
+
+<?php $this->block('content'); ?>
+
+<?php if ($this->reports): ?>
+	<div class="reports">
+	<?php foreach($this->reports as $report): ?>
+	<div id="report_<?php echo $report['id']; ?>" class="report">
+		<h3 class="report_header">
+			<span class="report_eventDate"><?php echo $report['formattedEventDate']; ?>:</span> <span class="report_eventName"><?php echo $report['eventName']; ?></span>
+		</h3>
+	<?php if ($report['competitions']): ?>
+		<div class="competitions">
+		<?php foreach($report['competitions'] as $competition): ?>
+			<div id="competition_<?php echo $competition['id']; ?>" class="competition">
+				<div class="competition_header">
+					<span class="competition_name"><?php echo $competition['name']; ?></span><?php if($competition['type'] == 'relay'): ?> <span class="competition_relay"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionType']['relay']; ?></span><? elseif($competition['type'] == 'league'): ?> <span class="competition_league"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['league'][$competition['league']]; ?></span><?php endif; ?><?php if($competition['formattedDisciplines']): ?> (<span class="competition_distance"><?php echo $competition['formattedDisciplines']; ?></span>)<?php endif; ?>
+				</div>
+			<?php if ($competition['results']): ?>
+				<div class="results">
+					<table cellspacing="0" cellpadding="5" border="0" width="100%" class="resultTable">
+						<thead>
+							<tr>
+								<th class="head col_0 col_first"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['starters']; ?></th>
+								<th class="head col_1 <?php echo ($competition['performanceEvaluation'] == 'time') ? 'col_time' : 'col_distance' ?>"><?php echo ($competition['performanceEvaluation'] == 'time') ? $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['time'] : $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['distance'] ?></th>
+								<th class="head col_2 col_place<?php echo (!$competition['ageGroupRating']) ? ' col_last' : '' ?>"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['overallPlace']; ?></th>
+								<?php if ($competition['ageGroupRating']): ?><th class="head col_3 col_place col_last"><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['ageGroupPlace']; ?></th><?php endif; ?>
+							</tr>
+						</thead>
+						<tbody>
+						<?php $currentRatingType = ""; ?>
+						<?php $rowCounter = 0; ?>
+						<?php $ratingTypeCounter = 0; ?>
+						<?php foreach($competition['results'] as $result): ?>
+							<?php if ($result['ratingType'] != $currentRatingType): ?>
+								<tr class="ratingType row_<?php echo $rowCounter; ?><?php if ($rowCounter == 0) : ?> row_first<?php endif; ?><?php if (($rowCounter % 2) == 0) : ?> even<?php else: ?> odd<?php endif; ?>">
+									<td class="body col_0 col_first col_last" colspan="<?php echo $competition['ageGroupRating'] ? '4' : '3' ?>"><?php echo $result['formattedRatingType']; ?></td>
+								</tr>
+								<?php $currentRatingType = $result['ratingType']; ?>
+								<?php $rowCounter++; ?>
+								<?php $ratingTypeCounter++; ?>
+							<?php endif; ?>
+							<tr class="row_<?php echo $rowCounter; ?><?php if (($rowCounter + 1 - $ratingTypeCounter) == count($competition['results'])) : ?> row_last<?php endif; ?><?php if (($rowCounter % 2) == 0) : ?> even<?php else: ?> odd<?php endif; ?>">
+								<td class="body col_0 col_first <?php echo ($competition['type'] == 'relay') ? 'col_relayStarters' : 'col_singleStarter' ?>"><?php echo ($competition['type'] == 'relay') ? $result['formattedRelayName'] : '' ?><?php echo ($competition['type'] == 'relay') ? $result['formattedRelayStarteres'] : $result['formattedSingleStarter'] ?></td>
+								<td class="body col_1 col_time"><?php echo ($competition['performanceEvaluation'] == 'time') ? $result['formattedTime'] : $result['formattedDistance'] ?></td>
+								<td class="body col_2 col_place<?php echo (!$competition['ageGroupRating']) ? ' col_last' : '' ?>"><?php echo $result['formattedOverallPlace']; ?></td>
+								<?php if ($competition['ageGroupRating']): ?><td class="body col_3 col_place col_last"><?php echo $result['formattedAgeGroupPlace']; ?></td><?php endif; ?>
+							</tr>
+							<?php $rowCounter++; ?>
+						<?php endforeach; ?>
+						</tbody>
+					</table>
+				</div>
+			<?php endif; ?>
+			</div>
+		<?php endforeach; ?>
+		</div>
+	<?php endif; ?>
+		<div class="report_footer"><?php echo $report['formattedReportDateAndMember']; ?></div>
+	</div>
+	<?php endforeach; ?>
+	</div>
+<?php endif; ?>
+
+<?php $this->endblock(); ?>
