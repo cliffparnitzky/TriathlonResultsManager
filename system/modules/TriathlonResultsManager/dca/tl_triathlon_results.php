@@ -43,15 +43,15 @@ $GLOBALS['TL_DCA']['tl_triathlon_results'] = array
 		'onload_callback' => array
 		(
 			array('tl_triathlon_results', 'initPalettes'),
-			array('tl_triathlon_results', 'clearData')
+			//array('tl_triathlon_results', 'clearData')
 		),
 		'oncut_callback' => array
 		(
-			array('tl_triathlon_results', 'clearData')
+			//array('tl_triathlon_results', 'clearData')
 		),
 		'onsubmit_callback' => array
 		(
-			array('tl_triathlon_results', 'clearData')
+			//array('tl_triathlon_results', 'clearData')
 		),
 		'sql' => array
 		(
