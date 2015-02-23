@@ -60,7 +60,7 @@
 	</div>
 	<?php endforeach; ?>
 	</div>
-<?php else; ?>
+<?php else: ?>
 <div class="empty"><?php echo $GLOBALS['TL_LANG']['MSC']['reports_empty']; ?></div>
 <?php endif; ?>
 
