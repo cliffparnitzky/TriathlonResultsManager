@@ -309,7 +309,7 @@ class TriathlonResultsManagerHelper
 	 *
 	 * @return String The resulting resulting key for the rating type (never null).
 	 */
-	public static function getKeyForRatingType($strType, $arrSortResultRatingTypeOrder)
+	public static function getKeyForRatingType($strType, $arrSortResultRatingTypeOrder, $intOverallPlace)
 	{
 		\Controller::loadDataContainer('tl_module');
 		if (empty($arrSortResultRatingTypeOrder))
@@ -323,7 +323,7 @@ class TriathlonResultsManagerHelper
 		{
 			$intIndex = count($GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerSortResultRatingTypeOrder']['options']);
 		}
-		return $intIndex . "_";
+		return ($intIndex * 100000) + $intOverallPlace;
 	}
 	
 	public static function getResults ($arrData)
@@ -506,7 +506,7 @@ class TriathlonResultsManagerHelper
 										continue;
 									}
 
-									$key = static::getKeyForRatingType($arrResult['relayRatingType'], deserialize($arrData['triathlonResultsManagerSortResultRatingTypeOrder']));
+									$key = static::getKeyForRatingType($arrResult['relayRatingType'], deserialize($arrData['triathlonResultsManagerSortResultRatingTypeOrder']), $arrResult['overallPlace']);
 									$arrResult['ratingType'] = $arrResult['relayRatingType'];
 									$arrResult['formattedRatingType'] = $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType'][$arrResult['ratingType']];
 								}
@@ -515,7 +515,7 @@ class TriathlonResultsManagerHelper
 									if (!empty($arrResult['singleStarter_freetext']))
 									{
 										$arrResult['formattedSingleStarter'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['starter_freetext_format'], $arrResult['singleStarter_freetext']);
-										$key = static::getKeyForRatingType('others', deserialize($arrData['triathlonResultsManagerSortResultRatingTypeOrder']));
+										$key = static::getKeyForRatingType('others', deserialize($arrData['triathlonResultsManagerSortResultRatingTypeOrder']), $arrResult['overallPlace']);
 										$arrResult['ratingType'] = 'others';
 										$arrResult['formattedRatingType'] = $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType']['others'];
 									}
@@ -525,7 +525,7 @@ class TriathlonResultsManagerHelper
 										if ($objMember != null)
 										{
 											$arrResult['formattedSingleStarter'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['starter_format'], $objMember->firstname, $objMember->lastname);
-											$key = static::getKeyForRatingType($objMember->gender, deserialize($arrData['triathlonResultsManagerSortResultRatingTypeOrder']));
+											$key = static::getKeyForRatingType($objMember->gender, deserialize($arrData['triathlonResultsManagerSortResultRatingTypeOrder']), $arrResult['overallPlace']);
 											$arrResult['ratingType'] = $objMember->gender;
 											$arrResult['formattedRatingType'] = $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType'][$objMember->gender];
 										}
@@ -536,8 +536,6 @@ class TriathlonResultsManagerHelper
 										}
 									}
 								}
-
-								$key .= $arrResult['overallPlace'];
 
 								if ($objResultsCompetitions->performanceEvaluation == 'distance')
 								{
