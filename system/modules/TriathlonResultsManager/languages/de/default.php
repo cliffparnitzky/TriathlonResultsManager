@@ -114,6 +114,11 @@ $GLOBALS['TL_LANG']['ERR']['notAuthenticatedMyReports']          = "Sie müssen 
 $GLOBALS['TL_LANG']['ERR']['notAuthenticatedMyResults']          = "Sie müssen angemeldet sein, um ihre Ergebnismeldungen zu sehen.";
 
 /**
+ *
+ */
+$GLOBALS['TL_LANG']['MSC']['reports_empty'] = "Bisher sind keine Ergebnismeldungen vorhanden.";
+
+/**
  * Frontend modules
  */
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['starters']      = 'Teilnehmer';
