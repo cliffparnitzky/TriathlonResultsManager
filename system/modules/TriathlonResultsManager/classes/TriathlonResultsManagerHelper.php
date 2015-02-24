@@ -252,7 +252,7 @@ class TriathlonResultsManagerHelper
 				$strRelayStarter = static::getStarterName($relayStarter['starter'], $relayStarter['starter_freetext']);
 				if ($strRelayStarter == null)
 				{
-					$strRelayStarter = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['relayStarter_not_set'] . '</div>';
+					$strRelayStarter = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['relayStarter_not_set'] . '</div>';
 				}
 
 				if (strlen($relayStarter['timeHours']) > 0 && strlen($relayStarter['timeMinutes']) > 0 && strlen($relayStarter['timeSeconds']) > 0)
@@ -300,7 +300,7 @@ class TriathlonResultsManagerHelper
 		}
 		return null;
 	}
-	
+
 	/**
 	 * Return a key for the rating type according to its defined order.
 	 *
@@ -325,7 +325,7 @@ class TriathlonResultsManagerHelper
 		}
 		return ($intIndex * 100000) + $intOverallPlace;
 	}
-	
+
 	public static function getResults ($arrData)
 	{
 		global $objPage;
@@ -419,7 +419,7 @@ class TriathlonResultsManagerHelper
 			$arrReportOptions['value'] = $arrReportFilterValue;
 		}
 		$arrReportOptions['order'] = $arrData['triathlonResultsManagerSortReportDateField'] . ' ' . $arrData['triathlonResultsManagerSortReportDateDirection'];
-		
+
 		$objResultsReports = \TriathlonResultsReportsModel::findAllActive($arrReportOptions); // only published
 		if ($objResultsReports != null)
 		{
@@ -497,7 +497,7 @@ class TriathlonResultsManagerHelper
 									$intRelayStarterNotSetErrorCount = 0;
 									if (!empty($arrPlainRelayStarters))
 									{
-										$intRelayStarterNotSetErrorCount = count(preg_grep('/' . $GLOBALS['TL_LANG']['ERR']['relayStarter_not_set'] . '/', $arrPlainRelayStarters));
+										$intRelayStarterNotSetErrorCount = count(preg_grep('/' . $GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['relayStarter_not_set'] . '/', $arrPlainRelayStarters));
 									}
 
 									if ($intRelayStartersCount == 0 || $intDisciplinesCount <> $intRelayStartersCount || $intRelayStarterNotSetErrorCount > 0)

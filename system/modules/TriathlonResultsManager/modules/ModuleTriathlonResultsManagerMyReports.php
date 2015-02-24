@@ -78,11 +78,11 @@ class ModuleTriathlonResultsManagerMyReports extends \ModuleTriathlonResultsMana
 		if (!FE_USER_LOGGED_IN)
 		{
 			$this->Template->hasError = true;
-			$this->Template->errorMessage = $GLOBALS['TL_LANG']['ERR']['notAuthenticatedMyReports'];
+			$this->Template->errorMessage = $GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['notAuthenticatedMyReports'];
 		}
 		else
 		{
-			$this->import('FrontendUser', 'User'); 
+			$this->import('FrontendUser', 'User');
 		}
 		parent::compile();
 	}

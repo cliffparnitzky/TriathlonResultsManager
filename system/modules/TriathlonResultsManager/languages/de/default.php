@@ -103,15 +103,16 @@ $GLOBALS['TL_LANG']['TriathlonResultsManager']['disciplines']['others'] = "Sonst
 /**
  * Errors
  */
-$GLOBALS['TL_LANG']['ERR']['timeValueIncorrect']                 = 'Der Wert "%s" ist nicht erlaubt! Es darf maximal "%s" eingegeben werden.';
-$GLOBALS['TL_LANG']['ERR']['placeValueIncorrect']                = 'Der Platz "%s" muss kleiner/gleich der Gesamtanzahl "%s" sein.';
-$GLOBALS['TL_LANG']['ERR']['placeStartersValueIncorrect']        = 'Die Gesamtanzahl "%s" muss größer/gleich dem Platz "%s" sein.';
-$GLOBALS['TL_LANG']['ERR']['singleStarter_not_set']              = "Es ist kein Einzelstarter festgelegt.";
-$GLOBALS['TL_LANG']['ERR']['relayStarter_not_set']               = "Es ist kein Staffelstarter festgelegt.";
-$GLOBALS['TL_LANG']['ERR']['relayStarters_not_set']              = "Es sind keine Staffelstarter festgelegt.";
-$GLOBALS['TL_LANG']['ERR']['relayDisciplinesStartersDifference'] = "Die Anzahl der Starter weicht von der Anzahl der Einzeldisziplinen ab.";
-$GLOBALS['TL_LANG']['ERR']['notAuthenticatedMyReports']          = "Sie müssen angemeldet sein, um ihre Ergebnismeldungen zu sehen.";
-$GLOBALS['TL_LANG']['ERR']['notAuthenticatedMyResults']          = "Sie müssen angemeldet sein, um ihre Ergebnismeldungen zu sehen.";
+$GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['timeValueIncorrect']                 = 'Der Wert "%s" ist nicht erlaubt! Es darf maximal "%s" eingegeben werden.';
+$GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['placeValueIncorrect']                = 'Der Platz "%s" muss kleiner/gleich der Gesamtanzahl "%s" sein.';
+$GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['placeStartersValueIncorrect']        = 'Die Gesamtanzahl "%s" muss größer/gleich dem Platz "%s" sein.';
+$GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['singleStarter_not_set']              = "Es ist kein Einzelstarter festgelegt.";
+$GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['relayStarter_not_set']               = "Es ist kein Staffelstarter festgelegt.";
+$GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['relayStarters_not_set']              = "Es sind keine Staffelstarter festgelegt.";
+$GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['relayDisciplinesStartersDifference'] = "Die Anzahl der Starter weicht von der Anzahl der Einzeldisziplinen ab.";
+$GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['notAuthenticatedReport']             = "Sie müssen angemeldet sein, um Ergebnisse zu melden.";
+$GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['notAuthenticatedMyReports']          = "Sie müssen angemeldet sein, um ihre Ergebnismeldungen zu sehen.";
+$GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['notAuthenticatedMyResults']          = "Sie müssen angemeldet sein, um ihre Ergebnisse zu sehen.";
 
 /**
  *

@@ -510,7 +510,7 @@ class tl_triathlon_results extends Backend
 
 		if ($objResultsCompetition != null && $objResultsCompetition->type == 'relay')
 		{
-			$strStarters = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['relayStarters_not_set'] . '</div>';
+			$strStarters = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['relayStarters_not_set'] . '</div>';
 			$arrPlainRelayStarters = \TriathlonResultsManagerHelper::getPlainRelayStarters(deserialize($row['relayStarter']));
 			if (!empty($arrPlainRelayStarters))
 			{
@@ -527,7 +527,7 @@ class tl_triathlon_results extends Backend
 			$intRelayStartersCount = (!empty($arrPlainRelayStarters) ? count($arrPlainRelayStarters) : 0);
 			if ($intDisciplinesCount <> $intRelayStartersCount)
 			{
-				$strDisciplinesStartersDifference = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['relayDisciplinesStartersDifference'] . '</div>';
+				$strDisciplinesStartersDifference = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['relayDisciplinesStartersDifference'] . '</div>';
 			}
 		}
 		else
@@ -535,7 +535,7 @@ class tl_triathlon_results extends Backend
 			$strStarters = \TriathlonResultsManagerHelper::getStarterName($row['singleStarter'], $row['singleStarter_freetext']);
 			if ($strStarters == null)
 			{
-				$strStarters = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['singleStarter_not_set'] . '</div>';
+				$strStarters = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['singleStarter_not_set'] . '</div>';
 			}
 		}
 
@@ -623,7 +623,7 @@ class tl_triathlon_results extends Backend
 	{
 		if (is_numeric($varValue) && (intval($varValue) > $intMaxValue))
 		{
-			throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['timeValueIncorrect'], $varValue, $intMaxValue));
+			throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['timeValueIncorrect'], $varValue, $intMaxValue));
 		}
 		return $varValue;
 	}
@@ -650,11 +650,11 @@ class tl_triathlon_results extends Backend
 			{
 				if ($blnIsStartersField && ($varValue < $intCompareValue))
 				{
-					throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['placeStartersValueIncorrect'], $varValue, $intCompareValue));
+					throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['placeStartersValueIncorrect'], $varValue, $intCompareValue));
 				}
 				else if (!$blnIsStartersField && ($varValue > $intCompareValue))
 				{
-					throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['placeValueIncorrect'], $varValue, $intCompareValue));
+					throw new Exception(sprintf($GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['placeValueIncorrect'], $varValue, $intCompareValue));
 				}
 			}
 		}
