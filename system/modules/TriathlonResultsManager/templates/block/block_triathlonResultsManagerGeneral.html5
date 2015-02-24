@@ -12,7 +12,7 @@
     <?php $this->block('content'); ?>
     <?php $this->endblock(); ?>
   <?php endif; ?>
-	
+
 </div>
 
 <!-- indexer::continue -->
