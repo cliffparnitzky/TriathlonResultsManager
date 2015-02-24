@@ -519,7 +519,7 @@ function addCompetition() {
 	input.title = translations["inputCompetitionNameTitle"];
 	input.id = "competition_" + nextId + "_title";
 	input.type = "text";
-	input.maxlength = "255";
+	input.maxLength = "255";
 	col.appendChild(input);
 
 	var image = document.createElement("img");
