@@ -75,14 +75,23 @@ class ModuleTriathlonResultsManagerReport extends \Module
 	 */
 	protected function compile()
 	{
-		// first check if required extension 'associategroups' is installed
-		if (!in_array('associategroups', $this->Config->getActiveModules()))
+		if (!FE_USER_LOGGED_IN)
 		{
-			$this->log('The extension "associategroups" is required for determining user list!', _METHOD_, TL_ERROR);
-			return false;
+			$this->Template->hasError = true;
+			$this->Template->errorMessage = $GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['notAuthenticatedReport'];
 		}
+		else
+		{
+			$this->import('FrontendUser', 'User');
 
-		$GLOBALS['TL_BODY'][] = <<<EOT
+			// first check if required extension 'associategroups' is installed
+			if (!in_array('associategroups', $this->Config->getActiveModules()))
+			{
+				$this->log('The extension "associategroups" is required for determining user list!', _METHOD_, TL_ERROR);
+				return false;
+			}
+
+			$GLOBALS['TL_BODY'][] = <<<EOT
 <script type="text/javascript">
 	var translations = {
 		tableHeadStarters: "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['starters']}",
@@ -117,22 +126,35 @@ class ModuleTriathlonResultsManagerReport extends \Module
 	var men = [{$this->getMembersJavascriptArrayContent('male')}];
 </script>
 EOT;
-		if ($this->triathlonResultsManagerTplUseDefaultCss)
-		{
-			$GLOBALS['TL_CSS'][] = 'system/modules/TriathlonResultsManager/assets/css/triathlon_results_manager_report.css';
-		}
-		$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/TriathlonResultsManager/assets/js/triathlon_results_manager_report.js';
-
-		$arrEvents = array();
-		$objResultsReports = \TriathlonResultsReportsModel::findAll();
-		if ($objResultsReports != null)
-		{
-			while ($objResultsReports->next())
+			if ($this->triathlonResultsManagerTplUseDefaultCss)
 			{
-				$arrEvents[$GLOBALS['TL_LANG']['TriathlonResultsManager']['eventType'][$objResultsReports->eventType]][] = $objResultsReports->eventName;
+				$GLOBALS['TL_CSS'][] = 'system/modules/TriathlonResultsManager/assets/css/triathlon_results_manager_report.css';
 			}
+			$GLOBALS['TL_JAVASCRIPT'][] = 'system/modules/TriathlonResultsManager/assets/js/triathlon_results_manager_report.js';
+
+			\Controller::loadDataContainer('tl_triathlon_results_reports');
+			$arrEvents = array();
+			foreach ($GLOBALS['TL_DCA']['tl_triathlon_results_reports']['fields']['eventType']['options'] as $eventType)
+			{
+				$arrEvents[$GLOBALS['TL_LANG']['TriathlonResultsManager']['eventType'][$eventType]] = array();
+			}
+			$objResultsReports = \TriathlonResultsReportsModel::findAllActive();
+			if ($objResultsReports != null)
+			{
+				while ($objResultsReports->next())
+				{
+					$arrEvents[$GLOBALS['TL_LANG']['TriathlonResultsManager']['eventType'][$objResultsReports->eventType]][] = $objResultsReports->eventName;
+				}
+			}
+			foreach ($arrEvents as $section=>$arrSectionEvents)
+			{
+				if (count($arrSectionEvents) == 0)
+				{
+					unset($arrEvents[$section]);
+				}
+			}
+			$this->Template->events = $arrEvents;
 		}
-		$this->Template->events = $arrEvents;
 	}
 
 	/**

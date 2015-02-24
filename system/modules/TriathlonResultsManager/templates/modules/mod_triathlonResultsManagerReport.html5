@@ -1,10 +1,6 @@
+<?php $this->extend('block_triathlonResultsManagerGeneral'); ?>
 
-<!-- indexer::stop -->
-<div class="<?php echo $this->class; ?> block"<?php echo $this->cssID; ?><?php if ($this->style): ?> style="<?php echo $this->style; ?>"<?php endif; ?>>
-<?php if ($this->headline): ?>
-
-<<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
-<?php endif; ?>
+<?php $this->block('content'); ?>
 
 	<fieldset>
 	<legend><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['event_header']; ?></legend>
@@ -12,7 +8,7 @@
 		<input id="dateMonth" type="text" class="small_2" maxlength="2" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_date_month_title']; ?>"/>.
 		<input id="dateYear" type="text" class="small_4" maxlength="4" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_date_year_title']; ?>"/>
 		&nbsp;:&nbsp;
-		<input id="eventName" type="text" size="50" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_eventName_title']; ?>"/>
+		<input id="eventName" type="text" maxlength="12" title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['input_eventName_title']; ?>"/>
 		<select title="<?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_eventName_template_title']; ?>" onChange="document.getElementById('eventName').value = this.options[this.selectedIndex].value;">
 			<option value=""><?php echo $GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_eventName_template_first_option']; ?></option>
 			<?php foreach($this->events as $eventType=>$eventNames) : ?>
@@ -48,5 +44,4 @@
 		<input class="actionBtn" type="button" onclick="reportResults();" value="Ergebnisse melden" title="Versendet die eingegebenen Daten an den Webseiten Administrator. Nach einer Pr�fung der Ergebnismeldung werden diese ver�ffentlicht."/>
 	</fieldset>
 
-</div>
-<!-- indexer::continue -->
+<?php $this->endblock(); ?>
