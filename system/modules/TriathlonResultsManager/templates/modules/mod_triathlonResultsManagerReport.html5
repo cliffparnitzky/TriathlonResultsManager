@@ -37,7 +37,7 @@
 	<!-- Action -->
 	<fieldset style="clear: both; text-align: center;">
 	<legend>Aktionen</legend>
-		<input class="actionBtn" type="button" onclick="document.getElementById('resultXML').value=''; document.getElementById('resultHTML').innerHTML='';" value="Felder leeren" title="Leert die Felder 'Vorschau' und 'Generiertes XML'"/>
+		<input class="actionBtn" type="button" onclick="document.getElementById('resultHTML').innerHTML='';" value="Felder leeren" title="Leert die Felder 'Vorschau' und 'Generiertes XML'"/>
 		&nbsp;
 		<input class="actionBtn" type="button" onclick="generateHTML(); showErrorMsg();" value="Vorschau" title="Erzeugt anhand der eingegebenen Daten eine Vorschau"/>
 		&nbsp;
