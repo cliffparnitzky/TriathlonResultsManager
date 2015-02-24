@@ -1,14 +1,22 @@
-// Select Box for Women
-var eventTypes = new Array("",
-"Schwimm-Event",
-"Radfahr-Event",
-"Lauf-Event",
-"Duathlon",
-"Triathlon",
-"Sonstiges");
+var competitionTemplates = new Array(
+"SD (0,5 km - 20 km - 5 km)",
+"OD (1,5 km - 40 km - 10 km)",
+"MD (2 km - 80 km - 20 km)",
+"IM 70.3 (1,9 km - 90 km - 21,1 km)",
+"MD (1,9 km - 90 km - 21,1 km)",
+"IM (3,8 km - 180 km - 42,2 km)",
+"LD (3,8 km - 180 km - 42,2 km)",
+"Halbmarathon",
+"Marathon",
+"24-Stunden-Schwimmen");
+
 
 var actCompetitionId = 0;
 var errorCount = 0;
+
+function getXMLRow(row) {
+	return row + '\n';
+}
 
 function getXML() {
 
@@ -101,12 +109,21 @@ function reportResults()
 
 				var eventTypeSelect = document.createElement("select");
 				eventTypeSelect.id = "eventTypeSelect";
+				/*
+				// Select Box for Women
+				var eventTypes = new Array("",
+				"Schwimm-Event",
+				"Radfahr-Event",
+				"Lauf-Event",
+				"Duathlon",
+				"Triathlon",
+				"Sonstiges");
 				for (var i = 0; i < eventTypes.length; i++) {
 					var eventTypeOption = document.createElement("option");
 					eventTypeOption.value = eventTypes[i];
 					eventTypeOption.appendChild(document.createTextNode(eventTypes[i]));
 					eventTypeSelect.appendChild(eventTypeOption);
-				}
+				}*/
 				input.appendChild(eventTypeSelect);
 
 				var commentLabel = document.createElement("div");
@@ -225,101 +242,6 @@ function handleOverlay(show) {
 	}
 }
 
-function showHintCheckLastSend() {
-	handleOverlay(true);
-	var lastSend = document.getElementById("lastSend");
-
-	var lastSendTop = lastSend.offsetTop;
-	var lastSendRight = lastSend.offsetLeft + lastSend.offsetWidth;
-
-	lastSend.style.border = "10px solid #FFFFBD";
-	lastSend.style.borderRadius = "15px";
-	lastSend.style.boxShadow = "0 0 84px #FFFFBD";
-	lastSend.style.position = "absolute";
-	lastSend.style.width = "300px";
-	lastSend.style.zIndex = "10000";
-
-	var hint = document.createElement("div");
-	hint.id = "hintCheckLastSend";
-	hint.className = "hint";
-
-	var text = document.createElement("div");
-	text.id = "hintCheckLastSendText";
-	text.innerHTML = "Erst pr�fen,<br>ob f�r den Wettkampf bereits eine Ergebnismeldung vorliegt!!!";
-	hint.appendChild(text);
-
-	var buttonWillDo = document.createElement("button");
-	buttonWillDo.className = "actionBtn";
-	buttonWillDo.type = "button";
-	buttonWillDo.onclick = function () {closeHintCheckLastSend();};
-	buttonWillDo.innerHTML = "&#10003;<br/>Ja, werde ich machen!";
-	hint.appendChild(buttonWillDo);
-
-	document.getElementById("body").appendChild(hint);
-
-	hint.style.top = (lastSendTop - hint.offsetHeight) + "px";
-	hint.style.left = (lastSendRight - 150) + "px";
-}
-
-function closeHintCheckLastSend() {
-	document.getElementById("body").removeChild(document.getElementById("hintCheckLastSend"));
-	var lastSend = document.getElementById("lastSend");
-	lastSend.style.border = "";
-	lastSend.style.borderRadius = "";
-	lastSend.style.boxShadow = "";
-	lastSend.style.position = "";
-	lastSend.style.width = "";
-	lastSend.style.zIndex = "";
-
-	showHintReadHelp();
-}
-
-function showHintReadHelp() {
-	var help = document.getElementById("help");
-
-	var helpTop = help.offsetTop;
-	var helpRight = help.offsetLeft + help.offsetWidth;
-
-	help.style.border = "10px solid #FFFFBD";
-	help.style.borderRadius = "15px";
-	help.style.boxShadow = "0 0 84px #FFFFBD";
-	help.style.position = "absolute";
-	help.style.width = "300px";
-	help.style.zIndex = "10000";
-
-	var hint = document.createElement("div");
-	hint.id = "hintReadHelp";
-	hint.className = "hint";
-
-	var text = document.createElement("div");
-	text.id = "hintReadHelpText";
-	text.innerHTML = "Kein Plan?<br/>Dann die Hilfe lesen!!!<br/>Oder das <a href=\"Ergebnis_melden.avi\" target=\"_blank\">Video</a> ansehen!!!";
-	hint.appendChild(text);
-
-	var buttonWillDo = document.createElement("button");
-	buttonWillDo.className = "actionBtn";
-	buttonWillDo.type = "button";
-	buttonWillDo.onclick = function () {closeHintReadHelp();};
-	buttonWillDo.innerHTML = "&#10003;<br/>Ja, werde ich machen!";
-	hint.appendChild(buttonWillDo);
-
-	document.getElementById("body").appendChild(hint);
-
-	hint.style.top = (helpTop - hint.offsetHeight + 50) + "px";
-	hint.style.left = (helpRight - 150) + "px";
-}
-
-function closeHintReadHelp() {
-	document.getElementById("body").removeChild(document.getElementById("hintReadHelp"));
-	handleOverlay(false);
-	var help = document.getElementById("help");
-	help.style.border = "";
-	help.style.borderRadius = "";
-	help.style.boxShadow = "";
-	help.style.position = "";
-	help.style.width = "";
-	help.style.zIndex = "";
-}
 
 function sendResults(xml) {
 	if (document.getElementById("userSelect").selectedIndex > 0 &&
@@ -470,7 +392,7 @@ function parseFieldValue (field, addLeadingZeros) {
 
 	if (isNaN(value)) {
 		errorCount++;
-		return "<span style='color: red; font-weight: bold;'>???</span>"
+		return "<span class='error'>???</span>"
 	}
 	else {
 		if (addLeadingZeros) {
@@ -488,15 +410,11 @@ function parseTextFieldValue (field) {
 
 	if (value == null || value.length < 1) {
 		errorCount++;
-		return "<span style='color: red; font-weight: bold;'>???</span>"
+		return "<span class='error'>???</span>"
 	}
 	else {
 		return value;
 	}
-}
-
-function getXMLRow(row) {
-	return row + '\n';
 }
 
 // Adding and deleting competitions
@@ -741,7 +659,7 @@ function getResultRow(members) {
 	col.appendChild(link);
 
 	row.appendChild(col);
-	//TODO weiter
+	// TODO ... weg Start
 	col = document.createElement("td");
 	col.appendChild(getSmallInput(2, "Gesamtzeit: Stunden"));
 	col.appendChild(document.createTextNode(":"));
@@ -753,15 +671,17 @@ function getResultRow(members) {
 
 	col = document.createElement("td");
 	col.appendChild(getSmallInput(5, "Platzierung im Gesamtklassement pro Geschlecht"));
-	col.appendChild(getDotSlash());
+	col.appendChild(document.createTextNode(translations["placeFormat"]));
 	col.appendChild(getSmallInput(5, "Gesamtzahl Teilnehmer im Gesamtklassement pro Geschlecht"));
 	row.appendChild(col);
 
 	col = document.createElement("td");
 	col.appendChild(getSmallInput(5, "Platzierung in der Altersklasse"));
-	col.appendChild(getDotSlash());
+	col.appendChild(document.createTextNode(translations["placeFormat"]));
 	col.appendChild(getSmallInput(5, "Gesamtzahl Teilnehmer in der Altersklasse"));
 	row.appendChild(col);
+
+	// TODO ... ändern Ende
 
 	return row;
 }
@@ -776,10 +696,7 @@ function getSmallInput(maxlength, title) {
 	return input;
 }
 
-function getDotSlash() {
-	return document.createTextNode("./");
-}
-
+//TODO ... ändern Start
 function getMedalString(placing, overallPlacing) {
 	var titlePart = "Gesamtplatz";
 	var medalType = "place_overall";
@@ -795,6 +712,7 @@ function getMedalString(placing, overallPlacing) {
 		default : return '';
 	}
 }
+//TODO ... ändern Ende
 
 function moveResultUp(srcButton) {
 	var actRow = srcButton.parentNode.parentNode;
@@ -844,8 +762,8 @@ function moveCompetitionDown(srcButton) {
 
 function addCompetitionTemplateValues (select) {
 	var optionEmpty = document.createElement("option");
+	optionEmpty.innerHTML = translations["selectCompetitionTemplateFirstOption"];
 	optionEmpty.value = "";
-	optionEmpty.appendChild(document.createTextNode(translations["selectCompetitionTemplateFirstOption"]));
 	select.appendChild(optionEmpty);
 
 	var optGroup = document.createElement("optgroup");
@@ -862,21 +780,9 @@ function addCompetitionTemplateValues (select) {
 	select.appendChild(optGroup);
 }
 
-var competitionTemplates = new Array(
-"SD (0,5 km - 20 km - 5 km)",
-"OD (1,5 km - 40 km - 10 km)",
-"MD (2 km - 80 km - 20 km)",
-"IM 70.3 (1,9 km - 90 km - 21,1 km)",
-"MD (1,9 km - 90 km - 21,1 km)",
-"IM (3,8 km - 180 km - 42,2 km)",
-"LD (3,8 km - 180 km - 42,2 km)",
-"Halbmarathon",
-"Marathon",
-"24-Stunden-Schwimmen");
-
 function getMemberSelectBox(members) {
 	var select = document.createElement("select");
-	select.title = "Auswahl der Starter";
+	select.title = translations["selectMemberTitle"];
 	var option = null;
 	for (var i = 0; i < members.length; i++) {
 		option = document.createElement("option");
@@ -897,6 +803,8 @@ function focusActMemberSelect () {
 	}
 }
 
+
+// TODO ... weg Start
 /**
  * -------------------------------------
  * Adding Ajax
@@ -993,3 +901,5 @@ function resultsSendHandler ()
 		default: return false; break;
 	}
 }
+
+//TODO ... weg Ende

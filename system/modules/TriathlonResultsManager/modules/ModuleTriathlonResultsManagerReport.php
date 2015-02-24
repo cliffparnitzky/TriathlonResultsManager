@@ -91,6 +91,7 @@ class ModuleTriathlonResultsManagerReport extends \Module
 				return false;
 			}
 
+			$placeFormat = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['place_format'], "", "");
 			$GLOBALS['TL_BODY'][] = <<<EOT
 <script type="text/javascript">
 	var translations = {
@@ -121,9 +122,13 @@ class ModuleTriathlonResultsManagerReport extends \Module
 		buttonMoveUpResultTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_up_result_title']}",
 		buttonMoveDownResultImage : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_down_result_image']}",
 		buttonMoveDownResultTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['button_move_down_result_title']}",
+		placeFormat : "{$placeFormat}",
+		selectMemberTitle : "{$GLOBALS['TL_LANG']['TriathlonResultsManager']['report']['select_member_title']}",
 	};
 	var women = [{$this->getMembersJavascriptArrayContent('female')}];
 	var men = [{$this->getMembersJavascriptArrayContent('male')}];
+
+	addCompetition();
 </script>
 EOT;
 			if ($this->triathlonResultsManagerTplUseDefaultCss)
