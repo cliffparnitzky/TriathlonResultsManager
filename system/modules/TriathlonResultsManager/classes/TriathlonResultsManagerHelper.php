@@ -397,7 +397,8 @@ class TriathlonResultsManagerHelper
 			$arrCompetitionFilterColumn[] = "$tCom.id IN (SELECT $tRes.pid FROM $tRes WHERE $tRes.singleStarter IN (SELECT $tMem.id FROM $tMem WHERE $tMem.gender = ?))";
 			$arrCompetitionFilterValue[] = $arrData['triathlonResultsManagerFilterResultSingleRatingType'];
 
-			$arrResultFilterColumn[] = "$tRes.singleStarter IN (SELECT $tMem.id FROM $tMem WHERE $tMem.gender = ?)";
+			$arrResultFilterColumn[] = "($tRes.singleStarter IN (SELECT $tMem.id FROM $tMem WHERE $tMem.gender = ?) || $tRes.singleStarterFreetext_gender = ?)";
+			$arrResultFilterValue[] = $arrData['triathlonResultsManagerFilterResultSingleRatingType'];
 			$arrResultFilterValue[] = $arrData['triathlonResultsManagerFilterResultSingleRatingType'];
 		}
 
@@ -512,12 +513,12 @@ class TriathlonResultsManagerHelper
 								}
 								else
 								{
-									if (!empty($arrResult['singleStarter_freetext']))
+									if ($arrResult['singleStarterType'] == 'freetext' && !empty($arrResult['singleStarterFreetext_name']))
 									{
-										$arrResult['formattedSingleStarter'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['starter_freetext_format'], $arrResult['singleStarter_freetext']);
-										$key = static::getKeyForRatingType('others', deserialize($arrData['triathlonResultsManagerSortResultRatingTypeOrder']), $arrResult['overallPlace']);
-										$arrResult['ratingType'] = 'others';
-										$arrResult['formattedRatingType'] = $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType']['others'];
+										$arrResult['formattedSingleStarter'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['starter_freetext_format'], $arrResult['singleStarterFreetext_name']);
+										$key = static::getKeyForRatingType($arrResult['singleStarterFreetext_gender'], deserialize($arrData['triathlonResultsManagerSortResultRatingTypeOrder']), $arrResult['overallPlace']);
+										$arrResult['ratingType'] = $arrResult['singleStarterFreetext_gender'];
+										$arrResult['formattedRatingType'] = $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType'][$arrResult['singleStarterFreetext_gender']];
 									}
 									else
 									{

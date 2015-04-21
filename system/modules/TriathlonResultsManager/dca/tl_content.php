@@ -142,10 +142,10 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['triathlonResultsManagerSortReportDat
 $GLOBALS['TL_DCA']['tl_content']['fields']['triathlonResultsManagerSortResultRatingTypeOrder'] = array
 (
 	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['triathlonResultsManagerSortResultRatingTypeOrder'],
-	'default'                 => array('female', 'male', 'mixed', 'others'),
+	'default'                 => array('female', 'male', 'mixed'),
 	'exclude'                 => true,
 	'inputType'               => 'checkboxWizard',
-	'options'                 => array('female', 'male', 'mixed', 'others'),
+	'options'                 => array('female', 'male', 'mixed'),
 	'reference'               => &$GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType'],
 	'eval'                    => array('multiple'=>true, 'tl_class'=>'clr w50'),
 	'save_callback' => array

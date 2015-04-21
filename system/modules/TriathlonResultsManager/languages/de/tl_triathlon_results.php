@@ -30,8 +30,10 @@
 /**
  * Fields
  */
-$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarter']                    = array('Einzelstarter', 'Wählen Sie den Einzelstarter aus. Wenn der gewünschte Einzelstarter nicht auswählbar ist lassen Sie das Feld leer und tragen den Namen im Feld \'Einzelstarter Freitext\' ein.');
-$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarter_freetext']           = array('Einzelstarter Freitext', 'Geben Sie den Namen des Einzelstarters an, wenn Sie das Feld \'Einzelstarter\' leer gelassen haben.');
+$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarterType']                = array('Einzelstarter Typ', 'Wählen Sie den Typ des Einzelstarters aus.');
+$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarter']                    = array('Einzelstarter', 'Wählen Sie das Mitglied als Einzelstarter aus.');
+$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarterFreetext_name']       = array('Einzelstarter Freitext - Name', 'Geben Sie den Namen des Einzelstarters an.');
+$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarterFreetext_gender']     = array('Einzelstarter Freitext - Geschlecht', 'Wählen Sie das Geschlecht des Einzelstarters aus.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['relayStarter']                     = array('Staffelstarter', 'Wählen Sie die Staffelstarter für dieses Ergebnis aus und geben Sie die Disziplin in der Sie gestartet sind an, sowie die Zeit, die sie für die Diziplin benötigt haben.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['relayStarter_discipline']          = array('Disziplin', 'Geben Sie die Disziplin an. Wenn die gewünschte Disziplin nicht auswählbar ist verwenden Sie \'Sonstiges\' und tragen die Bezeichnung dann im Feld \'Disziplin Freitext\' ein.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['relayStarter_discipline_freetext'] = array('Disziplin Freitext', 'Geben Sie die Bezeichnung der Disziplin an, wenn Sie als Disziplin \'Sonstiges\' gewählt haben.');
@@ -61,6 +63,12 @@ $GLOBALS['TL_LANG']['tl_triathlon_results']['time_legend']         = 'Gesamtzeit
 $GLOBALS['TL_LANG']['tl_triathlon_results']['distance_legend']     = 'Gesamtstrecke';
 $GLOBALS['TL_LANG']['tl_triathlon_results']['place_legend']        = 'Platzierung';
 $GLOBALS['TL_LANG']['tl_triathlon_results']['deactivation_legend'] = 'Deaktivierung';
+
+/**
+ * Options
+ */
+$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarterTypeOptions']['member']   = array('Mitglied', 'Auswahl eines Mitglieds aus der Contao Mitgliederverwaltung.');
+$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarterTypeOptions']['freetext'] = array('Freitext', 'Freitexterfassung von Name und Geschlecht des Einzelstarters.');
 
 /**
  * Buttons

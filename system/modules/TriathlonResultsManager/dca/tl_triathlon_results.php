@@ -128,8 +128,15 @@ $GLOBALS['TL_DCA']['tl_triathlon_results'] = array
 	// Palettes
 	'palettes' => array
 	(
-		'__selector__' => array(),
-		'default'      => '{singleStart_legend},singleStarter,singleStarter_freetext;{time_legend},timeHours,timeMinutes,timeSeconds;{place_legend},overallPlace,overallStarters,ageGroupPlace,ageGroupStarters;{deactivation_legend},disable'
+		'__selector__' => array('singleStarterType'),
+		'default'      => '{singleStart_legend},singleStarterType;{time_legend},timeHours,timeMinutes,timeSeconds;{place_legend},overallPlace,overallStarters,ageGroupPlace,ageGroupStarters;{deactivation_legend},disable'
+	),
+	
+	// Subpalettes
+	'subpalettes' => array
+	(
+		'singleStarterType_member'   => 'singleStarter',
+		'singleStarterType_freetext' => 'singleStarterFreetext_name,singleStarterFreetext_gender'
 	),
 
 	// Fields
@@ -149,6 +156,18 @@ $GLOBALS['TL_DCA']['tl_triathlon_results'] = array
 		(
 			'sql'                     => "int(10) unsigned NOT NULL default '0'"
 		),
+		'singleStarterType' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarterType'],
+			'exclude'                 => true,
+			'filter'                  => true,
+			'default'                 => 'member',
+			'inputType'               => 'radio',
+			'options'                 => array('member', 'freetext'),
+			'reference'               => &$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarterTypeOptions'],
+			'eval'                    => array('mandatory'=>true, 'tl_class'=>'clr w50', 'submitOnChange'=>true, 'helpwizard'=>true),
+			'sql'                     => "varchar(32) NOT NULL default 'member'"
+		),
 		'singleStarter' => array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarter'],
@@ -156,18 +175,29 @@ $GLOBALS['TL_DCA']['tl_triathlon_results'] = array
 			'filter'                  => true,
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_member.CONCAT(firstname, " ", lastname)',
-			'eval'                    => array('chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
+			'eval'                    => array('chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'clr w50'),
 			'sql'                     => "int(10) unsigned NULL",
 			'relation'                => array('type'=>'hasOne', 'load'=>'eager')
 		),
-		'singleStarter_freetext' => array
+		'singleStarterFreetext_name' => array
 		(
-			'label'                   => &$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarter_freetext'],
+			'label'                   => &$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarterFreetext_name'],
 			'exclude'                 => true,
 			'search'                  => true,
 			'inputType'               => 'text',
-			'eval'                    => array('maxlength'=>512, 'tl_class'=>'w50'),
+			'eval'                    => array('mandatory'=>true, 'maxlength'=>512, 'tl_class'=>'clr w50'),
 			'sql'                     => "varchar(512) NOT NULL default ''"
+		),
+		'singleStarterFreetext_gender' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_triathlon_results']['singleStarterFreetext_gender'],
+			'exclude'                 => true,
+			'search'                  => true,
+			'inputType'               => 'select',
+			'options'                 => array('male', 'female'),
+			'reference'               => &$GLOBALS['TL_LANG']['MSC'],
+			'eval'                    => array('mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
+			'sql'                     => "varchar(32) NOT NULL default ''" 
 		),
 		'relayStarter' => array
 		(
@@ -532,7 +562,7 @@ class tl_triathlon_results extends Backend
 		}
 		else
 		{
-			$strStarters = \TriathlonResultsManagerHelper::getStarterName($row['singleStarter'], $row['singleStarter_freetext']);
+			$strStarters = \TriathlonResultsManagerHelper::getStarterName($row['singleStarter'], $row['singleStarterFreetext_name']);
 			if ($strStarters == null)
 			{
 				$strStarters = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['singleStarter_not_set'] . '</div>';
@@ -685,7 +715,7 @@ class tl_triathlon_results extends Backend
 				{
 					if ($objResultsCompetition->type == 'relay')
 					{
-						$GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default'] = str_replace('{singleStart_legend},singleStarter,singleStarter_freetext;', '{relayStart_legend},relayStarter,relayRatingType,relayName;', $GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default']);
+						$GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default'] = str_replace('{singleStart_legend},singleStarter,singleStarterFreetext_name;', '{relayStart_legend},relayStarter,relayRatingType,relayName;', $GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default']);
 					}
 					if (!$objResultsCompetition->ageGroupRating)
 					{

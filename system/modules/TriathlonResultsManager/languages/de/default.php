@@ -81,7 +81,6 @@ $GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionPerformanceEvaluation
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType']['female']     = "Frauen";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType']['male']       = "Männer";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType']['mixed']      = "Mixed";
-$GLOBALS['TL_LANG']['TriathlonResultsManager']['ratingType']['others']     = "Sonstige";
 
 /**
  * Leagues
