@@ -41,7 +41,6 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_competitions'] = array
 		'ctable'                  => array('tl_triathlon_results'),
 		'switchToEdit'            => true,
 		'enableVersioning'        => true,
-		'doNotCopyRecords'        => true,
 		'sql' => array
 		(
 			'keys' => array

@@ -40,6 +40,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results'] = array
 		'ptable'                  => 'tl_triathlon_results_competitions',
 		'enableVersioning'        => true,
 		'notCopyable'             => true,
+		'doNotCopyRecords'        => true,
 		'onload_callback' => array
 		(
 			array('tl_triathlon_results', 'initPalettes'),
