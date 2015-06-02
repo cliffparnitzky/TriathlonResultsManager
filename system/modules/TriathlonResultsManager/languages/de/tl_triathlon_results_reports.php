@@ -51,6 +51,7 @@ $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['new']        = array('Neue 
 $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['show']       = array('Details der Ergebnismeldung', 'Details der Ergebnismeldung ID %s anzeigen');
 $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['edit']       = array('Ergebnismeldung bearbeiten', 'Ergebnismeldung ID %s bearbeiten');
 $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['editheader'] = array('Ergebnismeldung-Einstellungen bearbeiten', 'Einstellungen des Ergebnismeldung ID %s bearbeiten');
+$GLOBALS['TL_LANG']['tl_triathlon_results_reports']['copy']       = array('Ergebnismeldung duplizieren', 'Ergebnismeldung ID %s duplizieren');
 $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['delete']     = array('Ergebnismeldung löschen', 'Ergebnismeldung ID %s löschen');
 $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['toggle']     = array('Ergebnismeldung aktivieren/deaktivieren', 'Ergebnismeldung ID %s aktivieren/deaktivieren');
 

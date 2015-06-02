@@ -40,7 +40,6 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_reports'] = array
 		'ctable'                  => array('tl_triathlon_results_competitions'),
 		'switchToEdit'            => true,
 		'enableVersioning'        => true,
-		'notCopyable'             => true,
 		'notSortable'             => true,
 		'sql' => array
 		(
@@ -89,6 +88,12 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_reports'] = array
 				'label'               => &$GLOBALS['TL_LANG']['tl_triathlon_results_reports']['editheader'],
 				'href'                => 'act=edit',
 				'icon'                => 'header.gif'
+			),
+			'copy' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_triathlon_results_reports']['copy'],
+				'href'                => 'act=copy',
+				'icon'                => 'copy.gif'
 			),
 			'delete' => array
 			(
@@ -139,7 +144,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_reports'] = array
 			'sorting'                 => true,
 			'flag'                    => 8,
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
+			'eval'                    => array('mandatory'=>true, 'rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard', 'doNotCopy'=>true),
 			'sql'                     => "varchar(10) NOT NULL default ''"
 		),
 		'eventType' => array
@@ -174,7 +179,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_reports'] = array
 			'flag'                    => 8,
 			'default'                 => time(),
 			'inputType'               => 'text',
-			'eval'                    => array('mandatory'=>true, 'rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard'),
+			'eval'                    => array('mandatory'=>true, 'rgxp'=>'date', 'datepicker'=>true, 'tl_class'=>'w50 wizard', 'doNotCopy'=>true),
 			'sql'                     => "varchar(10) NOT NULL default ''"
 		),
 		'reportMember' => array
@@ -186,7 +191,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_reports'] = array
 			'flag'                    => 1,
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_member.CONCAT(firstname, " ", lastname)',
-			'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50'),
+			'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'w50', 'doNotCopy'=>true),
 			'sql'                     => "int(10) unsigned NOT NULL default '0'",
 			'relation'                => array('type'=>'hasOne', 'load'=>'eager')
 		),
@@ -196,6 +201,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_reports'] = array
 			'exclude'                 => true,
 			'filter'                  => true,
 			'inputType'               => 'checkbox',
+			'eval'                    => array('tl_class'=>'w50'),
 			'sql'                     => "char(1) NOT NULL default ''"
 		)
 	)

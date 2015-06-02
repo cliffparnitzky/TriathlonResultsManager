@@ -57,6 +57,7 @@ $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['show']       = array('
 $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['edit']       = array('Wettkampf bearbeiten', 'Wettkampf ID %s bearbeiten');
 $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['editheader'] = array('Wettkampf-Einstellungen bearbeiten', 'Einstellungen des Wettkampfs ID %s bearbeiten');
 $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['cut']        = array('Wettkampf verschieben', 'Wettkampf ID %s verschieben');
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['copy']       = array('Wettkampf duplizieren', 'Wettkampf ID %s duplizieren');
 $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['delete']     = array('Wettkampf löschen', 'Wettkampf ID %s löschen');
 $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['toggle']     = array('Wettkampf aktivieren/deaktivieren', 'Wettkampf ID %s aktivieren/deaktivieren');
 

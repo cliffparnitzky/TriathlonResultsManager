@@ -41,7 +41,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_competitions'] = array
 		'ctable'                  => array('tl_triathlon_results'),
 		'switchToEdit'            => true,
 		'enableVersioning'        => true,
-		'notCopyable'             => true,
+		'doNotCopyRecords'        => true,
 		'sql' => array
 		(
 			'keys' => array
@@ -93,6 +93,12 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_competitions'] = array
 				'label'               => &$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['cut'],
 				'href'                => 'act=paste&amp;mode=cut',
 				'icon'                => 'cut.gif'
+			),
+			'copy' => array
+			(
+				'label'               => &$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['copy'],
+				'href'                => 'act=copy',
+				'icon'                => 'copy.gif'
 			),
 			'delete' => array
 			(
@@ -226,6 +232,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_competitions'] = array
 			'exclude'                 => true,
 			'filter'                  => true,
 			'inputType'               => 'checkbox',
+			'eval'                    => array('tl_class'=>'w50'),
 			'sql'                     => "char(1) NOT NULL default ''"
 		)
 	)
