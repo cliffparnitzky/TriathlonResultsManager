@@ -716,7 +716,7 @@ class tl_triathlon_results extends Backend
 				{
 					if ($objResultsCompetition->type == 'relay')
 					{
-						$GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default'] = str_replace('{singleStart_legend},singleStarter,singleStarterFreetext_name;', '{relayStart_legend},relayStarter,relayRatingType,relayName;', $GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default']);
+						$GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default'] = str_replace('{singleStart_legend},singleStarterType;', '{relayStart_legend},relayStarter,relayRatingType,relayName;', $GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default']);
 					}
 					if (!$objResultsCompetition->ageGroupRating)
 					{
