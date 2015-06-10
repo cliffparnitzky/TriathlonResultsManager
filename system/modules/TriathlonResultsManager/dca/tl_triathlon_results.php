@@ -176,7 +176,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results'] = array
 			'filter'                  => true,
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_member.CONCAT(firstname, " ", lastname)',
-			'eval'                    => array('chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'clr w50'),
+			'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'clr w50'),
 			'sql'                     => "int(10) unsigned NULL",
 			'relation'                => array('type'=>'hasOne', 'load'=>'eager')
 		),
