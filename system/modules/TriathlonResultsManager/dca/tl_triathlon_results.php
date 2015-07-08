@@ -176,7 +176,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results'] = array
 			'filter'                  => true,
 			'inputType'               => 'select',
 			'foreignKey'              => 'tl_member.CONCAT(firstname, " ", lastname)',
-			'eval'                    => array('chosen'=>true, 'mandatory'=>true, 'includeBlankOption'=>true, 'tl_class'=>'clr w50'),
+			'eval'                    => array('chosen'=>true, 'includeBlankOption'=>true, 'tl_class'=>'clr w50'),
 			'sql'                     => "int(10) unsigned NULL",
 			'relation'                => array('type'=>'hasOne', 'load'=>'eager')
 		),
@@ -563,7 +563,15 @@ class tl_triathlon_results extends Backend
 		}
 		else
 		{
-			$strStarters = \TriathlonResultsManagerHelper::getStarterName($row['singleStarter'], $row['singleStarterFreetext_name']);
+			if ($row['singleStarterType'] == 'member')
+			{
+				$strStarters = \TriathlonResultsManagerHelper::getStarterName($row['singleStarter'], null);
+			}
+			else
+			{
+				$strStarters = \TriathlonResultsManagerHelper::getStarterName(-1, $row['singleStarterFreetext_name']);
+			}
+			
 			if ($strStarters == null)
 			{
 				$strStarters = '<div class="tl_error">' . $GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['singleStarter_not_set'] . '</div>';
