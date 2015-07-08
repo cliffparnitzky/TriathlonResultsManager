@@ -16,7 +16,7 @@
  */
 ClassLoader::addNamespaces(array
 (
-	'TriathlonResultsManager',
+	'CliffParnitzky\Contao\TriathlonResultsManager',
 ));
 
 
@@ -26,21 +26,21 @@ ClassLoader::addNamespaces(array
 ClassLoader::addClasses(array
 (
 	// Classes
-	'TriathlonResultsManager\TriathlonResultsManagerHelper'          => 'system/modules/TriathlonResultsManager/classes/TriathlonResultsManagerHelper.php',
+	'CliffParnitzky\Contao\TriathlonResultsManager\TriathlonResultsManagerHelper'          => 'system/modules/TriathlonResultsManager/classes/TriathlonResultsManagerHelper.php',
 
 	// Elements
-	'TriathlonResultsManager\ContentTriathlonResultsManagerResults'  => 'system/modules/TriathlonResultsManager/elements/ContentTriathlonResultsManagerResults.php',
+	'CliffParnitzky\Contao\TriathlonResultsManager\ContentTriathlonResultsManagerResults'  => 'system/modules/TriathlonResultsManager/elements/ContentTriathlonResultsManagerResults.php',
 
 	// Models
-	'TriathlonResultsManager\TriathlonResultsCompetitionsModel'      => 'system/modules/TriathlonResultsManager/models/TriathlonResultsCompetitionsModel.php',
-	'TriathlonResultsManager\TriathlonResultsModel'                  => 'system/modules/TriathlonResultsManager/models/TriathlonResultsModel.php',
-	'TriathlonResultsManager\TriathlonResultsReportsModel'           => 'system/modules/TriathlonResultsManager/models/TriathlonResultsReportsModel.php',
+	'CliffParnitzky\Contao\TriathlonResultsManager\TriathlonResultsCompetitionsModel'      => 'system/modules/TriathlonResultsManager/models/TriathlonResultsCompetitionsModel.php',
+	'CliffParnitzky\Contao\TriathlonResultsManager\TriathlonResultsModel'                  => 'system/modules/TriathlonResultsManager/models/TriathlonResultsModel.php',
+	'CliffParnitzky\Contao\TriathlonResultsManager\TriathlonResultsReportsModel'           => 'system/modules/TriathlonResultsManager/models/TriathlonResultsReportsModel.php',
 
 	// Modules
-	'TriathlonResultsManager\ModuleTriathlonResultsManagerMyReports' => 'system/modules/TriathlonResultsManager/modules/ModuleTriathlonResultsManagerMyReports.php',
-	'TriathlonResultsManager\ModuleTriathlonResultsManagerMyResults' => 'system/modules/TriathlonResultsManager/modules/ModuleTriathlonResultsManagerMyResults.php',
-	'TriathlonResultsManager\ModuleTriathlonResultsManagerReport'    => 'system/modules/TriathlonResultsManager/modules/ModuleTriathlonResultsManagerReport.php',
-	'TriathlonResultsManager\ModuleTriathlonResultsManagerResults'   => 'system/modules/TriathlonResultsManager/modules/ModuleTriathlonResultsManagerResults.php',
+	'CliffParnitzky\Contao\TriathlonResultsManager\ModuleTriathlonResultsManagerMyReports' => 'system/modules/TriathlonResultsManager/modules/ModuleTriathlonResultsManagerMyReports.php',
+	'CliffParnitzky\Contao\TriathlonResultsManager\ModuleTriathlonResultsManagerMyResults' => 'system/modules/TriathlonResultsManager/modules/ModuleTriathlonResultsManagerMyResults.php',
+	'CliffParnitzky\Contao\TriathlonResultsManager\ModuleTriathlonResultsManagerReport'    => 'system/modules/TriathlonResultsManager/modules/ModuleTriathlonResultsManagerReport.php',
+	'CliffParnitzky\Contao\TriathlonResultsManager\ModuleTriathlonResultsManagerResults'   => 'system/modules/TriathlonResultsManager/modules/ModuleTriathlonResultsManagerResults.php',
 ));
 
 

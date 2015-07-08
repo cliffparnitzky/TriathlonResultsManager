@@ -30,7 +30,7 @@
 /**
  * Run in a custom namespace, so the class can be replaced
  */
-namespace TriathlonResultsManager;
+namespace CliffParnitzky\Contao\TriathlonResultsManager;
 
 /**
  * Class TriathlonResultsModel
