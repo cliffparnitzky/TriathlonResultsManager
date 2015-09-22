@@ -30,6 +30,7 @@
 /**
  * Fields
  */
+$GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['pid']                             = array('Veranstaltung', '');
 $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['name']                            = array('Wettkampfname', 'Geben Sie den Namen des Wettkampfs an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['type']                            = array('Wettkampftyp', 'Geben Sie den Typ des Wettkampfs an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['performanceEvaluation']           = array('Leistungsbewertung', 'Geben Sie die Art der Leistungsbewertung des Wettkampfs an.');

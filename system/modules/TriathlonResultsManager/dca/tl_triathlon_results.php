@@ -72,7 +72,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results'] = array
 			'fields'                  => array('overallPlace'),
 			'flag'                    => 11,
 			'panelLayout'             => 'filter;sort,search,limit',
-			'headerFields'            => array('name', 'disciplines', 'type', 'ageGroupRating'),
+			'headerFields'            => array('pid', 'name', 'disciplines', 'type', 'ageGroupRating'),
 			'header_callback'         => array('tl_triathlon_results', 'extendHeader'),
 			'child_record_callback'   => array('tl_triathlon_results', 'listResult')
 		),
@@ -495,8 +495,26 @@ class tl_triathlon_results extends Backend
 	{
 		$objResultsCompetition = \TriathlonResultsCompetitionsModel::findByPk($dc->id);
 
+		$strPidFieldLabel = $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['pid'][0];
+		if (array_key_exists($strPidFieldLabel, $arrHeaderFields) )
+		{
+			$strText = $arrHeaderFields[$strPidFieldLabel];
+
+			if ($objResultsCompetition != null)
+			{
+				$objResultsReport = \TriathlonResultsReportsModel::findByPk($objResultsCompetition->pid);
+
+				if ($objResultsReport != null)
+				{
+					$strText = date(\Config::get('dateFormat'), $objResultsReport->eventDate) . ": " . $strText;
+				}
+			}
+
+			$arrHeaderFields[$strPidFieldLabel] = $strText;
+		}
+		
 		$strDisciplinesFieldLabel = $GLOBALS['TL_LANG']['tl_triathlon_results_competitions']['disciplines'][0];
-		if (array_key_exists($strDisciplinesFieldLabel, $arrHeaderFields) )
+		if (array_key_exists($strDisciplinesFieldLabel, $arrHeaderFields))
 		{
 			$strText = "";
 
