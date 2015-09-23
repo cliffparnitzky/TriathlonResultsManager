@@ -61,4 +61,39 @@ if (TL_MODE == 'BE')
     $GLOBALS['TL_JAVASCRIPT']['triathlon_results_manager'] = 'system/modules/TriathlonResultsManager/assets/js/triathlon_results_manager_be.js';
 }
 
+/**
+ * Default competition disciplines configuration
+ */
+$GLOBALS['TL_TRIATHLON_RESULTS_MANAGER']['disciplines'] = array
+(
+	'swim' => array
+	(
+		array('discipline'=>'swim', 'distance'=>array('value'=>'', 'unit'=>''))
+	),
+	'bike' => array
+	(
+		array('discipline'=>'bike', 'distance'=>array('value'=>'', 'unit'=>''))
+	),
+	'run' => array
+	(
+		array('discipline'=>'run', 'distance'=>array('value'=>'', 'unit'=>''))
+	),
+	'duathlon' => array
+	(
+		array('discipline'=>'run', 'distance'=>array('value'=>'', 'unit'=>'')),
+		array('discipline'=>'bike', 'distance'=>array('value'=>'', 'unit'=>'')),
+		array('discipline'=>'run', 'distance'=>array('value'=>'', 'unit'=>''))
+	),
+	'triathlon' => array
+	(
+		array('discipline'=>'swim', 'distance'=>array('value'=>'500', 'unit'=>'m')),
+		array('discipline'=>'bike', 'distance'=>array('value'=>'20', 'unit'=>'km')),
+		array('discipline'=>'run', 'distance'=>array('value'=>'5', 'unit'=>'km'))
+	),
+	'others' => array
+	(
+		array('discipline'=>'others', 'distance'=>array('value'=>'', 'unit'=>''))
+	)
+);
+
 ?>

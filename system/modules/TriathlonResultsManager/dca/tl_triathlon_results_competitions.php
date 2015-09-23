@@ -223,6 +223,10 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_competitions'] = array
 			'exclude'                 => true,
 			'inputType'               => 'multiColumnWizard',
 			'eval'                    => array('tl_class'=>'clr','columnFields'=>tl_triathlon_results_competitions::getDisciplineColumns()),
+			'load_callback' => array
+			(
+				array('tl_triathlon_results_competitions', 'setDefaultDisciplines')
+			),
 			'sql'                     => "blob NULL"
 		),
 		'disable' => array
@@ -430,6 +434,28 @@ class tl_triathlon_results_competitions extends Backend
 		}
 
 		return $arrDisciplineColumns;
+	}
+
+	/**
+	 * Dynamically set the default competition disciplines
+	 * @param mixed
+	 * @param \DataContainer
+	 * @return string
+	 */
+	public function setDefaultDisciplines($varValue, DataContainer $dc)
+	{
+		if ($dc->activeRecord->tstamp > 0)
+		{
+			return $varValue;
+		}
+
+		$objResultsReport = \TriathlonResultsReportsModel::findByPk($dc->activeRecord->pid);
+
+		if ($objResultsReport != null && count($GLOBALS['TL_TRIATHLON_RESULTS_MANAGER']['disciplines'][$objResultsReport->eventType]) > 0)
+		{
+			$varValue = serialize($GLOBALS['TL_TRIATHLON_RESULTS_MANAGER']['disciplines'][$objResultsReport->eventType]);
+		}
+		return $varValue;
 	}
 
 }
