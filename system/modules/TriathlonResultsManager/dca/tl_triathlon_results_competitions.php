@@ -212,7 +212,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_competitions'] = array
 			'filter'                  => true,
 			'sorting'                 => true,
 			'inputType'               => 'select',
-			'options'                 => array('time', 'distance'),
+			'options'                 => array('time', 'distance', 'laps'),
 			'reference'               => &$GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionPerformanceEvaluation'],
 			'eval'                    => array('mandatory'=>true, 'submitOnChange'=>true),
 			'sql'                     => "varchar(64) NOT NULL default 'time'"
@@ -410,7 +410,7 @@ class tl_triathlon_results_competitions extends Backend
 			)
 		);
 
-		if ($performanceEvaluation == 'distance')
+		if ($performanceEvaluation == 'distance' || $performanceEvaluation == 'laps')
 		{
 			$arrDisciplineColumns['time'] = array
 			(

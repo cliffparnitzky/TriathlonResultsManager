@@ -48,6 +48,7 @@ $GLOBALS['TL_LANG']['tl_triathlon_results']['timeHours']                        
 $GLOBALS['TL_LANG']['tl_triathlon_results']['timeMinutes']                      = array('Minuten', 'Geben Sie die Minuten der Gesamtzeit an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['timeSeconds']                      = array('Sekunden', 'Geben Sie die Sekunden der Gesamtzeit an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['distance']                         = array('Strecke', 'Geben Sie die Gesamtstrecke an.');
+$GLOBALS['TL_LANG']['tl_triathlon_results']['laps']                             = array('Runden', 'Geben Sie die Runden an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['overallPlace']                     = array('Platz im Gesamtklassement', 'Geben Sie die Platzierung im Gesamtklassement pro Wertungstyp (Männer, Frauen, Mixed) an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['overallStarters']                  = array('Anzahl Teilnehmer im Gesamtklassement', 'Geben Sie die Anzahl der Teilnehmer im Gesamtklassement pro Wertungstyp (Männer, Frauen, Mixed) an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results']['ageGroupPlace']                    = array('Platz in der Altersklasse', 'Geben Sie die Platzierung in der Altersklasse an.');
@@ -61,6 +62,7 @@ $GLOBALS['TL_LANG']['tl_triathlon_results']['singleStart_legend']  = 'Einzelstar
 $GLOBALS['TL_LANG']['tl_triathlon_results']['relayStart_legend']   = 'Staffelstart';
 $GLOBALS['TL_LANG']['tl_triathlon_results']['time_legend']         = 'Gesamtzeit';
 $GLOBALS['TL_LANG']['tl_triathlon_results']['distance_legend']     = 'Gesamtstrecke';
+$GLOBALS['TL_LANG']['tl_triathlon_results']['laps_legend']         = 'Gesamtrunden';
 $GLOBALS['TL_LANG']['tl_triathlon_results']['place_legend']        = 'Platzierung';
 $GLOBALS['TL_LANG']['tl_triathlon_results']['deactivation_legend'] = 'Deaktivierung';
 

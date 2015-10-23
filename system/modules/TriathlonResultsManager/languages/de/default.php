@@ -33,6 +33,7 @@
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['disciplines_delimiter']         = " + ";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['relayStarter_delimiter']        = "<br/>";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format']               = "%s %s";
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['laps_format']                   = "%s Rdn.";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['discipline_distance_format']    = "%s: %s";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['place_format']                  = "%s./%s";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['time_format']                   = "%s:%s:%s h";
@@ -74,6 +75,7 @@ $GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionType']['league'] = "L
  */
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionPerformanceEvaluation']['time']     = "Zeit";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionPerformanceEvaluation']['distance'] = "Strecke";
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionPerformanceEvaluation']['laps']     = "Runden";
 
 /**
  * Rating types
@@ -114,7 +116,7 @@ $GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['notAuthenticatedMyReports
 $GLOBALS['TL_LANG']['ERR']['TriathlonResultsManager']['notAuthenticatedMyResults']          = "Sie müssen angemeldet sein, um ihre Ergebnisse zu sehen.";
 
 /**
- *
+ * Misc
  */
 $GLOBALS['TL_LANG']['MSC']['reports_empty'] = "Bisher sind keine Ergebnismeldungen vorhanden.";
 
@@ -124,6 +126,7 @@ $GLOBALS['TL_LANG']['MSC']['reports_empty'] = "Bisher sind keine Ergebnismeldung
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['starters']      = 'Teilnehmer';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['time']          = 'Zeit';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['distance']      = 'Strecke';
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['laps']          = 'Runden';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['overallPlace']  = 'Platz Gesamt';
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead']['ageGroupPlace'] = 'Platz Altersklasse';
 

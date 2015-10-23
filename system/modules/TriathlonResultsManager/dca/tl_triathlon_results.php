@@ -370,10 +370,22 @@ $GLOBALS['TL_DCA']['tl_triathlon_results'] = array
 		(
 			'label'                   => &$GLOBALS['TL_LANG']['tl_triathlon_results']['distance'],
 			'exclude'                 => true,
+			'sorting'                 => true,
+			'flag'                    => 11,
 			'inputType'               => 'inputUnit',
 			'options'                 => array('km', 'm'),
 			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50', 'maxlength'=>5, 'rgxp'=>'digit'),
 			'sql'                     => "varchar(255) NULL"
+		),
+		'laps' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_triathlon_results']['laps'],
+			'exclude'                 => true,
+			'sorting'                 => true,
+			'flag'                    => 12,
+			'inputType'               => 'text',
+			'eval'                    => array('mandatory'=>true, 'tl_class'=>'w50', 'maxlength'=>5, 'rgxp'=>'digit'),
+			'sql'                     => "varchar(5) NULL"
 		),
 		'overallPlace' => array
 		(
@@ -603,6 +615,10 @@ class tl_triathlon_results extends Backend
 			$arrDistance = deserialize($row['distance']);
 			$strReturn .= '<tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_triathlon_results']['distance_legend'] . ': </span></td><td>' . sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], \TriathlonResultsManagerHelper::addGroupedThousands($arrDistance['value']), $arrDistance['unit']) . '</td></tr>';
 		}
+		else if ($objResultsCompetition->performanceEvaluation == 'laps')
+		{
+			$strReturn .= '<tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_triathlon_results']['laps_legend'] . ': </span></td><td>' . sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['laps_format'], \TriathlonResultsManagerHelper::addGroupedThousands($row['laps'])) . '</td></tr>';
+		}
 		else
 		{
 			$strReturn .= '<tr><td><span class="tl_label">' . $GLOBALS['TL_LANG']['tl_triathlon_results']['time_legend'] . ': </span></td><td>' . sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['time_format'], \TriathlonResultsManagerHelper::addLeadingZero($row['timeHours']), \TriathlonResultsManagerHelper::addLeadingZero($row['timeMinutes']), \TriathlonResultsManagerHelper::addLeadingZero($row['timeSeconds'])) . '</td></tr>';
@@ -649,6 +665,21 @@ class tl_triathlon_results extends Backend
 		else if ($sortingField == 'timeMinutes')
 		{
 			return $GLOBALS['TL_LANG']['tl_triathlon_results']['timeMinutes'][0] . ': ' . sprintf($GLOBALS['TL_LANG']['tl_triathlon_results']['group_timeMinutes'], $groupName);
+		}
+		else if ($sortingField == 'distance')
+		{
+			$strDistance = "-";
+			$arrDistance = deserialize($groupName);
+			if (is_array($arrDistance))
+			{
+				$strDistance = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], \TriathlonResultsManagerHelper::addGroupedThousands($arrDistance['value']), $arrDistance['unit']);
+			}
+			
+			return $GLOBALS['TL_LANG']['tl_triathlon_results']['distance'][0] . ': ' . $strDistance;
+		}
+		else if ($sortingField == 'laps')
+		{
+			return $GLOBALS['TL_LANG']['tl_triathlon_results']['laps'][0] . ': ' . sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['laps_format'], \TriathlonResultsManagerHelper::addGroupedThousands($groupName));
 		}
 		return $groupName;
 	}
@@ -752,6 +783,10 @@ class tl_triathlon_results extends Backend
 					{
 						$GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default'] = str_replace('{time_legend},timeHours,timeMinutes,timeSeconds;', '{distance_legend},distance;', $GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default']);
 					}
+					else if ($objResultsCompetition->performanceEvaluation == 'laps')
+					{
+						$GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default'] = str_replace('{time_legend},timeHours,timeMinutes,timeSeconds;', '{laps_legend},laps;', $GLOBALS['TL_DCA']['tl_triathlon_results']['palettes']['default']);
+					}
 				}
 			}
 		}
@@ -805,10 +840,19 @@ class tl_triathlon_results extends Backend
 					$arrSet['timeHours'] = "NULL";
 					$arrSet['timeMinutes'] = "NULL";
 					$arrSet['timeSeconds'] = "NULL";
+					$arrSet['laps'] = "NULL";
+				}
+				else if ($objResultsCompetition->performanceEvaluation == 'laps')
+				{
+					$arrSet['timeHours'] = "NULL";
+					$arrSet['timeMinutes'] = "NULL";
+					$arrSet['timeSeconds'] = "NULL";
+					$arrSet['distance'] = "NULL";
 				}
 				else
 				{
 					$arrSet['distance'] = "NULL";
+					$arrSet['laps'] = "NULL";
 				}
 
 				if (!empty($arrSet))

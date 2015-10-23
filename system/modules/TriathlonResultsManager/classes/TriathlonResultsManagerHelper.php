@@ -181,7 +181,7 @@ class TriathlonResultsManagerHelper
 			$arrPlainDisciplines = array();
 			foreach ($arrDisciplines as $discipline)
 			{
-				if ($strPerformanceEvaluation == 'distance')
+				if ($strPerformanceEvaluation == 'distance' || $strPerformanceEvaluation == 'laps')
 				{
 					$strDistance = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], str_replace('.', $GLOBALS['TL_LANG']['MSC']['decimalSeparator'], $discipline['time']['value']), $discipline['time']['unit']);
 				}
@@ -455,8 +455,10 @@ class TriathlonResultsManagerHelper
 					while ($objResultsCompetitions->next())
 					{
 						$arrCompetition = $objResultsCompetitions->row();
+						
+						$arrCompetition['performanceEvaluationThead'] = $GLOBALS['TL_LANG']['TriathlonResultsManager']['thead'][$objResultsCompetitions->performanceEvaluation];
 
-						$arrPlainDisciplines = static::getPlainDisciplines(deserialize($arrCompetition['disciplines']), $arrCompetition['performanceEvaluation'], true, $arrData['triathlonResultsManagerTplUseIconsForDisciplines']);
+						$arrPlainDisciplines = static::getPlainDisciplines(deserialize($arrCompetition['disciplines']), $objResultsCompetitions->performanceEvaluation, true, $arrData['triathlonResultsManagerTplUseIconsForDisciplines']);
 						if (!empty($arrPlainDisciplines))
 						{
 							$arrCompetition['formattedDisciplines'] = implode($GLOBALS['TL_LANG']['TriathlonResultsManager']['disciplines_delimiter'], $arrPlainDisciplines);
@@ -541,11 +543,15 @@ class TriathlonResultsManagerHelper
 								if ($objResultsCompetitions->performanceEvaluation == 'distance')
 								{
 									$arrDistance = deserialize($arrResult['distance']);
-									$arrResult['formattedDistance'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], static::addGroupedThousands($arrDistance['value']), $arrDistance['unit']);
+									$arrResult['formattedPerformanceEvaluationValue'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['distance_format'], static::addGroupedThousands($arrDistance['value']), $arrDistance['unit']);
+								}
+								else if ($objResultsCompetitions->performanceEvaluation == 'laps')
+								{
+									$arrResult['formattedPerformanceEvaluationValue'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['laps_format'], static::addGroupedThousands($arrResult['laps']));
 								}
 								else
 								{
-									$arrResult['formattedTime'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['time_format'], static::addLeadingZero($arrResult['timeHours']), static::addLeadingZero($arrResult['timeMinutes']), static::addLeadingZero($arrResult['timeSeconds']));
+									$arrResult['formattedPerformanceEvaluationValue'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['time_format'], static::addLeadingZero($arrResult['timeHours']), static::addLeadingZero($arrResult['timeMinutes']), static::addLeadingZero($arrResult['timeSeconds']));
 								}
 
 								$arrResult['formattedOverallPlace'] = sprintf($GLOBALS['TL_LANG']['TriathlonResultsManager']['place_format'], $arrResult['overallPlace'], $arrResult['overallStarters']) . " " . static::getPlaceIconHtml($arrResult['overallPlace'], false);
