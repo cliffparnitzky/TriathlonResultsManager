@@ -6,9 +6,9 @@
 	<div class="reports">
 	<?php foreach($this->reports as $report): ?>
 	<div id="report_<?php echo $report['id']; ?>" class="report">
-		<h3 class="report_header">
+		<h2 class="report_header">
 			<span class="report_eventDate"><?php echo $report['formattedEventDate']; ?>:</span> <span class="report_eventName"><?php echo $report['eventName']; ?></span>
-		</h3>
+		</h2>
 	<?php if ($report['competitions']): ?>
 		<div class="competitions">
 		<?php foreach($report['competitions'] as $competition): ?>
