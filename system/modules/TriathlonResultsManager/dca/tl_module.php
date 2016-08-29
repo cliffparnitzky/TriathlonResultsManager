@@ -76,7 +76,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerFilterReportEv
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerFilterReportEvent'],
 	'exclude'                 => true,
 	'inputType'               => 'select',
-	'foreignKey'              => 'tl_triathlon_results_reports.CONCAT(FROM_UNIXTIME(eventDate, GET_FORMAT(DATE,"EUR")), ": ", eventName)',
+	'foreignKey'              => 'tl_triathlon_results_reports.CONCAT(FROM_UNIXTIME(eventDate, GET_FORMAT(DATE,"EUR")), ": ", eventName, " (", eventType, ")")',
 	'options_callback'        => array('tl_module_TriathlonResultsManager', 'getFilterReportEventOptions'),
 	'eval'                    => array('tl_class'=>'w50', 'multiple'=>true, 'chosen'=>true),
 	'sql'                     => "blob NULL",
@@ -224,7 +224,7 @@ class tl_module_TriathlonResultsManager extends tl_module
 		{
 			while ($objResultsReports->next())
 			{
-				$arrOptions[$objResultsReports->id] = \Date::parse(\Config::get('dateFormat'), $objResultsReports->eventDate) . ": " . $objResultsReports->eventName;
+				$arrOptions[$objResultsReports->id] = \Date::parse(\Config::get('dateFormat'), $objResultsReports->eventDate) . ": " . $objResultsReports->eventName . " (" . $GLOBALS['TL_LANG']['TriathlonResultsManager']['eventType'][$objResultsReports->eventType] . ")";
 			}
 		}
 
