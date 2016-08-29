@@ -33,6 +33,7 @@
 $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['eventDate']    = array('Veranstaltungsdatum', 'Geben Sie das Datum der Veranstaltung an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['eventType']    = array('Veranstaltungstyp', 'Geben Sie den Typ der Veranstaltung an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['eventName']    = array('Veranstaltungsname', 'Geben Sie den Namen der Veranstaltung an.');
+$GLOBALS['TL_LANG']['tl_triathlon_results_reports']['internal']     = array('Interne Veranstaltung', 'Geben Sie an, ob es sich um eine interne Veranstaltung handelt.');
 $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['reportDate']   = array('Meldungsdatum', 'Geben Sie das Datum der Ergebnismeldung an.');
 $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['reportMember'] = array('Meldendes Mitglied', 'Geben Sie das Mitglied an, welches die Ergebnismeldung eingesendet hat.');
 $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['disable']      = array('Deaktivieren', 'Die Ergebnismeldung deaktivieren, um eine Ausgabe im Frontend zu unterbinden.');

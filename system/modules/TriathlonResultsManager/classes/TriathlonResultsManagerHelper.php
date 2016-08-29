@@ -41,6 +41,11 @@ namespace CliffParnitzky\Contao\TriathlonResultsManager;
  */
 class TriathlonResultsManagerHelper
 {
+	const REPORT_INTERNAL_PUBLIC = 'public';
+	const REPORT_INTERNAL_ONLY   = 'internal';
+	const REPORT_INTERNAL_ALL    = 'all';
+	
+	
 	/**
 	 * Return the name of the icon for the given place.
 	 *
@@ -367,6 +372,16 @@ class TriathlonResultsManagerHelper
 		if (!empty($arrFilterReportEvents))
 		{
 			$arrReportFilterColumn[] = "$tRep.id IN ('" . implode("','", $arrFilterReportEvents) . "')";
+		}
+		if ($arrData['triathlonResultsManagerFilterReportEventInternal'] == TriathlonResultsManagerHelper::REPORT_INTERNAL_PUBLIC)
+		{
+			$arrReportFilterColumn[] = "$tRep.internal = ?";
+			$arrReportFilterValue[] = false;
+		}
+		 else if ($arrData['triathlonResultsManagerFilterReportEventInternal'] == TriathlonResultsManagerHelper::REPORT_INTERNAL_ONLY)
+		{
+			$arrReportFilterColumn[] = "$tRep.internal = ?";
+			$arrReportFilterValue[] = true;
 		}
 
 		$competitionType = $arrData['triathlonResultsManagerFilterCompetitionType'];

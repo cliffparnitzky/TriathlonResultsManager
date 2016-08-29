@@ -122,7 +122,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_reports'] = array
 	'palettes' => array
 	(
 		'__selector__' => array(),
-		'default'      => '{event_legend},eventDate,eventType,eventName;{report_legend},reportDate,reportMember;{deactivation_legend},disable'
+		'default'      => '{event_legend},eventDate,eventType,eventName,internal;{report_legend},reportDate,reportMember;{deactivation_legend},disable'
 	),
 
 	// Fields
@@ -169,6 +169,15 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_reports'] = array
 			'inputType'               => 'text',
 			'eval'                    => array('mandatory'=>true, 'maxlength'=>512, 'tl_class'=>'clr long'),
 			'sql'                     => "varchar(512) NOT NULL default ''"
+		),
+		'internal' => array
+		(
+			'label'                   => &$GLOBALS['TL_LANG']['tl_triathlon_results_reports']['internal'],
+			'exclude'                 => true,
+			'filter'                  => true,
+			'inputType'               => 'checkbox',
+			'eval'                    => array('tl_class'=>'w50'),
+			'sql'                     => "char(1) NOT NULL default ''"
 		),
 		'reportDate' => array
 		(
@@ -248,6 +257,10 @@ class tl_triathlon_results_reports extends Backend
 		if ($objResultsCompetition == null)
 		{
 			$label .= '<span class="tl_warn_no_child_elements">' . $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['warn_no_competitions'] . '</span>';
+		}
+		if ($row['internal'])
+		{
+			$label .= '<span style="color:#b3b3b3;padding-left:3px">[' . $GLOBALS['TL_LANG']['tl_triathlon_results_reports']['internal'][0] . ']</span>';
 		}
 
 		return sprintf('<div class="list_icon" style="background-image:url(\'system/modules/TriathlonResultsManager/assets/%s.png\')">%s</div>', $image, $label);

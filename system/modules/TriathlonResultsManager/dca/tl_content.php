@@ -30,7 +30,7 @@
 /**
  * Add palettes to tl_content
  */
-$GLOBALS['TL_DCA']['tl_content']['palettes']['triathlonResultsManagerResults']   = '{type_legend},headline,type;{triathlonResultsManagerFilterSort_legend},triathlonResultsManagerFilterReportEventDateStart,triathlonResultsManagerFilterReportEventDateEnd,triathlonResultsManagerFilterReportEventType,triathlonResultsManagerFilterReportEvent,triathlonResultsManagerFilterCompetitionType,triathlonResultsManagerSortReportDateField,triathlonResultsManagerSortReportDateDirection,triathlonResultsManagerSortResultRatingTypeOrder;{template_legend:hide},customTpl,triathlonResultsManagerTplUseIconsForDisciplines;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
+$GLOBALS['TL_DCA']['tl_content']['palettes']['triathlonResultsManagerResults']   = '{type_legend},headline,type;{triathlonResultsManagerFilterSort_legend},triathlonResultsManagerFilterReportEventDateStart,triathlonResultsManagerFilterReportEventDateEnd,triathlonResultsManagerFilterReportEventType,triathlonResultsManagerFilterReportEvent,triathlonResultsManagerFilterReportEventInternal,triathlonResultsManagerFilterCompetitionType,triathlonResultsManagerSortReportDateField,triathlonResultsManagerSortReportDateDirection,triathlonResultsManagerSortResultRatingTypeOrder;{template_legend:hide},customTpl,triathlonResultsManagerTplUseIconsForDisciplines;{protected_legend:hide},protected;{expert_legend:hide},guests,cssID,space';
 
 $GLOBALS['TL_DCA']['tl_content']['palettes']['__selector__'][] = 'triathlonResultsManagerFilterCompetitionType';
 
@@ -78,6 +78,16 @@ $GLOBALS['TL_DCA']['tl_content']['fields']['triathlonResultsManagerFilterReportE
 	'eval'                    => array('tl_class'=>'w50', 'multiple'=>true, 'chosen'=>true),
 	'sql'                     => "blob NULL",
 	'relation'                => array('type'=>'hasMany', 'load'=>'lazy')
+);
+$GLOBALS['TL_DCA']['tl_content']['fields']['triathlonResultsManagerFilterReportEventInternal'] = array
+(
+	'label'                   => &$GLOBALS['TL_LANG']['tl_content']['triathlonResultsManagerFilterReportEventInternal'],
+	'exclude'                 => true,
+	'inputType'               => 'select',
+	'options'                 => array(TriathlonResultsManagerHelper::REPORT_INTERNAL_PUBLIC, TriathlonResultsManagerHelper::REPORT_INTERNAL_ONLY, TriathlonResultsManagerHelper::REPORT_INTERNAL_ALL),
+	'reference'               => &$GLOBALS['TL_LANG']['TriathlonResultsManager']['eventInternal'],
+	'eval'                    => array('tl_class'=>'clr w50'),
+	'sql'                     => "varchar(10) NOT NULL default '" . TriathlonResultsManagerHelper::REPORT_INTERNAL_PUBLIC . "'"
 );
 $GLOBALS['TL_DCA']['tl_content']['fields']['triathlonResultsManagerFilterCompetitionType'] = array
 (

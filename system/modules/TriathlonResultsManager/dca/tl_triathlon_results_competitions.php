@@ -59,7 +59,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_competitions'] = array
 			'fields'                  => array('sorting'),
 			'flag'                    => 1,
 			'panelLayout'             => 'filter;sort,search,limit',
-			'headerFields'            => array('eventDate', 'eventType', 'eventName', 'reportDate', 'reportMember'),
+			'headerFields'            => array('eventDate', 'eventType', 'eventName', 'internal', 'reportDate', 'reportMember'),
 			'child_record_callback'   => array('tl_triathlon_results_competitions', 'listCompetition'),
 			'child_record_class'      => 'no_padding'
 		),

@@ -63,6 +63,13 @@ $GLOBALS['TL_LANG']['TriathlonResultsManager']['eventType']['triathlon'] = "Tria
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['eventType']['others']    = "Sonstiges";
 
 /**
+ * Event internal
+ */
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['eventInternal'][TriathlonResultsManagerHelper::REPORT_INTERNAL_PUBLIC] = "Nur öffentliche Veranstaltungen";
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['eventInternal'][TriathlonResultsManagerHelper::REPORT_INTERNAL_ONLY]   = "Nur interne Veranstaltungen";
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['eventInternal'][TriathlonResultsManagerHelper::REPORT_INTERNAL_ALL]    = "Öffentliche und interne Veranstaltungen";
+
+/**
  * Disciplines
  */
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['competitionType']['none']   = "-";
