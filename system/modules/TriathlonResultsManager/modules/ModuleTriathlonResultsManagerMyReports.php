@@ -83,6 +83,7 @@ class ModuleTriathlonResultsManagerMyReports extends \ModuleTriathlonResultsMana
 		else
 		{
 			$this->import('FrontendUser', 'User');
+			$this->triathlonResultsManagerFilterReportReportMember = $this->User->id;
 		}
 		parent::compile();
 	}

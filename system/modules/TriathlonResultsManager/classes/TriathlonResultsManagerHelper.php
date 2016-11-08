@@ -378,10 +378,16 @@ class TriathlonResultsManagerHelper
 			$arrReportFilterColumn[] = "$tRep.internal = ?";
 			$arrReportFilterValue[] = false;
 		}
-		 else if ($arrData['triathlonResultsManagerFilterReportEventInternal'] == TriathlonResultsManagerHelper::REPORT_INTERNAL_ONLY)
+		else if ($arrData['triathlonResultsManagerFilterReportEventInternal'] == TriathlonResultsManagerHelper::REPORT_INTERNAL_ONLY)
 		{
 			$arrReportFilterColumn[] = "$tRep.internal = ?";
 			$arrReportFilterValue[] = true;
+		}
+		// currently not supported via backend config
+		if (!empty($arrData['triathlonResultsManagerFilterReportReportMember']))
+		{
+			$arrReportFilterColumn[] = "$tRep.reportMember = ?";
+			$arrReportFilterValue[] = $arrData['triathlonResultsManagerFilterReportReportMember'];
 		}
 
 		$competitionType = $arrData['triathlonResultsManagerFilterCompetitionType'];
