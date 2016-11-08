@@ -40,7 +40,7 @@ namespace CliffParnitzky\Contao\TriathlonResultsManager;
  * @author     Cliff Parnitzky
  * @package    Controller
  */
-class ModuleTriathlonResultsManagerMyResults extends \Module
+class ModuleTriathlonResultsManagerMyResults extends \ModuleTriathlonResultsManagerResults
 {
 	/**
 	 * Template
@@ -84,6 +84,7 @@ class ModuleTriathlonResultsManagerMyResults extends \Module
 		{
 			$this->import('FrontendUser', 'User');
 		}
+		parent::compile();
 	}
 }
 
