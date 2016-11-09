@@ -434,6 +434,23 @@ class TriathlonResultsManagerHelper
 			$arrResultFilterColumn[] = "$tRes.relayRatingType = ?";
 			$arrResultFilterValue[] = $arrData['triathlonResultsManagerFilterResultRelayRatingType'];
 		}
+    
+		// currently not supported via backend config
+		if (!empty($arrData['triathlonResultsManagerFilterResultMember']))
+		{
+			$tMem = \MemberModel::getTable();
+			$arrReportFilterColumn[] = "$tRep.id IN (SELECT $tCom.pid FROM $tCom WHERE $tCom.id IN (SELECT $tRes.pid FROM $tRes WHERE $tRes.singleStarter = ? OR $tRes.relayStarter REGEXP ?))";
+			$arrReportFilterValue[] = $arrData['triathlonResultsManagerFilterResultMember'];
+			$arrReportFilterValue[] = '\"starter\";s\:[0-9]+\:\"' . $arrData['triathlonResultsManagerFilterResultMember'] . '\"';
+
+			$arrCompetitionFilterColumn[] = "$tCom.id IN (SELECT $tRes.pid FROM $tRes WHERE $tRes.singleStarter = ? OR $tRes.relayStarter REGEXP ?)";
+			$arrCompetitionFilterValue[] = $arrData['triathlonResultsManagerFilterResultMember'];
+			$arrCompetitionFilterValue[] = '\"starter\";s\:[0-9]+\:\"' . $arrData['triathlonResultsManagerFilterResultMember'] . '\"';
+
+			$arrResultFilterColumn[] = "($tRes.singleStarter = ? OR $tRes.relayStarter REGEXP ?)";
+			$arrResultFilterValue[] = $arrData['triathlonResultsManagerFilterResultMember'];
+			$arrResultFilterValue[] = '\"starter\";s\:[0-9]+\:\"' . $arrData['triathlonResultsManagerFilterResultMember'] . '\"';
+		}
 
 		if (count($arrReportFilterColumn) > 0)
 		{
