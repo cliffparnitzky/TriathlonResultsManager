@@ -107,7 +107,7 @@ $GLOBALS['TL_DCA']['tl_module']['fields']['triathlonResultsManagerFilterCompetit
 	'label'                   => &$GLOBALS['TL_LANG']['tl_module']['triathlonResultsManagerFilterCompetitionLeague'],
 	'exclude'                 => true,
 	'inputType'               => 'select',
-	'options'                 => array('triathlon'=>array('triathlon_1_bundesliga', 'triathlon_2_bundesliga', 'triathlon_regionalliga', 'triathlon_landesliga')),
+	'options'                 => array('triathlon'=>array('triathlon_1_bundesliga', 'triathlon_2_bundesliga', 'triathlon_regionalliga', 'triathlon_landesliga', 'triathlon_verbandsliga')),
 	'reference'               => &$GLOBALS['TL_LANG']['TriathlonResultsManager']['league'],
 	'eval'                    => array('tl_class'=>'w50', 'includeBlankOption'=>true),
 	'sql'                     => "varchar(64) NOT NULL default ''"

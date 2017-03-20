@@ -99,6 +99,7 @@ $GLOBALS['TL_LANG']['TriathlonResultsManager']['league']['triathlon_1_bundesliga
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['league']['triathlon_2_bundesliga'] = "2. Bundesliga";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['league']['triathlon_regionalliga'] = "Regionalliga";
 $GLOBALS['TL_LANG']['TriathlonResultsManager']['league']['triathlon_landesliga']   = "Landesliga";
+$GLOBALS['TL_LANG']['TriathlonResultsManager']['league']['triathlon_verbandsliga'] = "Verbandsliga";
 
 /**
  * Disciplines

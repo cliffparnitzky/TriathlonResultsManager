@@ -191,7 +191,7 @@ $GLOBALS['TL_DCA']['tl_triathlon_results_competitions'] = array
 			'filter'                  => true,
 			'sorting'                 => true,
 			'inputType'               => 'select',
-			'options'                 => array('triathlon'=>array('triathlon_1_bundesliga', 'triathlon_2_bundesliga', 'triathlon_regionalliga', 'triathlon_landesliga')),
+			'options'                 => array('triathlon'=>array('triathlon_1_bundesliga', 'triathlon_2_bundesliga', 'triathlon_regionalliga', 'triathlon_landesliga', 'triathlon_verbandsliga')),
 			'reference'               => &$GLOBALS['TL_LANG']['TriathlonResultsManager']['league'],
 			'eval'                    => array('mandatory'=>true, 'includeBlankOption'=>true),
 			'sql'                     => "varchar(64) NOT NULL default ''"
